@@ -1,65 +1,72 @@
 import styles from "./Sidebar.module.scss";
 import UserStatus from "components/UserStatus";
 import NavItem from "./NavItem";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-import Logo from "assets/brightTech.png";
-import homeIcon from "assets/navIcons/home.svg";
-import noticeIcon from "assets/navIcons/notice.svg";
-import tasksIcon from "assets/navIcons/tasks.svg";
-import reportIcon from "assets/navIcons/report.svg";
-import settingsIcon from "assets/navIcons/settings.svg";
-import supportIcon from "assets/navIcons/headphones.svg";
-import exitIcon from "assets/navIcons/exit.svg";
+import logo from "assets/brightTech.svg";
+import { HomeIcon } from "assets/navIcons/HomeIcon";
+import { NoticeIcon } from "assets/navIcons/NoticeIcon";
+import { TasksIcon } from "assets/navIcons/TasksIcon";
+import { ReportIcon } from "assets/navIcons/ReportIcon";
+import { SettingsIcon } from "assets/navIcons/SettingsIcon";
+import { HeadphonesIcon } from "assets/navIcons/HeadphonesIcon";
+import { ExitIcon } from "assets/navIcons/ExitIcon";
 
 const index = () => {
+	const location = useLocation();
 	const NavItems = [
 		{
 			title: "Личный кабинет",
-			icon: homeIcon,
-			href: "/",
+			icon: <HomeIcon />,
+			href: "/dashboard",
 		},
 		{
 			title: "Уведомления",
-			icon: noticeIcon,
-			href: "/",
+			icon: <NoticeIcon />,
+			href: "/notices",
 		},
 		{
 			title: "Задания",
-			icon: tasksIcon,
-			href: "/",
+			icon: <TasksIcon />,
+			href: "/tasks",
 		},
 		{
 			title: "Отчеты",
-			icon: reportIcon,
-			href: "/",
+			icon: <ReportIcon />,
+			href: "/reports",
 		},
 		{
 			title: "Настройки",
-			icon: settingsIcon,
-			href: "/",
+			icon: <SettingsIcon />,
+			href: "/settings",
 		},
 
 		{
 			title: "Тех. поддержка",
-			icon: supportIcon,
-			href: "/",
+			icon: <HeadphonesIcon />,
+			href: "/support",
 		},
 	];
 
 	return (
 		<aside className={styles.wrapper}>
-			<img className={styles.logo} src={Logo} alt="brightTech logo" />
-			<div className={styles.user}>
+			<div className={styles.padding}>
+				<img className={styles.logo} src={logo} alt="brightTech logo" />
+				<div className={styles.user}></div>
 				<UserStatus
-					isAdmin={true}
+					isAdmin={false}
 					name={"Иванов Александр Михайлович"}
 				/>
 			</div>
 			<div className={styles.nav_container}>
 				<ul className={styles.nav_list}>
 					{NavItems.map((item, index) => (
-						<li key={index} className={styles.nav_list__item}>
+						<li
+							key={index}
+							className={`${styles.nav_list__item} ${
+								location.pathname === item.href && styles.active
+							}`}
+						>
 							<NavLink to={item.href}>
 								<NavItem title={item.title} icon={item.icon} />
 							</NavLink>
@@ -67,8 +74,8 @@ const index = () => {
 					))}
 				</ul>
 				<ul className={styles.nav_list}>
-					<li className={styles.nav_list__item + " nav_list__item_exit"}>
-						<NavItem title="Выход" icon={exitIcon} />
+					<li className={styles.nav_list__item}>
+						<NavItem title="Выход" icon={<ExitIcon />} />
 					</li>
 				</ul>
 			</div>

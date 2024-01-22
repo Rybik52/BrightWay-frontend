@@ -10,7 +10,8 @@ const NavItem: FC<NavItemProps> = ({ title, icon }) => {
 	return (
 		<div className={styles.nav_item}>
 			<div className={styles.nav_item__icon}>
-				<img src={icon} alt={title + " иконка"} />
+				{/* <img src={icon} alt={title + " иконка"} /> */}
+				{icon}
 			</div>
 			<span>{title}</span>
 		</div>

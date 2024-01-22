@@ -12,6 +12,12 @@
 	background-position: center;
 	background-size: cover;
 
+	.logo {
+		object-fit: cover;
+		width: 400px;
+		height: 50px;
+	}
+
 	.container {
 		display: flex;
 		flex-direction: column;

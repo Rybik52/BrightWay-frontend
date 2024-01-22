@@ -1,0 +1,48 @@
+export const TasksIcon = () => {
+	return (
+		<svg
+			width="28"
+			height="28"
+			viewBox="0 0 28 28"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<g id="icon=clipboard, hover=no, size=20">
+				<g id="Clipboard">
+					<path
+						id="Vector"
+						d="M9.5 5H7.36C5.50432 5 4 6.50432 4 8.36V22.64C4 24.4957 5.50432 26 7.36 26H21.64C23.4957 26 25 24.4957 25 22.64V8.36C25 6.50432 23.4957 5 21.64 5H19.54"
+						stroke="#8F9399"
+						strokeWidth="2.12927"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<path
+						id="Vector_2"
+						d="M17.5 8H11.5C10.6716 8 10 7.23248 10 6.28571V3.71429C10 2.76752 10.6716 2 11.5 2H17.5C18.3284 2 19 2.76752 19 3.71429V6.28571C19 7.23248 18.3284 8 17.5 8Z"
+						stroke="#8F9399"
+						strokeWidth="2.12927"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<path
+						id="Vector_3"
+						d="M11 14H18"
+						stroke="#8F9399"
+						strokeWidth="2.12927"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<path
+						id="Vector_4"
+						d="M11 19H18"
+						stroke="#8F9399"
+						strokeWidth="2.12927"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</g>
+			</g>
+		</svg>
+	);
+};
