@@ -1,0 +1,41 @@
+@import "variables/index.scss";
+
+.wrapper {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+
+	.logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: $icons-color;
+		border-radius: 50%;
+		width: 48px;
+		height: 48px;
+
+		img {
+			width: 28px;
+			height: 28px;
+			object-fit: contain;
+		}
+	}
+	.text_container {
+		font-family: Inter, sans-serif;
+		color: $text-color;
+
+		span {
+			font-size: 0.875rem;
+			font-weight: 400;
+			line-height: 20px; /* 142.857% */
+		}
+
+		p {
+			color: $icons-color;
+			font-size: 1rem;
+			font-weight: 600;
+			line-height: 24px; /* 150% */
+			margin: 0;
+		}
+	}
+}

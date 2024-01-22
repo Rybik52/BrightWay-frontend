@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styles from "./LoginPage.module.scss";
+import logo from "assets/brightTech.png";
+import eyeClosed from "assets/eye-closed.svg";
+import eyeOpened from "assets/eye-opened.svg";
 
 const ForgotPassword = () => {
 	return (
@@ -11,8 +14,9 @@ const ForgotPassword = () => {
 					входа
 				</p>
 			</div>
-
-			<input required placeholder="Введите email" type="email" />
+			<div className={styles.input}>
+				<input required placeholder="Введите email*" type="email" />
+			</div>
 			<button type="submit">Отправить</button>
 		</form>
 	);
@@ -20,34 +24,56 @@ const ForgotPassword = () => {
 
 const Index = () => {
 	const [isVisible, setIsVisible] = useState(false);
+	const [password, setPassword] = useState("");
+	const [type, setType] = useState("password");
+	const [icon, setIcon] = useState(eyeClosed);
+
+	const handleToggle = () => {
+		if (type === "password") {
+			setIcon(eyeOpened);
+			setType("text");
+		} else {
+			setIcon(eyeClosed);
+			setType("password");
+		}
+	};
 
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();
-		// Добавьте логику для обработки входа пользователя
+		// TODO: Добавить логику для обработки входа пользователя
 	};
 
 	return (
 		<div className={styles.wrapper}>
-			<header>
-				<a href="/">BrightWay</a>
-			</header>
+			<a href="/">
+				<img src={logo} alt="brightTech logo" />
+			</a>
 			<div className={styles.container}>
-				<h1>Вход в личный кабинет</h1>
-				<span>BrightWay</span>
 				{isVisible ? (
 					<ForgotPassword />
 				) : (
 					<form className={styles.form} onSubmit={handleLoginSubmit}>
-						<input
-							required
-							placeholder="Введите email"
-							type="email"
-						/>
-						<input
-							required
-							placeholder="Введите пароль"
-							type="password"
-						/>
+						<h1>Вход в личный кабинет</h1>
+						<div className={styles.input}>
+							<input
+								required
+								placeholder="Введите email*"
+								type="email"
+							/>
+						</div>
+						<div className={styles.input}>
+							<input
+								required
+								placeholder="Введите пароль*"
+								name="password"
+								type={type}
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+							<span className={styles.eye} onClick={handleToggle}>
+								<img src={icon} alt="" />
+							</span>
+						</div>
 						<button type="submit">Войти</button>
 						<span
 							onClick={() => setIsVisible(!isVisible)}
