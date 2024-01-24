@@ -1,6 +1,11 @@
+import { FC } from "react";
 import styles from "./LoginPage.module.scss";
 
-const ForgotPassword = () => {
+interface ForgotPasswordProps {
+	toggleForm: (isVisible: boolean) => void;
+}
+
+const ForgotPassword: FC<ForgotPasswordProps> = ({ toggleForm }) => {
 	return (
 		<form className={styles.form}>
 			<div className={styles.info}>
@@ -13,7 +18,13 @@ const ForgotPassword = () => {
 			<div className={styles.input}>
 				<input required placeholder="Введите email*" type="email" />
 			</div>
-			<button type="submit">Отправить</button>
+			<input className={styles.submit} type="submit" value="Отправить" />
+			<span
+				onClick={() => toggleForm(false)}
+				className={styles.forgotPassword}
+			>
+				Вернуться
+			</span>
 		</form>
 	);
 };

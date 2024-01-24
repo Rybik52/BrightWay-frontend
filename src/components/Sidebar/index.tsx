@@ -4,13 +4,13 @@ import NavItem from "./NavItem";
 import { NavLink, useLocation } from "react-router-dom";
 
 import logo from "assets/brightTech.svg";
-import { HomeIcon } from "assets/navIcons/HomeIcon";
-import { NoticeIcon } from "assets/navIcons/NoticeIcon";
-import { TasksIcon } from "assets/navIcons/TasksIcon";
-import { ReportIcon } from "assets/navIcons/ReportIcon";
-import { SettingsIcon } from "assets/navIcons/SettingsIcon";
-import { HeadphonesIcon } from "assets/navIcons/HeadphonesIcon";
-import { ExitIcon } from "assets/navIcons/ExitIcon";
+import { HomeIcon } from "assets/NavIcons/HomeIcon";
+import { NoticeIcon } from "assets/NavIcons/NoticeIcon";
+import { TasksIcon } from "assets/NavIcons/TasksIcon";
+import { ReportIcon } from "assets/NavIcons/ReportIcon";
+import { SettingsIcon } from "assets/NavIcons/SettingsIcon";
+import { HeadphonesIcon } from "assets/NavIcons/HeadphonesIcon";
+import { ExitIcon } from "assets/NavIcons/ExitIcon";
 
 const index = () => {
 	const location = useLocation();
@@ -18,7 +18,7 @@ const index = () => {
 		{
 			title: "Личный кабинет",
 			icon: <HomeIcon />,
-			href: "/dashboard",
+			href: "/home",
 		},
 		{
 			title: "Уведомления",
@@ -61,21 +61,24 @@ const index = () => {
 			<div className={styles.nav_container}>
 				<ul className={styles.nav_list}>
 					{NavItems.map((item, index) => (
-						<li
-							key={index}
-							className={`${styles.nav_list__item} ${
-								location.pathname === item.href && styles.active
-							}`}
-						>
-							<NavLink to={item.href}>
+						<NavLink key={index} to={item.href}>
+							<li
+								className={`${styles.nav_list__item} ${
+									location.pathname === item.href
+										? styles.active
+										: ""
+								}`}
+							>
 								<NavItem title={item.title} icon={item.icon} />
-							</NavLink>
-						</li>
+							</li>
+						</NavLink>
 					))}
 				</ul>
 				<ul className={styles.nav_list}>
 					<li className={styles.nav_list__item}>
-						<NavItem title="Выход" icon={<ExitIcon />} />
+						<NavLink to="/login">
+							<NavItem title="Выход" icon={<ExitIcon />} />
+						</NavLink>
 					</li>
 				</ul>
 			</div>

@@ -14,7 +14,7 @@ const index: FC<UserStatusProps> = ({ isAdmin, name }) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<div className={styles.logo}>
+			<div className={styles.user_icon}>
 				<img src={Icon} alt={isAdmin ? "Admin icon" : "User icon"} />
 			</div>
 			<div className={styles.text_container}>

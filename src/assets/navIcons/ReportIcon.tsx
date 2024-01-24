@@ -9,7 +9,7 @@ export const ReportIcon = () => {
 		>
 			<g
 				id="icon=copy, hover=no, size=20"
-				clip-path="url(#clip0_165_34547)"
+				clipPath="url(#clip0_165_34547)"
 			>
 				<g id="Copy">
 					<path

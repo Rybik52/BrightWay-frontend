@@ -1,0 +1,25 @@
+@import "variables/index.scss";
+
+.cards_container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 1.5rem;
+
+	.button {
+		border: 1px solid $primary-color;
+		background: none;
+		color: $primary-color;
+		font-family: Inter, sans-serif;
+		font-size: 1rem;
+		font-weight: 600;
+		padding: 12px;
+		border-radius: 4px;
+		transition: background-color, color 200ms ease-out;
+
+		&:hover {
+			background-color: $primary-color;
+			color: #fff;
+			cursor: pointer;
+		}
+	}
+}

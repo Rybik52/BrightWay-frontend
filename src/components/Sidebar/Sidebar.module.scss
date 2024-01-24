@@ -1,7 +1,7 @@
 @import "variables/index.scss";
 
 .wrapper {
-	width: 300px;
+	min-width: 300px;
 	height: 100vh;
 	background-color: $wrapper-bg;
 
@@ -10,7 +10,7 @@
 		margin-bottom: 30px;
 
 		.logo {
-			margin: 50px 0;
+			margin: 3.5rem 0;
 			width: 244px;
 		}
 	}
@@ -51,11 +51,11 @@
 
 				&:hover {
 					cursor: pointer;
-					background-color: #dfe2e8;
+					background-color: $wrapper-bg-hover;
 
 					.nav_item {
 						&__icon {
-							fill: #dfe2e8;
+							fill: $wrapper-bg-hover;
 						}
 					}
 				}

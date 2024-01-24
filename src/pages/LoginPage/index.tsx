@@ -15,7 +15,7 @@ const Index = () => {
 			</a>
 			<div className={styles.container}>
 				{showForgotPassword ? (
-					<ForgotPassword />
+					<ForgotPassword toggleForm={setShowForgotPassword} />
 				) : (
 					<LoginForm toggleForm={setShowForgotPassword} />
 				)}

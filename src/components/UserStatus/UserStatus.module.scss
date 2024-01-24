@@ -5,13 +5,13 @@
 	gap: 12px;
 	align-items: center;
 
-	.logo {
+	.user_icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: $icons-color;
 		border-radius: 50%;
-		width: 48px;
+		min-width: 48px;
 		height: 48px;
 
 		img {
@@ -20,6 +20,7 @@
 			object-fit: contain;
 		}
 	}
+
 	.text_container {
 		font-family: Inter, sans-serif;
 		color: $text-color;

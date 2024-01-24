@@ -1,13 +1,18 @@
-import { createRoot } from "react-dom/client";
-import LoginPage from "./pages/LoginPage";
-import MainPage from "./pages/MainPage";
-import { App } from "./components/App";
-import "./index.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+
+import Layout from "components/Layout";
+import LoginPage from "pages/LoginPage";
+import TasksPage from "pages/TasksPage";
+import NoticesPage from "pages/NoticesPage";
+import ReportsPage from "pages/ReportsPage";
+import SupportPage from "pages/SupportPage";
+import SettingsPage from "pages/SettingsPage";
+import HomePage from "pages/HomePage";
+
+import "./index.css";
 
 const isAuthenticated = () => {
-	// Здесь может быть ваша логика проверки аутентификации
-	// Верните true, если пользователь аутентифицирован, иначе false.
 	return true;
 };
 
@@ -18,14 +23,35 @@ const ProtectedRoute = ({ element }) => {
 
 createRoot(document.getElementById("root")!).render(
 	<BrowserRouter>
-		<Routes>
-			<Route path="/" element={<App />} />
-			<Route path="/login" element={<LoginPage />} />
-			<Route
-				path="/dashboard"
-				element={<ProtectedRoute element={<MainPage />} />}
-			/>
-			<Route path="*" element={<Navigate to="/login" />} />
-		</Routes>
+		<Layout>
+			<Routes>
+				<Route path="/login" element={<LoginPage />} />
+				<Route
+					path="/home"
+					element={<ProtectedRoute element={<HomePage />} />}
+				/>
+				<Route
+					path="/notices"
+					element={<ProtectedRoute element={<NoticesPage />} />}
+				/>
+				<Route
+					path="/tasks"
+					element={<ProtectedRoute element={<TasksPage />} />}
+				/>
+				<Route
+					path="/reports"
+					element={<ProtectedRoute element={<ReportsPage />} />}
+				/>
+				<Route
+					path="/settings"
+					element={<ProtectedRoute element={<SettingsPage />} />}
+				/>
+				<Route
+					path="/support"
+					element={<ProtectedRoute element={<SupportPage />} />}
+				/>
+				<Route path="*" element={<Navigate to="/login" />} />
+			</Routes>
+		</Layout>
 	</BrowserRouter>
 );
