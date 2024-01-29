@@ -5,6 +5,7 @@ import styles from "./LoginPage.module.scss";
 
 import eyeClosed from "assets/eye-closed.svg";
 import eyeOpened from "assets/eye-opened.svg";
+import Button from "components/common/Button";
 
 interface LoginFormProps {
 	toggleForm: (isVisible: boolean) => void;
@@ -84,8 +85,13 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 					{errors.email.message}
 				</p>
 			)}
-
-			<input className={styles.submit} type="submit" value="Войти" />
+			<Button
+				style={{ alignSelf: "center" }}
+				type="submit"
+				variant="contained"
+			>
+				Войти
+			</Button>
 			<span
 				onClick={() => toggleForm(true)}
 				className={styles.forgotPassword}

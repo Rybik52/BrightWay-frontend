@@ -12,7 +12,7 @@ import { SettingsIcon } from "assets/NavIcons/SettingsIcon";
 import { HeadphonesIcon } from "assets/NavIcons/HeadphonesIcon";
 import { ExitIcon } from "assets/NavIcons/ExitIcon";
 
-const index = () => {
+const Index = () => {
 	const location = useLocation();
 	const NavItems = [
 		{
@@ -86,4 +86,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;

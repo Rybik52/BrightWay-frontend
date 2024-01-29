@@ -3,15 +3,22 @@ import { FC, ReactNode } from "react";
 import styles from "./Card.module.scss";
 
 interface CardProps {
-	icon: ReactNode;
+	icon?: ReactNode;
 	children: ReactNode;
 	title: string;
+	date?: string;
 }
 
-const Index: FC<CardProps> = ({ icon, title, children }) => {
+const Index: FC<CardProps> = ({ icon, title, children, date }) => {
 	return (
 		<div className={styles.wrapper}>
-			<span className={styles.icon}>{icon}</span>
+			{ !!icon &&
+				<span className={styles.icon}>{icon}</span>
+			}
+			{
+				!!date &&
+				<span>{date}</span>
+			}
 			<div className={styles.title}>{title}</div>
 			<div className={styles.button}>{children}</div>
 		</div>
