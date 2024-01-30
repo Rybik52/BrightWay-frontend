@@ -1,0 +1,50 @@
+const CalendarIcon = () => {
+	return (
+		<svg
+			width="28"
+			height="28"
+			viewBox="0 0 28 28"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<g id="Line Rounded/Calendar">
+				<g id="Calendar">
+					<path
+						id="Vector"
+						d="M2.1001 8.66554C2.1001 6.85252 3.56984 5.38278 5.38286 5.38278H22.6173C24.4304 5.38278 25.9001 6.85252 25.9001 8.66554V22.6173C25.9001 24.4303 24.4304 25.9 22.6173 25.9H5.38286C3.56984 25.9 2.1001 24.4303 2.1001 22.6173V8.66554Z"
+						stroke="#0F2D6B"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<path
+						id="Vector_2"
+						d="M7.43433 2.10001V7.84483"
+						stroke="#0F2D6B"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<path
+						id="Vector_3"
+						d="M20.5659 2.10001V7.84483"
+						stroke="#0F2D6B"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<path
+						id="Vector_4"
+						d="M7.02417 11.9483H20.9759"
+						stroke="#0F2D6B"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</g>
+			</g>
+		</svg>
+	);
+};
+
+export default CalendarIcon;

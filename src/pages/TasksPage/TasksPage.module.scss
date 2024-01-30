@@ -1,0 +1,16 @@
+@import "variables/index.scss";
+
+.header {
+	color: $text-color;
+}
+
+.buttons_wrapper {
+	display: flex;
+	gap: 1rem;
+	margin-top: 2rem;
+	margin-bottom: 2.5rem;
+}
+
+.table_wrapper {
+	height: 80%;
+}

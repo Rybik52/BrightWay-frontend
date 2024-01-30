@@ -1,0 +1,18 @@
+@import "variables/index.scss";
+
+.process {
+	display: flex;
+	align-items: center;
+	color: #fff;
+	border-radius: 4px;
+	background-color: $active-page;
+	width: 110px;
+	height: fit-content;
+
+	&__bg {
+		padding: 0.25rem;
+		border-radius: inherit;
+		text-align: center;
+		background-color: $primary-color;
+	}
+}

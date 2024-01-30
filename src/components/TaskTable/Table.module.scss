@@ -1,0 +1,68 @@
+@import "variables/index.scss";
+
+.table_wrapper {
+	overflow-y: auto;
+	min-width: 90%;
+	height: inherit;
+
+	.table {
+		color: $text-color;
+		font-family: Inter, sans-serif;
+		line-height: 20px;
+		width: 100%;
+		border-collapse: collapse;
+
+		&__progress {
+			width: fit-content;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		thead,
+		th {
+			position: sticky;
+			top: -2px;
+			z-index: 1;
+		}
+
+		tr,
+		th {
+			padding: 1rem 1rem 1rem 0;
+
+			background-color: $wrapper-bg;
+			font-size: 1rem;
+			font-weight: 600;
+			text-align: center;
+
+			&:first-child {
+				border-radius: 6px 0 0 6px;
+			}
+
+			&:last-child {
+				border-radius: 0 6px 6px 0;
+				text-align: left;
+			}
+		}
+
+		tr,
+		td {
+			background-color: inherit;
+			font-size: 0.875rem;
+			font-weight: 400;
+			height: 4rem;
+			text-align: center;
+		}
+
+		tr {
+			transition: background-color 200ms ease-out;
+			border-radius: 6px;
+			border-bottom: 1px solid $wrapper-bg;
+
+			&:hover {
+				background-color: $wrapper-bg;
+			}
+		}
+	}
+}

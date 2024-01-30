@@ -1,0 +1,32 @@
+const ArrowRightIcon = () => {
+	return (
+		<svg
+			width="10"
+			height="11"
+			viewBox="0 0 10 11"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<g id="Arrow right">
+				<path
+					id="Vector"
+					d="M4.88452 1.38077L9.19988 5.49998L4.88452 9.61919"
+					stroke="#3F88E9"
+					strokeWidth="1.2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				/>
+				<path
+					id="Vector_2"
+					d="M9.19999 5.49998L0.800049 5.49998"
+					stroke="#3F88E9"
+					strokeWidth="1.2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				/>
+			</g>
+		</svg>
+	);
+};
+
+export default ArrowRightIcon;

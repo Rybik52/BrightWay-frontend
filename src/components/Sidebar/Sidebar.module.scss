@@ -31,9 +31,13 @@
 				width: 100%;
 				height: fit-content;
 				padding: max(1rem) 0.5rem;
-				transition: background-color 200ms ease-out;
+				border-top: 0.5px solid transparent;
+				border-bottom: 0.5px solid transparent;
+				transition: all 200ms ease-out;
 
 				&.active {
+					border-top: 0.5px solid $wrapper-bg-hover;
+					border-bottom: 0.5px solid $wrapper-bg-hover;
 					background-color: $active-page;
 
 					* {

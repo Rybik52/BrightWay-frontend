@@ -1,0 +1,96 @@
+@import "variables/index.scss";
+
+.button {
+	padding: 0.75rem;
+	font-family: Inter, sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
+	transition: all 200ms ease-out;
+	border: none;
+	cursor: pointer;
+	background-color: inherit;
+
+	&.outlined {
+		border-radius: 4px;
+		color: $primary-color;
+		background-color: none;
+		border: 1px solid $primary-color;
+
+		&:hover {
+			color: $primary-color-hover;
+			border-color: $primary-color-hover;
+
+			* {
+				stroke: $primary-color-hover;
+			}
+		}
+
+		&:disabled {
+			color: $inactive-color;
+			border-color: $inactive-color;
+
+			* {
+				stroke: $inactive-color;
+			}
+		}
+	}
+
+	&.contained {
+		color: #fff;
+		background-color: $primary-color;
+		border-radius: 6px;
+
+		&:hover {
+			background-color: $primary-color-hover;
+		}
+
+		&:disabled {
+			background-color: $inactive-color;
+		}
+	}
+
+	&.light {
+		border: none;
+		border-radius: 6px;
+		color: $primary-color;
+		background-color: $active-page;
+
+		* {
+			stroke: $primary-color;
+		}
+
+		&:hover {
+			color: $primary-color-hover;
+
+			* {
+				stroke: $primary-color-hover;
+			}
+		}
+
+		&:disabled {
+			color: $inactive-color;
+			background-color: $inactive-color-bg;
+
+			* {
+				stroke: $inactive-color;
+			}
+		}
+	}
+
+	&.text {
+		padding: 0.5rem;
+		border-radius: 4px;
+
+		&:hover {
+			background-color: $wrapper-bg-hover;
+		}
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+
+	&:active {
+		box-shadow: 0px 2px 3px 0px rgba(22, 50, 87, 0.13);
+	}
+}

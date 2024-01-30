@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
-import Layout from "components/Layout";
+import Layout from "components/common/Layout";
 import LoginPage from "pages/LoginPage";
 import TasksPage from "pages/TasksPage";
 import NoticesPage from "pages/NoticesPage";
@@ -11,12 +11,17 @@ import SettingsPage from "pages/SettingsPage";
 import HomePage from "pages/HomePage";
 
 import "./index.css";
+import { FC } from "react";
+
+interface ProtectedRouteProps {
+	element: JSX.Element;
+}
 
 const isAuthenticated = () => {
 	return true;
 };
 
-const ProtectedRoute = ({ element }) => {
+const ProtectedRoute: FC<ProtectedRouteProps> = ({ element }) => {
 	// Проверяем, аутентифицирован ли пользователь
 	return isAuthenticated() ? element : <Navigate to="/login" />;
 };
