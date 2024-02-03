@@ -53,7 +53,7 @@ const index: FC<ModalProps> = ({
 								currentIndex === 0
 									? focusableElements[
 											focusableElements.length - 1
-									]
+									  ]
 									: focusableElements[currentIndex - 1];
 							previousElement.focus();
 						} else {

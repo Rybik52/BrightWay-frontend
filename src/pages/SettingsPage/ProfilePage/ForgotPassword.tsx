@@ -1,19 +1,22 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import Card from "components/common/Card";
 import Input from "components/common/Input";
+import Modal from "components/common/Modal";
 import Button from "components/common/Button";
 
-import NewPassword from "./NewPassword";
 import styles from "./ProfilePage.module.scss";
 
 const ForgotPassword = () => {
-	const [accepted, setAccepted] = useState(false);
+	const navigate = useNavigate();
+	const [showModal, setShowModal] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	type Inputs = {
-		password: string;
+		email: string;
 	};
 
 	const {
@@ -23,61 +26,97 @@ const ForgotPassword = () => {
 	} = useForm<Inputs>();
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
-		setAccepted(!accepted);
 		console.log(data);
+		setIsSubmitting(true);
+		setShowModal(!showModal);
 	};
 
-	if (accepted) {
-		return <NewPassword />;
-	}
+	const handleCloseModal = () => {
+		navigate(-1);
+	};
 
 	return (
-		<div className={styles.forgot_password}>
-			<h3>Смена пароля</h3>
-			<div className={styles.forgot_password__container}>
-				<Card>
-					<form
-						onSubmit={handleSubmit(onSubmit)}
-						className={styles.forgot_password__container__item_form}
-					>
-						<p
+		<>
+			<Modal
+				goBack
+				exitButton
+				showModal={showModal}
+				setShowModal={setShowModal}
+			>
+				<h3>Запрос был отправлен администратору</h3>
+				<p>Новый пароль вам будет выслан на почту</p>
+				<Button
+					style={{ alignSelf: "flex-start", marginTop: "1rem" }}
+					onClick={handleCloseModal}
+					variant="contained"
+				>
+					Закрыть
+				</Button>
+			</Modal>
+			<div className={styles.change_password}>
+				<div className={styles.change_password__header}>
+					<h3>Смена пароля</h3>
+					<p>
+						Вам придет письмо от администратора с новым паролем для
+						входа
+					</p>
+				</div>
+				<div className={styles.change_password__container}>
+					<Card>
+						<form
+							onSubmit={handleSubmit(onSubmit)}
 							className={
-								styles.forgot_password__container__item_p
+								styles.change_password__container__item_form
 							}
 						>
-							Для подтверждения личности введите предыдущий пароль
-						</p>
-						<div
-							className={
-								styles.forgot_password__container__item_form__wrapper
-							}
-						>
-							<Input
-								{...register("password", {
-									required: "Это обязательное поле*",
-								})}
-								placeholder="Введите пароль"
-								type="password"
-								isValidated={!!errors.password}
-							/>
-							<div
+							<p
 								className={
-									styles.forgot_password__container__item_form__info
+									styles.change_password__container__item_p
 								}
 							>
-								{errors.password && (
-									<span>{errors.password.message}</span>
-								)}
-								<button>Не помню пароль</button>
+								Введите вашу почту
+							</p>
+							<div
+								className={
+									styles.change_password__container__item_form__wrapper
+								}
+							>
+								<Input
+									{...register("email", {
+										required: "Это обязательное поле*",
+										pattern: {
+											value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+											message: "Неверный email*",
+										},
+									})}
+									placeholder="Введите email"
+									type="email"
+									isValidated={!!errors.email}
+								/>
+								<div
+									className={
+										styles.change_password__container__item_form__info
+									}
+								>
+									{errors.email && (
+										<span>{errors.email.message}</span>
+									)}
+								</div>
+								<Button
+									type="submit"
+									variant="contained"
+									disabled={isSubmitting}
+								>
+									{isSubmitting
+										? "Отправка..."
+										: "Получить пароль"}
+								</Button>
 							</div>
-							<Button type="submit" variant="contained">
-								Подтвердить
-							</Button>
-						</div>
-					</form>
-				</Card>
+						</form>
+					</Card>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

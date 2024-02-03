@@ -62,51 +62,37 @@ const Index = () => {
 	};
 
 	return (
-		<>
-			<aside className={styles.wrapper}>
-				<div className={styles.padding}>
-					<img
-						className={styles.logo}
-						src={logo}
-						alt="brightTech logo"
-					/>
-					<div className={styles.user}></div>
-					<UserStatus
-						isAdmin={false}
-						name={"Иванов Александр Михайлович"}
-					/>
-				</div>
-				<div className={styles.nav_container}>
-					<ul className={styles.nav_list}>
-						{NavItems.map((item, index) => (
-							<NavLink key={index} to={item.href}>
-								<li
-									className={classnames(
-										styles.nav_list__item,
-										{
-											[styles.active]:
-												pathname.startsWith(item.href),
-										}
-									)}
-								>
-									<NavItem
-										title={item.title}
-										icon={item.icon}
-									/>
-								</li>
-							</NavLink>
-						))}
-					</ul>
-					<ul className={styles.nav_list}>
-						<li
-							onClick={handelExit}
-							className={styles.nav_list__item}
-						>
-							<NavItem title="Выход" icon={<ExitIcon />} />
-						</li>
-					</ul>
-				</div>
-			</aside>
+		<aside className={styles.wrapper}>
+			<div className={styles.padding}>
+				<img className={styles.logo} src={logo} alt="brightTech logo" />
+				<div className={styles.user}></div>
+				<UserStatus
+					isAdmin={false}
+					name={"Иванов Александр Михайлович"}
+				/>
+			</div>
+			<div className={styles.nav_container}>
+				<ul className={styles.nav_list}>
+					{NavItems.map((item, index) => (
+						<NavLink key={index} to={item.href}>
+							<li
+								className={classnames(styles.nav_list__item, {
+									[styles.active]: pathname.startsWith(
+										item.href
+									),
+								})}
+							>
+								<NavItem title={item.title} icon={item.icon} />
+							</li>
+						</NavLink>
+					))}
+				</ul>
+				<ul className={styles.nav_list}>
+					<li onClick={handelExit} className={styles.nav_list__item}>
+						<NavItem title="Выход" icon={<ExitIcon />} />
+					</li>
+				</ul>
+			</div>
 			<Modal exitButton showModal={showModal} setShowModal={setShowModal}>
 				<div className={styles.modal_exit}>
 					<h3>Выйти из аккаунта?</h3>
@@ -131,7 +117,7 @@ const Index = () => {
 					</div>
 				</div>
 			</Modal>
-		</>
+		</aside>
 	);
 };
 

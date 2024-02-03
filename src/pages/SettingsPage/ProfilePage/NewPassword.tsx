@@ -37,7 +37,12 @@ const NewPassword = () => {
 
 	return (
 		<>
-			<Modal goBack showModal={showModal} setShowModal={setShowModal}>
+			<Modal
+				goBack
+				exitButton
+				showModal={showModal}
+				setShowModal={setShowModal}
+			>
 				<h3>Запрос был отправлен администратору</h3>
 				<p>Статус одобрения вам придет на почту</p>
 				<Button
@@ -48,19 +53,21 @@ const NewPassword = () => {
 					Закрыть
 				</Button>
 			</Modal>
-			<div className={styles.forgot_password}>
-				<h3>Новый пароль</h3>
-				<div className={styles.forgot_password__container}>
+			<div className={styles.change_password}>
+				<div className={styles.change_password__header}>
+					<h3>Новый пароль</h3>
+				</div>
+				<div className={styles.change_password__container}>
 					<Card>
 						<form
 							onSubmit={handleSubmit(onSubmit)}
 							className={
-								styles.forgot_password__container__item_form
+								styles.change_password__container__item_form
 							}
 						>
 							<p
 								className={
-									styles.forgot_password__container__item_p
+									styles.change_password__container__item_p
 								}
 							>
 								Чтобы сменить пароль необходимо отправить запрос
@@ -68,7 +75,7 @@ const NewPassword = () => {
 							</p>
 							<div
 								className={
-									styles.forgot_password__container__item_form__wrapper
+									styles.change_password__container__item_form__wrapper
 								}
 							>
 								<Input
@@ -81,7 +88,7 @@ const NewPassword = () => {
 								/>
 								<div
 									className={
-										styles.forgot_password__container__item_form__info
+										styles.change_password__container__item_form__info
 									}
 								>
 									{errors.newPassword && (
