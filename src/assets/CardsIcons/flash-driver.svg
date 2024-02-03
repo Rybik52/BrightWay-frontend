@@ -1,6 +1,4 @@
-const FlashDriveIcon = () => {
-	return (
-		<svg
+<svg
 			width="28"
 			height="28"
 			viewBox="0 0 28 28"
@@ -39,7 +37,3 @@ const FlashDriveIcon = () => {
 				/>
 			</g>
 		</svg>
-	);
-};
-
-export default FlashDriveIcon;

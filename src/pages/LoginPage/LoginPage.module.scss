@@ -54,6 +54,12 @@
 				margin-bottom: 32px;
 			}
 
+			&__inputs_container {
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem;
+			}
+
 			.error {
 				color: $error-color;
 				font-size: 0.875rem;
@@ -61,37 +67,9 @@
 				line-height: 20px;
 			}
 
-			.input {
-				display: flex;
-				border-radius: 6px;
-				margin-bottom: 16px;
-				background-color: #fff;
-
-				&.input_error {
-					border-radius: 6px;
-					border: 1px solid $error-color;
-
-					*::placeholder {
-						color: red;
-					}
-				}
-
-				input {
-					width: 90%;
-					padding: 22px 12px;
-					border-radius: 6px;
-					border: none;
-					outline: none;
-				}
-			}
-
-			.eye {
-				display: flex;
-				padding: 10px;
-				cursor: pointer;
-			}
-
 			.forgotPassword {
+				border: none;
+				background-color: transparent;
 				text-decoration: underline;
 				cursor: pointer;
 				margin-top: 16px;

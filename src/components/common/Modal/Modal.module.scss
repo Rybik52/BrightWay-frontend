@@ -1,0 +1,36 @@
+.wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: grid;
+	place-items: center;
+	min-width: 100vw;
+	min-height: 100vh;
+	background-color: rgba(41, 50, 55, 0.5);
+	z-index: 10;
+	transition: all 0.2s ease-out;
+
+	&.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		background-color: #fff;
+		padding: 3rem;
+		border-radius: 6px;
+		z-index: 20;
+
+		.close {
+			border: none;
+			background-color: transparent;
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+			cursor: pointer;
+		}
+	}
+}

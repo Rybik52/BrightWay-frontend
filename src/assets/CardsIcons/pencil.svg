@@ -1,6 +1,4 @@
-const PencilIcon = () => {
-	return (
-		<svg
+<svg
 			width="17"
 			height="17"
 			viewBox="0 0 17 17"
@@ -26,7 +24,3 @@ const PencilIcon = () => {
 				/>
 			</g>
 		</svg>
-	);
-};
-
-export default PencilIcon;

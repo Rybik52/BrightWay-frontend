@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form";
-import styles from "./LoginPage.module.scss";
 
-import eyeClosed from "assets/eye-closed.svg";
-import eyeOpened from "assets/eye-opened.svg";
+import { useNavigate } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+import Input from "components/common/Input";
 import Button from "components/common/Button";
+
+import styles from "./LoginPage.module.scss";
 
 interface LoginFormProps {
 	toggleForm: (isVisible: boolean) => void;
@@ -23,6 +24,7 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<IFormInput>();
+
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		// TODO: Добавить логику для обработки входа пользователя
 
@@ -31,23 +33,12 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 	};
 
 	const [password, setPassword] = useState("");
-	const [type, setType] = useState("password");
-	const [icon, setIcon] = useState(eyeClosed);
-
-	const handleToggle = () => {
-		setType((prevType) => (prevType === "password" ? "text" : "password"));
-		setIcon((prevIcon) => (prevIcon === eyeClosed ? eyeOpened : eyeClosed));
-	};
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<h1>Вход в личный кабинет</h1>
-			<div
-				className={`${styles.input} ${
-					errors.email ? styles.input_error : ""
-				}`}
-			>
-				<input
+			<div className={styles.form__inputs_container}>
+				<Input
 					{...register("email", {
 						required: "Это обязательное поле*",
 						pattern: {
@@ -56,48 +47,41 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 						},
 					})}
 					aria-invalid={errors.email ? "true" : "false"}
+					isValidated={!!errors.email}
 					placeholder="Введите email*"
 					type="text"
 				/>
-			</div>
-			<div
-				className={`${styles.input} ${
-					errors.password ? styles.input_error : ""
-				}`}
-			>
-				<input
+				<Input
 					{...register("password", {
-						required: true,
+						required: "Это обязательное поле*",
 					})}
 					aria-invalid={errors.password ? "true" : "false"}
+					isValidated={!!errors.password}
+					type="password"
 					placeholder="Введите пароль*"
-					name="password"
-					type={type}
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<span className={styles.eye} onClick={handleToggle}>
-					<img src={icon} alt="иконка глаза" />
-				</span>
 			</div>
+
 			{errors.email && (
 				<p className={styles.error} role="alert">
 					{errors.email.message}
 				</p>
 			)}
 			<Button
-				style={{ alignSelf: "center" }}
+				style={{ alignSelf: "center", marginTop: "2.5rem" }}
 				type="submit"
 				variant="contained"
 			>
 				Войти
 			</Button>
-			<span
+			<button
 				onClick={() => toggleForm(true)}
 				className={styles.forgotPassword}
 			>
 				Не помню пароль
-			</span>
+			</button>
 		</form>
 	);
 };

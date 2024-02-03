@@ -1,6 +1,4 @@
-export const TasksIcon = () => {
-	return (
-		<svg
+<svg
 			width="28"
 			height="28"
 			viewBox="0 0 28 28"
@@ -44,5 +42,3 @@ export const TasksIcon = () => {
 				</g>
 			</g>
 		</svg>
-	);
-};

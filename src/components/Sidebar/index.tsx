@@ -1,19 +1,28 @@
-import styles from "./Sidebar.module.scss";
-import UserStatus from "components/UserStatus";
-import NavItem from "./NavItem";
-import { NavLink, useLocation } from "react-router-dom";
+import classnames from "classnames";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import logo from "assets/brightTech.svg";
-import { HomeIcon } from "assets/NavIcons/HomeIcon";
-import { NoticeIcon } from "assets/NavIcons/NoticeIcon";
-import { TasksIcon } from "assets/NavIcons/TasksIcon";
-import { ReportIcon } from "assets/NavIcons/ReportIcon";
-import { SettingsIcon } from "assets/NavIcons/SettingsIcon";
-import { HeadphonesIcon } from "assets/NavIcons/HeadphonesIcon";
-import { ExitIcon } from "assets/NavIcons/ExitIcon";
+import UserStatus from "components/UserStatus";
+import {
+	ExitIcon,
+	HeadPhonesIcon,
+	HomeIcon,
+	NoticeIcon,
+	ReportIcon,
+	SettingsIcon,
+	TasksIcon,
+} from "assets/IconsComponent";
+
+import NavItem from "./NavItem";
+import styles from "./Sidebar.module.scss";
+import { useState } from "react";
+import Modal from "components/common/Modal";
+import Button from "components/common/Button";
 
 const Index = () => {
-	const location = useLocation();
+	const [showModal, setShowModal] = useState(false);
+	const { pathname } = useLocation();
+	const navigate = useNavigate();
 	const NavItems = [
 		{
 			title: "Личный кабинет",
@@ -43,46 +52,86 @@ const Index = () => {
 
 		{
 			title: "Тех. поддержка",
-			icon: <HeadphonesIcon />,
+			icon: <HeadPhonesIcon />,
 			href: "/support",
 		},
 	];
 
+	const handelExit = () => {
+		setShowModal(!showModal);
+	};
+
 	return (
-		<aside className={styles.wrapper}>
-			<div className={styles.padding}>
-				<img className={styles.logo} src={logo} alt="brightTech logo" />
-				<div className={styles.user}></div>
-				<UserStatus
-					isAdmin={false}
-					name={"Иванов Александр Михайлович"}
-				/>
-			</div>
-			<div className={styles.nav_container}>
-				<ul className={styles.nav_list}>
-					{NavItems.map((item, index) => (
-						<NavLink key={index} to={item.href}>
-							<li
-								className={`${styles.nav_list__item} ${
-									location.pathname === item.href
-										? styles.active
-										: ""
-								}`}
-							>
-								<NavItem title={item.title} icon={item.icon} />
-							</li>
-						</NavLink>
-					))}
-				</ul>
-				<ul className={styles.nav_list}>
-					<li className={styles.nav_list__item}>
-						<NavLink to="/login">
+		<>
+			<aside className={styles.wrapper}>
+				<div className={styles.padding}>
+					<img
+						className={styles.logo}
+						src={logo}
+						alt="brightTech logo"
+					/>
+					<div className={styles.user}></div>
+					<UserStatus
+						isAdmin={false}
+						name={"Иванов Александр Михайлович"}
+					/>
+				</div>
+				<div className={styles.nav_container}>
+					<ul className={styles.nav_list}>
+						{NavItems.map((item, index) => (
+							<NavLink key={index} to={item.href}>
+								<li
+									className={classnames(
+										styles.nav_list__item,
+										{
+											[styles.active]:
+												pathname.startsWith(item.href),
+										}
+									)}
+								>
+									<NavItem
+										title={item.title}
+										icon={item.icon}
+									/>
+								</li>
+							</NavLink>
+						))}
+					</ul>
+					<ul className={styles.nav_list}>
+						<li
+							onClick={handelExit}
+							className={styles.nav_list__item}
+						>
 							<NavItem title="Выход" icon={<ExitIcon />} />
-						</NavLink>
-					</li>
-				</ul>
-			</div>
-		</aside>
+						</li>
+					</ul>
+				</div>
+			</aside>
+			<Modal exitButton showModal={showModal} setShowModal={setShowModal}>
+				<div className={styles.modal_exit}>
+					<h3>Выйти из аккаунта?</h3>
+					<div className={styles.modal_exit__buttons}>
+						<Button
+							variant="contained"
+							onClick={() => {
+								navigate("/login");
+							}}
+						>
+							Выйти
+						</Button>
+						<Button
+							variant="outlined"
+							style={{ color: "gray", borderColor: "gray" }}
+							onClick={() => {
+								setShowModal(!showModal);
+							}}
+						>
+							Отмена
+						</Button>
+					</div>
+				</div>
+			</Modal>
+		</>
 	);
 };
 

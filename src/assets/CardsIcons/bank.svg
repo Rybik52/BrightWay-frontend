@@ -1,6 +1,4 @@
-const BankIcon = () => {
-	return (
-		<svg
+<svg
 			width="28"
 			height="28"
 			viewBox="0 0 28 28"
@@ -41,7 +39,3 @@ const BankIcon = () => {
 				</clipPath>
 			</defs>
 		</svg>
-	);
-};
-
-export default BankIcon;

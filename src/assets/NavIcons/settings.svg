@@ -1,6 +1,4 @@
-export const SettingsIcon = () => {
-	return (
-		<svg
+<svg
 			width="28"
 			height="28"
 			viewBox="0 0 28 28"
@@ -36,5 +34,3 @@ export const SettingsIcon = () => {
 				</clipPath>
 			</defs>
 		</svg>
-	);
-};

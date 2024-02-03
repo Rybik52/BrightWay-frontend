@@ -1,0 +1,33 @@
+<svg
+			width="28"
+			height="28"
+			viewBox="0 0 28 28"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<g id="lock" clipPath="url(#clip0_955_5398)">
+				<g id="Lock">
+					<path
+						id="Vector"
+						d="M3 12.7647C3 11.7901 3.78799 11 4.76 11H23.24C24.212 11 25 11.7901 25 12.7647V22.4706C25 24.4199 23.4241 26 21.48 26H6.52C4.57596 26 3 24.4199 3 22.4706V12.7647Z"
+						stroke="#0F2D6B"
+						strokeWidth="2.13158"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+					<path
+						id="Vector_2"
+						d="M7.00358 11V10.7264C7.00358 8.01125 6.8379 4.98478 8.7612 3.04157C9.85802 1.93339 11.6328 1 14.5 1C17.3672 1 19.142 1.93339 20.2387 3.04157C22.1621 4.98478 21.9964 8.01125 21.9964 10.7264V11"
+						stroke="#0F2D6B"
+						strokeWidth="2.13158"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</g>
+			</g>
+			<defs>
+				<clipPath id="clip0_955_5398">
+					<rect width="28" height="28" fill="white" />
+				</clipPath>
+			</defs>
+		</svg>

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import styles from "./LoginPage.module.scss";
+
 import logo from "assets/brightTech.svg";
 
-import ForgotPassword from "./ForgotPassword";
 import LoginForm from "./LoginForm";
+import styles from "./LoginPage.module.scss";
+import ForgotPassword from "./ForgotPassword";
 
 const Index = () => {
 	const [showForgotPassword, setShowForgotPassword] = useState(false);

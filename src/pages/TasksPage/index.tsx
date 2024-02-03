@@ -1,5 +1,5 @@
-import TaskTable from "components/TaskTable";
 import styles from "./TasksPage.module.scss";
+import TaskTable from "components/TaskTable";
 import Button from "components/common/Button";
 
 const index = () => {

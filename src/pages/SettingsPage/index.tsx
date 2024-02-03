@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-import styles from "./SettingsPage.module.scss";
 
 import Card from "components/common/Card";
-import { SettingsIcon } from "assets/NavIcons/SettingsIcon";
-import FlashDriveIcon from "assets/CardsIcons/FlashDriveIcon";
-import BankIcon from "assets/CardsIcons/BankIcon";
-import { UserIcon } from "assets/UserIcon";
+import {
+	BankIcon,
+	FlashDriveIcon,
+	SettingsIcon,
+	UserIcon,
+} from "assets/IconsComponent";
+
+import styles from "./SettingsPage.module.scss";
 
 const Index = () => {
 	const data = [
@@ -13,7 +16,7 @@ const Index = () => {
 			title: "Данные аккаунта",
 			text: "ФИО, email, пароль",
 			icon: <UserIcon />,
-			link: "",
+			link: "profile",
 		},
 		{
 			title: "Мои организации",

@@ -12,6 +12,7 @@ import HomePage from "pages/HomePage";
 
 import "./index.css";
 import { FC } from "react";
+import ProfilePage from "pages/SettingsPage/ProfilePage";
 
 interface ProtectedRouteProps {
 	element: JSX.Element;
@@ -48,8 +49,23 @@ createRoot(document.getElementById("root")!).render(
 					element={<ProtectedRoute element={<ReportsPage />} />}
 				/>
 				<Route
-					path="/settings"
-					element={<ProtectedRoute element={<SettingsPage />} />}
+					path="/settings/*"
+					element={
+						<ProtectedRoute
+							element={
+								<Routes>
+									<Route
+										path="/"
+										element={<SettingsPage />}
+									/>
+									<Route
+										path="/profile"
+										element={<ProfilePage />}
+									/>
+								</Routes>
+							}
+						/>
+					}
 				/>
 				<Route
 					path="/support"

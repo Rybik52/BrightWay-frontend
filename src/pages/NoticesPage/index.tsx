@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import styles from "./NoticesPage.module.scss";
 
 import Card from "components/common/Card";
-import ArrowRightIcon from "assets/ArrowRightIcon";
+import { ArrowRightIcon } from "assets/IconsComponent";
+
+import styles from "./NoticesPage.module.scss";
 
 const index = () => {
 	return (

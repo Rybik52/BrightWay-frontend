@@ -1,12 +1,15 @@
-import styles from "./HomePage.module.scss";
 import Card from "components/common/Card";
 import TaskTable from "components/TaskTable";
-import FlashDriveIcon from "assets/CardsIcons/FlashDriveIcon";
-import BankIcon from "assets/CardsIcons/BankIcon";
-import ListIcon from "assets/CardsIcons/ListIcon";
-import FileIcon from "assets/CardsIcons/FileIcon";
-import CalendarIcon from "assets/CardsIcons/CalendarIcon";
 import Button from "components/common/Button";
+import {
+	BankIcon,
+	CalendarIcon,
+	FileIcon,
+	FlashDriveIcon,
+	ListIcon,
+} from "assets/IconsComponent";
+
+import styles from "./HomePage.module.scss";
 
 const Index = () => {
 	// Переменная которая отвечает за показ таблицы

@@ -1,8 +1,9 @@
-import styles from "./UserStatus.module.scss";
-import UserIco from "assets/User.svg";
-import AdminIco from "assets/Admin.svg";
 import { FC } from "react";
 
+import UserIco from "assets/user.svg";
+import AdminIco from "assets/admin.svg";
+
+import styles from "./UserStatus.module.scss";
 interface UserStatusProps {
 	isAdmin: boolean;
 	name: string;

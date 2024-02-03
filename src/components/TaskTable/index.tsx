@@ -1,13 +1,11 @@
 import { FC } from "react";
-import styles from "./Table.module.scss";
 
-import ProcessBar from "components/common/ProcessBar";
 import Button from "components/common/Button";
+import ProcessBar from "components/common/ProcessBar";
 import Pagination from "components/common/Pagination";
+import { ArrowRightIcon, PencilIcon, TrashIcon } from "assets/IconsComponent";
 
-import TrashIcon from "assets/CardsIcons/TrashIcon";
-import PencilIcon from "assets/CardsIcons/PencilIcon";
-import ArrowRightIcon from "assets/ArrowRightIcon";
+import styles from "./Table.module.scss";
 
 const formatDate = (dateString: number): string => {
 	const options: Intl.DateTimeFormatOptions = {
@@ -175,7 +173,7 @@ const index: FC<TableProps> = ({ isPagination }) => {
 				<Pagination />
 			) : (
 				<Button
-					style={{ marginTop: "1.5rem", alignSelf: "start" }}
+					style={{ marginTop: "1.5rem", alignSelf: "flex-start" }}
 					variant="light"
 				>
 					Смотреть все <ArrowRightIcon />
