@@ -4,11 +4,12 @@ import styles from "./Card.module.scss";
 
 interface CardProps {
 	children: ReactNode;
+	title?: string;
 }
 
-const Index: FC<CardProps> = ({ children }) => {
+const Index: FC<CardProps> = ({ children, title }) => {
 	return (
-		<div className={styles.wrapper}>
+		<div title={title} className={styles.wrapper}>
 			<div className={styles.wrapper__children}>{children}</div>
 		</div>
 	);

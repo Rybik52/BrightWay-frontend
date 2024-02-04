@@ -1,18 +1,20 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { createRoot } from "react-dom/client";
+import { FC } from "react";
 
-import Layout from "components/common/Layout";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import HomePage from "pages/HomePage";
 import LoginPage from "pages/LoginPage";
 import TasksPage from "pages/TasksPage";
 import NoticesPage from "pages/NoticesPage";
 import ReportsPage from "pages/ReportsPage";
 import SupportPage from "pages/SupportPage";
+import { createRoot } from "react-dom/client";
+import Layout from "components/common/Layout";
 import SettingsPage from "pages/SettingsPage";
-import HomePage from "pages/HomePage";
+import ProfilePage from "pages/SettingsPage/ProfilePage";
+import OrganizationsPage from "pages/SettingsPage/OrganizationsPage";
 
 import "./index.css";
-import { FC } from "react";
-import ProfilePage from "pages/SettingsPage/ProfilePage";
 
 interface ProtectedRouteProps {
 	element: JSX.Element;
@@ -61,6 +63,10 @@ createRoot(document.getElementById("root")!).render(
 									<Route
 										path="/profile"
 										element={<ProfilePage />}
+									/>
+									<Route
+										path="/organizations"
+										element={<OrganizationsPage />}
 									/>
 								</Routes>
 							}

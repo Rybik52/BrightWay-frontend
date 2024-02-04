@@ -10,11 +10,13 @@ import {
 } from "assets/IconsComponent";
 
 import styles from "./HomePage.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
 	// Переменная которая отвечает за показ таблицы
 	const hasTasks = false;
 
+	const navigate = useNavigate();
 	return (
 		<>
 			<div className={styles.cards_container}>
@@ -30,7 +32,12 @@ const Index = () => {
 					<h3 className={styles.cards_container__card_title}>
 						Мои организации
 					</h3>
-					<Button variant="outlined">Перейти</Button>
+					<Button
+						onClick={() => navigate("/settings/organizations")}
+						variant="outlined"
+					>
+						Перейти
+					</Button>
 				</Card>
 				<Card>
 					<ListIcon />

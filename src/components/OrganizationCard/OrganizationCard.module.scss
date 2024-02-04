@@ -1,0 +1,40 @@
+@import "variables/index.scss";
+
+.card_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	svg {
+		width: 1.75rem;
+		height: 1.75rem;
+	}
+}
+
+.card_info {
+	&__data {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 1rem;
+
+		&_container {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			font-family: Inter, sans-serif;
+			font-size: 1rem;
+			line-height: 24px;
+			font-weight: 400;
+
+			span {
+				color: $inactive-color;
+			}
+		}
+	}
+}
+
+.card_modal {
+	margin-top: 1rem;
+	display: flex;
+	gap: 2rem;
+}

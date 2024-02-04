@@ -1,0 +1,73 @@
+@import "variables/index.scss";
+
+.dd_wrapper {
+	height: fit-content;
+	background-color: #fff;
+	border-radius: 6px;
+	padding: 1rem 1.5rem;
+	border: 1px solid transparent;
+
+	&:focus {
+		border: 1px solid $primary-color;
+		outline: none;
+	}
+
+	.dd_header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		&__title {
+			font-family: Inter, sans-serif;
+			font-size: 1rem;
+			line-height: 24px;
+			font-weight: 400;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow-x: hidden;
+
+			p {
+				white-space: nowrap;
+				overflow-x: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+
+		&__action {
+			cursor: pointer;
+			svg {
+				transition: all 200ms ease-out;
+			}
+		}
+	}
+
+	.dd_list {
+		list-style: none;
+
+		button {
+			all: unset;
+			&:focus {
+				border: 1px solid $primary-color;
+			}
+		}
+
+		&__item {
+			&__selected {
+				background-color: $active-page;
+			}
+
+			border-radius: 6px;
+			padding: 0.5rem;
+			cursor: pointer;
+
+			&:first-child {
+				margin-top: 0.5rem;
+			}
+
+			&:hover {
+				transition: all 200ms ease-out;
+				background-color: $wrapper-bg-hover;
+			}
+		}
+	}
+}

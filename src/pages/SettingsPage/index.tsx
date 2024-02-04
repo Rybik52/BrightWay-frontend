@@ -22,7 +22,7 @@ const Index = () => {
 			title: "Мои организации",
 			text: "Добавить, редактировать, удалить организацию",
 			icon: <BankIcon />,
-			link: "",
+			link: "organizations",
 		},
 		{
 			title: "Мои электронные подписи",

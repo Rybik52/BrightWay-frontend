@@ -49,14 +49,16 @@ const index = () => {
 				showModal={showModal}
 				setShowModal={setShowModal}
 			>
-				<h3>Ваши данные изменены</h3>
-				<Button
-					style={{ alignSelf: "flex-start", marginTop: "1rem" }}
-					onClick={handleCloseModal}
-					variant="contained"
-				>
-					Закрыть
-				</Button>
+				<div className={styles.modal_wrapper}>
+					<h3>Ваши данные изменены</h3>
+					<Button
+						style={{ alignSelf: "flex-start", marginTop: "1rem" }}
+						onClick={handleCloseModal}
+						variant="contained"
+					>
+						Вернуться к настройкам
+					</Button>
+				</div>
 			</Modal>
 			<div className={styles.wrapper}>
 				<div>
