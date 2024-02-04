@@ -15,6 +15,7 @@ import ProfilePage from "pages/SettingsPage/ProfilePage";
 import OrganizationsPage from "pages/SettingsPage/OrganizationsPage";
 
 import "./index.css";
+import DigitalSignaturePage from "pages/SettingsPage/DigitalSignaturePage";
 
 interface ProtectedRouteProps {
 	element: JSX.Element;
@@ -67,6 +68,10 @@ createRoot(document.getElementById("root")!).render(
 									<Route
 										path="/organizations"
 										element={<OrganizationsPage />}
+									/>
+									<Route
+										path="/digitalSignature"
+										element={<DigitalSignaturePage />}
 									/>
 								</Routes>
 							}

@@ -25,7 +25,12 @@ const Index = () => {
 					<h3 className={styles.cards_container__card_title}>
 						Электронная подпись
 					</h3>
-					<Button variant="outlined">Перейти</Button>
+					<Button
+						onClick={() => navigate("/settings/digitalSignature")}
+						variant="outlined"
+					>
+						Перейти
+					</Button>
 				</Card>
 				<Card>
 					<BankIcon />

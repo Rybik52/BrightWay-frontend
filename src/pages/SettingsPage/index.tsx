@@ -28,7 +28,7 @@ const Index = () => {
 			title: "Мои электронные подписи",
 			text: "Просмотреть, удалить",
 			icon: <FlashDriveIcon />,
-			link: "",
+			link: "digitalSignature",
 		},
 		{
 			title: "Обратиться в тех. поддержку",

@@ -32,8 +32,6 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 		navigate("/home");
 	};
 
-	const [password, setPassword] = useState("");
-
 	return (
 		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<h1>Вход в личный кабинет</h1>
@@ -51,6 +49,11 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 					placeholder="Введите email*"
 					type="text"
 				/>
+				{errors.email && (
+					<p className={styles.error} role="alert">
+						{errors.email.message}
+					</p>
+				)}
 				<Input
 					{...register("password", {
 						required: "Это обязательное поле*",
@@ -59,16 +62,13 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 					isValidated={!!errors.password}
 					type="password"
 					placeholder="Введите пароль*"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
 				/>
+				{errors.password && (
+					<p className={styles.error} role="alert">
+						{errors.password.message}
+					</p>
+				)}
 			</div>
-
-			{errors.email && (
-				<p className={styles.error} role="alert">
-					{errors.email.message}
-				</p>
-			)}
 			<Button
 				style={{ alignSelf: "center", marginTop: "2.5rem" }}
 				type="submit"

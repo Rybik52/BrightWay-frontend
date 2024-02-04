@@ -1,0 +1,41 @@
+@import "variables/index.scss";
+
+.wrapper {
+	position: relative;
+	all: unset;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: $primary-color;
+	cursor: pointer;
+	font-family: Inter, sans-serif;
+	transition: all 200ms ease-out;
+
+	&:disabled {
+		cursor: not-allowed;
+		color: $inactive-color;
+
+		* {
+			filter: grayscale(1);
+		}
+	}
+	.description {
+		position: absolute;
+		width: 20rem;
+		height: fit-content;
+		color: $text-color;
+		font-size: 0.875rem;
+		top: 0;
+		background-color: #fff;
+		border: 1px solid $primary-color;
+		padding: 1rem;
+		border-radius: 6px;
+		transition: all 200ms ease-out;
+		transform: translate(30px, 180px);
+		
+		&.hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+}

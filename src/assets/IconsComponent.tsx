@@ -7,6 +7,8 @@ import EyeClosedIcon from "assets/eye-opened.svg?react";
 import ArrowNextIcon from "assets/arrow-next.svg?react";
 import ArrowPrevIcon from "assets/arrow-prev.svg?react";
 import ArrowRightIcon from "assets/arrow-right.svg?react";
+import PlusIcon from "assets/plus.svg?react";
+import HelpIcon from "assets/help.svg?react";
 
 export {
 	UserIcon,
@@ -18,6 +20,8 @@ export {
 	ArrowNextIcon,
 	ArrowPrevIcon,
 	ArrowRightIcon,
+	PlusIcon,
+	HelpIcon,
 };
 
 // CardsIcons
