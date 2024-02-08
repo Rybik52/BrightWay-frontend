@@ -1,6 +1,14 @@
 @import "variables/index.scss";
 
+.modal {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
 .wrapper {
+	width: fit-content;
+	height: fit-content;
 	display: flex;
 	flex-direction: column;
 
@@ -22,6 +30,16 @@
 
 		span {
 			color: $inactive-color;
+		}
+	}
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		.error {
+			color: $error-color;
 		}
 	}
 }

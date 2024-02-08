@@ -28,11 +28,14 @@
 			padding: 0;
 
 			&__item {
+				background: none;
 				width: 100%;
 				height: fit-content;
 				padding: max(1rem) 0.5rem;
 				border-top: 0.5px solid transparent;
 				border-bottom: 0.5px solid transparent;
+				border-left: 0;
+				border-right: 0;
 				transition: all 200ms ease-out;
 
 				&.active {

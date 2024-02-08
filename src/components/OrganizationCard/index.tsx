@@ -5,19 +5,23 @@ import styles from "./OrganizationCard.module.scss";
 import { FC, useState } from "react";
 import Modal from "components/common/Modal";
 
-interface OrganizationCardProps {
-	data: {
-		organizationTitle: string;
-		organizationINN: number;
-		address: string;
-		ownerName: string;
-		ownerINN: number;
-	};
+export interface OrganizationCardData {
+	organizationTitle: string;
+	organizationINN: number;
+	address: string;
+	ownerName: string;
+	ownerINN: number;
 }
 
-const index: FC<OrganizationCardProps> = ({ data }) => {
+interface OrganizationCardProps {
+	data: OrganizationCardData;
+	onClick?: () => void;
+}
+
+const index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 	const { organizationTitle, organizationINN, address, ownerName, ownerINN } =
 		data;
+		
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -37,7 +41,11 @@ const index: FC<OrganizationCardProps> = ({ data }) => {
 			<header className={styles.card_header}>
 				<BankIcon />
 				<nav>
-					<Button title="Редактировать организацию" variant="text">
+					<Button
+						onClick={onClick}
+						title="Редактировать организацию"
+						variant="text"
+					>
 						<PencilIcon />
 					</Button>
 					<Button

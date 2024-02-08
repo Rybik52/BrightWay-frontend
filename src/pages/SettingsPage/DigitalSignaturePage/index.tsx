@@ -1,46 +1,66 @@
-import DigitalSignature from "components/DigitalSignature";
-import styles from "./DigitalSignaturePage.module.scss";
+import styles from "pages/SettingsPage/OrganizationsPage/Organizations.module.scss";
+import DigitalSignatureCard from "components/DigitalSignatureCard";
 import Card from "components/common/Card";
-import Button from "components/common/Button";
-import Helper from "components/Helper";
+import PlusIco from "assets/plus.svg?react";
+import SelectDigitalSignature from "../OrganizationsPage/DigitalSignature/SelectDigitalSignature";
+import { useState } from "react";
 
-const index = () => {
+const Index = () => {
+	const [createNewDigitalSignature, setCreateNewDigitalSignature] =
+		useState(false);
+
 	const data = [
 		{
-			id: 1,
-			title: "ЭЦП 1",
-			owner: "Иванов Иван Иванович",
-			org: "ООО “Название организации”",
+			ownerName: "Иванов Иван Иванович",
+			INN: 1234567890,
+			type: "Физическое лицо",
+			date: "01.01.2021",
+			auth: "Сотрудник",
+			orgTitle: "ООО Рога и копыта",
+		},
+		{
+			ownerName: "Иванов Иван Иванович",
+			INN: 1234567890,
+			type: "Физическое лицо",
+			date: "01.01.2021",
+			auth: "Сотрудник",
+			orgTitle: "ООО Рога и копыта",
+		},
+		{
+			ownerName: "Иванов Иван Иванович",
+			INN: 1234567890,
+			type: "Физическое лицо",
+			date: "01.01.2021",
+			auth: "Сотрудник",
+			orgTitle: "ООО Рога и копыта",
 		},
 	];
 
-	if (data.length === 0) {
-		return (
-			<div className={styles.wrapper}>
-				<Card>
-					<h3>ЭЦП не найдена. Попробуйте еще раз</h3>
-					<Helper
-						title="Как исправить?"
-						description="Ваша ЭЦП отобразится в окне автоматически, если необходимые сертификаты установлены на вашем компьютере или флеш-диск с ЭЦП вставлен в устройство. Также вы можете обратиться в тех. поддержку"
-					/>
-					<Button variant="contained">Обновить</Button>
-				</Card>
-			</div>
-		);
+	if (createNewDigitalSignature) {
+		return <SelectDigitalSignature />;
 	}
 	return (
-		<div className={styles.wrapper}>
-			<div className={styles.header}>
-				<h2>Добавить электронную подпись</h2>
-				<p>К каждой организации необходимо привязать ЭЦП</p>
+		<>
+			<h1>Электронная подпись</h1>
+			<div className={styles.wrapper}>
+				{data.map((item, index) => {
+					return <DigitalSignatureCard key={index} data={item} />;
+				})}
+				<button
+					className={styles.add_card_button}
+					onClick={() =>
+						setCreateNewDigitalSignature(!createNewDigitalSignature)
+					}
+				>
+					<Card title="Добавить организацию">
+						<div className={styles.add_card}>
+							<PlusIco />
+						</div>
+					</Card>
+				</button>
 			</div>
-			<div className={styles.grid_items}>
-				{data.map((item) => (
-					<DigitalSignature key={item.id} data={item} />
-				))}
-			</div>
-		</div>
+		</>
 	);
 };
 
-export default index;
+export default Index;

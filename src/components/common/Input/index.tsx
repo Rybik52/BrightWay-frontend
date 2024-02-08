@@ -1,10 +1,4 @@
-import {
-	FC,
-	forwardRef,
-	InputHTMLAttributes,
-	useEffect,
-	useState,
-} from "react";
+import { FC, forwardRef, InputHTMLAttributes, useState } from "react";
 
 import EyeOpenedIcon from "assets/eye-opened.svg";
 import EyeClosedIcon from "assets/eye-closed.svg";
@@ -54,7 +48,13 @@ const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 						ref={ref}
 					/>
 					{type === "password" && (
-						<span className={styles.eye} onClick={handleToggle}>
+						<span
+							className={styles.eye}
+							tabIndex={0}
+							role="button"
+							onKeyDown={handleToggle}
+							onClick={handleToggle}
+						>
 							<img src={icon} alt={`Иконка ${icon}`} />
 						</span>
 					)}

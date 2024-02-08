@@ -12,6 +12,15 @@
 		outline: none;
 	}
 
+	&.error {
+		border: 1px solid $error-color;
+		color: $error-color;
+
+		* {
+			stroke: $error-color;
+		}
+	}
+
 	.dd_header {
 		display: flex;
 		justify-content: space-between;

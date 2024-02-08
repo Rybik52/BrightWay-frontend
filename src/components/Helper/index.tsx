@@ -9,12 +9,14 @@ interface HelperProps {
 	disable?: boolean;
 }
 
-const index: FC<HelperProps> = ({ title, description, disable }) => {
+const Index: FC<HelperProps> = ({ title, description, disable }) => {
 	const [isOpen, setIsOpen] = useState(false);
+
 	const descriptionStyle = {
 		[styles.description]: true,
-		[styles.hidden]: isOpen,
+		[styles.hidden]: !isOpen,
 	};
+
 	return (
 		<button
 			onClick={() => setIsOpen(!isOpen)}
@@ -28,4 +30,4 @@ const index: FC<HelperProps> = ({ title, description, disable }) => {
 	);
 };
 
-export default index;
+export default Index;

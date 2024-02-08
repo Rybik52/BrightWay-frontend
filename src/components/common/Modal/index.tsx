@@ -15,7 +15,7 @@ interface ModalProps {
 	setShowModal: (isVisible: boolean) => void;
 }
 
-const index: FC<ModalProps> = ({
+const Index: FC<ModalProps> = ({
 	children,
 	showModal,
 	setShowModal,
@@ -31,48 +31,52 @@ const index: FC<ModalProps> = ({
 		goBack && navigate(-1);
 	};
 
-	useEffect(() => {
-		if (showModal) {
-			const handleKeyDown = (e: KeyboardEvent) => {
-				if (e.key === "Tab") {
-					e.preventDefault();
-					const focusableElements =
-						modalRef.current?.querySelectorAll(
-							'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-						) as NodeListOf<HTMLElement>;
+	const handleKeyDown = (
+		e: KeyboardEvent,
+		focusableElements: NodeListOf<HTMLElement>
+	) => {
+		if (e.key === "Tab") {
+			e.preventDefault();
 
-					if (focusableElements) {
-						const activeElement = document.activeElement;
-						const currentIndex = Array.from(
-							focusableElements
-						).findIndex((element) => element === activeElement);
+			const activeElement = document.activeElement;
+			const currentIndex = Array.from(focusableElements).findIndex(
+				(element) => element === activeElement
+			);
 
-						if (e.shiftKey) {
-							// Если нажата клавиша Shift + Tab, переходим к предыдущему элементу
-							const previousElement =
-								currentIndex === 0
-									? focusableElements[
-											focusableElements.length - 1
-									  ]
-									: focusableElements[currentIndex - 1];
-							previousElement.focus();
-						} else {
-							// Иначе переходим к следующему элементу
-							const nextElement =
-								currentIndex === focusableElements.length - 1
-									? focusableElements[0]
-									: focusableElements[currentIndex + 1];
-							nextElement.focus();
-						}
-					}
-				}
-			};
-
-			window.addEventListener("keydown", handleKeyDown);
-			return () => {
-				window.removeEventListener("keydown", handleKeyDown);
-			};
+			if (e.shiftKey) {
+				const previousElement =
+					currentIndex === 0
+						? focusableElements[focusableElements.length - 1]
+						: focusableElements[currentIndex - 1];
+				previousElement.focus();
+			} else {
+				const nextElement =
+					currentIndex === focusableElements.length - 1
+						? focusableElements[0]
+						: focusableElements[currentIndex + 1];
+				nextElement.focus();
+			}
 		}
+	};
+
+	useEffect(() => {
+		if (!showModal) return;
+
+		const handleKeyDownWrapper = (e: KeyboardEvent) => {
+			const focusableElements = modalRef.current?.querySelectorAll(
+				'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+			) as NodeListOf<HTMLElement>;
+
+			if (focusableElements) {
+				handleKeyDown(e, focusableElements);
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDownWrapper);
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyDownWrapper);
+		};
 	}, [showModal]);
 
 	return (
@@ -89,4 +93,4 @@ const index: FC<ModalProps> = ({
 	);
 };
 
-export default index;
+export default Index;

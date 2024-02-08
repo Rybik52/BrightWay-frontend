@@ -1,9 +1,9 @@
 import { FC, useEffect, useRef, useState } from "react";
 import styles from "./DropDown.module.scss";
-
 import Chevron from "assets/chevron-down.svg?react";
+import classNames from "classnames";
 
-interface DropDownItem {
+export interface DropDownItem {
 	id: number;
 	value: string;
 }
@@ -12,12 +12,19 @@ interface DropDownProps {
 	title: string;
 	items: DropDownItem[];
 	multiple?: boolean;
+	onChange?: (selectedItems: DropDownItem[]) => void;
+	isValidated?: boolean;
 }
 
-const DropDown: FC<DropDownProps> = ({ title, items, multiple }) => {
+const DropDown: FC<DropDownProps> = ({
+	title,
+	items,
+	multiple,
+	onChange,
+	isValidated,
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [selectedItem, setSelectedItem] = useState<DropDownItem[]>([]);
-	const toggle = () => setIsOpen(!isOpen);
+	const [selectedItems, setSelectedItems] = useState<DropDownItem[]>([]);
 	const dropDownRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -33,27 +40,34 @@ const DropDown: FC<DropDownProps> = ({ title, items, multiple }) => {
 		};
 	}, []);
 
+	const toggle = () => setIsOpen(!isOpen);
+
 	const handleOnClick = (item: DropDownItem) => {
+		let newSelectedItems: DropDownItem[];
 		if (multiple) {
 			// Множественный выбор
 			const isSelected = isItemInSelection(item);
 			if (isSelected) {
 				// Если элемент уже выбран, убираем его из списка выбранных
-				setSelectedItem((prevSelection) =>
-					prevSelection.filter((current) => current.id !== item.id)
+				newSelectedItems = selectedItems.filter(
+					(current) => current.id !== item.id
 				);
 			} else {
 				// Если элемент не выбран, добавляем его в список выбранных
-				setSelectedItem((prevSelection) => [...prevSelection, item]);
+				newSelectedItems = [...selectedItems, item];
 			}
 		} else {
 			// Одиночный выбор
-			setSelectedItem([item]);
+			newSelectedItems = [item];
+		}
+		setSelectedItems(newSelectedItems);
+		if (onChange) {
+			onChange(newSelectedItems);
 		}
 	};
 
 	const isItemInSelection = (item: DropDownItem) =>
-		selectedItem.some((current) => current.id === item.id);
+		selectedItems.some((current) => current.id === item.id);
 
 	const activeStyle = (item: DropDownItem) => {
 		if (isItemInSelection(item)) {
@@ -63,13 +77,18 @@ const DropDown: FC<DropDownProps> = ({ title, items, multiple }) => {
 	};
 
 	const displayText =
-		selectedItem.length > 0
-			? selectedItem.map((item: DropDownItem) => item.value).join(", ")
+		selectedItems.length > 0
+			? selectedItems.map((item: DropDownItem) => item.value).join(", ")
 			: title;
+
+	const wrapperStyle = {
+		[styles.dd_wrapper]: true,
+		[styles.error]: isValidated,
+	};
 
 	return (
 		<div
-			className={styles.dd_wrapper}
+			className={classNames(wrapperStyle)}
 			tabIndex={0}
 			ref={dropDownRef}
 			role="button"

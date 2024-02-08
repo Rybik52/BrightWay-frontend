@@ -3,7 +3,7 @@ import styles from "./DigitalSignature.module.scss";
 import { FC } from "react";
 import Button from "components/common/Button";
 
-interface DigitalSignatureData {
+export interface DigitalSignatureData {
 	id: number;
 	title: string;
 	owner: string;
@@ -12,9 +12,10 @@ interface DigitalSignatureData {
 
 interface DigitalSignatureProps {
 	data: DigitalSignatureData;
+	onClick: () => void;
 }
 
-const index: FC<DigitalSignatureProps> = ({ data }) => {
+const index: FC<DigitalSignatureProps> = ({ data, onClick }) => {
 	const { title, owner, org } = data;
 	return (
 		<Card>
@@ -26,7 +27,9 @@ const index: FC<DigitalSignatureProps> = ({ data }) => {
 					<span>Организация</span>
 					<p>{org}</p>
 				</div>
-				<Button variant="contained">Выбрать</Button>
+				<Button onClick={onClick} variant="contained">
+					Выбрать
+				</Button>
 			</div>
 		</Card>
 	);

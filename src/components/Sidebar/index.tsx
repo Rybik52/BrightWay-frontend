@@ -88,9 +88,12 @@ const Index = () => {
 					))}
 				</ul>
 				<ul className={styles.nav_list}>
-					<li onClick={handelExit} className={styles.nav_list__item}>
+					<button
+						onClick={handelExit}
+						className={styles.nav_list__item}
+					>
 						<NavItem title="Выход" icon={<ExitIcon />} />
-					</li>
+					</button>
 				</ul>
 			</div>
 			<Modal exitButton showModal={showModal} setShowModal={setShowModal}>

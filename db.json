@@ -1,0 +1,79 @@
+{
+	"api": {
+		"company": [
+			{
+				"id": 1,
+				"clientSecret": "weqadklKlkj",
+				"clientId": "hkjh2131bjhbj321",
+				"userId": "3123h12kjhkjnmdsok",
+				"name": "ООО 'Грабли'",
+				"certAlias": "string",
+				"certPassword": "password",
+				"reportDisposalCount": 1,
+				"reportBalanceCount": 1,
+				"reportTrafficCount": 1,
+				"reportPricingCount": 1,
+				"disposalRunning": false,
+				"balanceRunning": true,
+				"trafficRunning": true,
+				"pricingRunning": false
+			},
+			{
+				"id": 2,
+				"clientSecret": "weqadklKlkj",
+				"clientId": "hkjh2131bjhbj321",
+				"userId": "3123h12kjhkjnmdsok",
+				"name": "ООО 'Грабли'",
+				"certAlias": "string",
+				"certPassword": "password",
+				"reportDisposalCount": 1,
+				"reportBalanceCount": 1,
+				"reportTrafficCount": 1,
+				"reportPricingCount": 1,
+				"disposalRunning": false,
+				"balanceRunning": true,
+				"trafficRunning": true,
+				"pricingRunning": false
+			}
+		],
+		"queue": {
+			"all": [
+				{
+					"year": 2024,
+					"month": 1,
+					"week": 2,
+					"gtin": "gtin",
+					"batch": "string",
+					"type": "string",
+					"actual": true,
+					"progress": 40
+				}
+			]
+		},
+		"users": {
+			"all": [
+				{
+					"id": 1,
+					"login": "admin",
+					"password": "admin",
+					"role": "admin",
+					"active": true
+				},
+				{
+					"id": 2,
+					"login": "user",
+					"password": "user",
+					"role": "user",
+					"active": true
+				},
+				{
+					"id": 3,
+					"login": "user2",
+					"password": "user2",
+					"role": "user",
+					"active": false
+				}
+			]
+		}
+	}
+}
