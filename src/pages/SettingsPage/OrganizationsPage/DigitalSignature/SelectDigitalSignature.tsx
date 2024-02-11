@@ -1,39 +1,29 @@
-import DigitalSignature, {
-	DigitalSignatureData,
-} from "components/DigitalSignature";
+import DigitalSignature from "components/DigitalSignature";
 import Helper from "components/Helper";
 import Button from "components/common/Button";
 import Card from "components/common/Card";
 import { useState } from "react";
 import EnterPassword from "./EnterPassword";
 import styles from "./SelectDigitalSignature.module.scss";
+import { RootState } from "store/rootState";
+import { useSelector } from "react-redux";
+import { IDigitalSignature } from "store/digitalSignaturesSlice";
 
 const SelectDigitalSignature = () => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [selectedSignature, setSelectedSignature] =
-		useState<DigitalSignatureData>();
+		useState<IDigitalSignature>();
 
-	const handleSelect = (signature: DigitalSignatureData) => {
+	const handleSelect = (signature: IDigitalSignature) => {
 		setSelectedSignature(signature);
 		setIsEditing(true);
 	};
 
-	const data: DigitalSignatureData[] = [
-		{
-			id: 1,
-			title: "ЭЦП 1",
-			owner: "Иванов Иван Иванович",
-			org: "ООО “Название организации”",
-		},
-		{
-			id: 2,
-			title: "ЭЦП 2",
-			owner: "Иванов Иван Иванович",
-			org: "ООО “Название организации”",
-		},
-	];
+	const digitalSignatures = useSelector(
+		(state: RootState) => state.digitalSignatures.data
+	);
 
-	if (data.length === 0) {
+	if (digitalSignatures.length === 0) {
 		return (
 			<div className={styles.wrapper}>
 				<Card>
@@ -59,7 +49,7 @@ const SelectDigitalSignature = () => {
 				<EnterPassword data={selectedSignature} />
 			) : (
 				<div className={styles.grid_items}>
-					{data.map((item) => (
+					{digitalSignatures.map((item) => (
 						<DigitalSignature
 							onClick={() => handleSelect(item)}
 							key={item.id}

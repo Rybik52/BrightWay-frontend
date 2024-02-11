@@ -1,132 +1,50 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { RootState } from "store/rootState";
 import Button from "components/common/Button";
+import { deleteTask } from "store/tasksSlice";
 import ProcessBar from "components/common/ProcessBar";
 import Pagination from "components/common/Pagination";
 import { ArrowRightIcon, PencilIcon, TrashIcon } from "assets/IconsComponent";
 
+import EditTask from "./EditTask";
+import { formatDate } from "./utils";
+import DeleteTaskModal from "./DeleteTaskModal";
 import styles from "./Table.module.scss";
-
-const formatDate = (dateString: number): string => {
-	const options: Intl.DateTimeFormatOptions = {
-		year: "numeric",
-		month: "long",
-	};
-	const date = new Date(dateString);
-	const formattedDate = date.toLocaleDateString("ru", options);
-	return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-};
-
 interface TableProps {
 	isPagination?: boolean;
 }
 
-const index: FC<TableProps> = ({ isPagination }) => {
-	const mokeDate = [
-		{
-			id: 1,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 40,
-		},
-		{
-			id: 2,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 100,
-		},
-		{
-			id: 3,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 65,
-		},
-		{
-			id: 4,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 20,
-		},
-		{
-			id: 5,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 20,
-		},
-		{
-			id: 6,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 20,
-		},
-		{
-			id: 7,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 20,
-		},
-		{
-			id: 8,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 20,
-		},
-		{
-			id: 9,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 20,
-		},
-		{
-			id: 10,
-			date: Date.now(),
-			week: "16.11-23.11",
-			gtin: "GTIN",
-			party: "Партия",
-			type: "Отчет по выбытию ЛП",
-			dateOfCreate: Date.now(),
-			process: 20,
-		},
-	];
+const Index: FC<TableProps> = ({ isPagination }) => {
+	const dispatch = useDispatch();
+	const [deletedRows, setDeletedRows] = useState<number[]>([]);
+	const data = useSelector((state: RootState) => state.tasks.data);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [showEditModal, setShowEditModal] = useState(false);
+
+	const handleDelete = (id: number) => {
+		setShowDeleteModal(true);
+		setDeletedRows([...deletedRows, id]);
+
+		setInterval(() => {
+			dispatch(deleteTask(id));
+		}, 200);
+	};
 
 	return (
 		<>
+			<DeleteTaskModal
+				showModal={showDeleteModal}
+				setShowModal={setShowDeleteModal}
+			/>
+
+			<EditTask
+				showModal={showEditModal}
+				setShowModal={setShowEditModal}
+			/>
+
 			<div className={styles.table_wrapper}>
 				<table className={styles.table}>
 					<thead>
@@ -141,8 +59,15 @@ const index: FC<TableProps> = ({ isPagination }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{mokeDate.map((item) => (
-							<tr key={item.id}>
+						{data.map((item) => (
+							<tr
+								className={
+									deletedRows.includes(item.id)
+										? styles.deleting
+										: ""
+								}
+								key={item.id}
+							>
 								<td>{formatDate(item.date)}</td>
 								<td>{item.week}</td>
 								<td>{item.gtin}</td>
@@ -156,10 +81,22 @@ const index: FC<TableProps> = ({ isPagination }) => {
 								<td className={styles.table__progress}>
 									<ProcessBar percent={item.process} />
 									<span>
-										<Button variant="text">
+										<Button
+											title="Редактировать задание"
+											onClick={() =>
+												setShowEditModal(true)
+											}
+											variant="text"
+										>
 											<PencilIcon />
 										</Button>
-										<Button variant="text">
+										<Button
+											title="Удалить задание"
+											onClick={() =>
+												handleDelete(item.id)
+											}
+											variant="text"
+										>
 											<TrashIcon />
 										</Button>
 									</span>
@@ -183,4 +120,4 @@ const index: FC<TableProps> = ({ isPagination }) => {
 	);
 };
 
-export default index;
+export default Index;

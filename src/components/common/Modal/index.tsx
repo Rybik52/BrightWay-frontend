@@ -24,6 +24,11 @@ const Index: FC<ModalProps> = ({
 }) => {
 	const modalRef = useRef<HTMLDivElement>(null);
 	const modalStyles = { [styles.wrapper]: true, [styles.hidden]: !showModal };
+
+	const contentStyles = {
+		[styles.content]: true,
+		[styles.hidden]: !showModal,
+	};
 	const navigate = useNavigate();
 
 	const handleClose = () => {
@@ -81,7 +86,7 @@ const Index: FC<ModalProps> = ({
 
 	return (
 		<div className={classNames(modalStyles)} ref={modalRef}>
-			<div className={styles.content}>
+			<div className={classNames(contentStyles)}>
 				{exitButton && (
 					<button className={styles.close} onClick={handleClose}>
 						<CloseIcon />

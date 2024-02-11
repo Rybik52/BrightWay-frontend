@@ -4,30 +4,43 @@ import Card from "components/common/Card";
 import Modal from "components/common/Modal";
 import styles from "components/OrganizationCard/OrganizationCard.module.scss";
 import { FC, useState } from "react";
-
-interface DigitalSignatureCardData {
-	ownerName: string;
-	INN: number;
-	type: string;
-	date: string;
-	auth: string;
-	orgTitle: string;
-}
+import { useDispatch } from "react-redux";
+import {
+	deleteDigitalSignature,
+	IDigitalSignature,
+} from "store/digitalSignaturesSlice";
 
 interface DigitalSignatureCardProps {
-	data: DigitalSignatureCardData;
+	data: IDigitalSignature;
 }
 
 const Index: FC<DigitalSignatureCardProps> = ({ data }) => {
+	const dispatch = useDispatch();
 	const [showModal, setShowModal] = useState(false);
-	const { ownerName, INN, type, date, auth, orgTitle } = data;
+	const { id, ownerName, INN, type, date, auth, orgTitle } = data;
+
+	const handleDelete = (id: number) => {
+		dispatch(deleteDigitalSignature(id));
+		setShowModal(false);
+	};
 
 	return (
 		<Card>
 			<Modal showModal={showModal} setShowModal={setShowModal} exitButton>
-				<h3>Данные будут удалены. Вы уверены?</h3>
+				<div>
+					<h3>ЭЦП будет удалена. Вы уверены?</h3>
+					<p>
+						Пользоваться сервисом без ЭЦП нельзя, вам необходимо
+						будет добавить новую подпись
+					</p>
+				</div>
 				<div className={styles.card_modal}>
-					<Button variant="contained">Удалить</Button>
+					<Button
+						onClick={() => handleDelete(id)}
+						variant="contained"
+					>
+						Удалить
+					</Button>
 					<Button
 						onClick={() => setShowModal(!showModal)}
 						variant="outlined"

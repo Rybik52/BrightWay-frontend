@@ -1,6 +1,31 @@
 @import "variables/index.scss";
 
+.modal {
+	h3 {
+		margin-bottom: 1rem;
+	}
+
+	&__inputs {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	&__radios {
+		display: flex;
+		gap: 1rem;
+		padding-block: 2rem;
+	}
+
+	&__buttons {
+		margin-top: 2rem;
+		display: flex;
+		gap: 1rem;
+	}
+}
+
 .table_wrapper {
+	padding-right: 0.5rem;
 	overflow-y: auto;
 	min-width: 90%;
 	height: inherit;
@@ -20,6 +45,12 @@
 			align-items: center;
 			justify-content: space-between;
 			gap: 1rem;
+		}
+
+		.deleting {
+			transition: all 200ms ease-out;
+			opacity: 0.5;
+			scale: 0;
 		}
 
 		thead,

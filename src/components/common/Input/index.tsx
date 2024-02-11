@@ -1,4 +1,4 @@
-import { FC, forwardRef, InputHTMLAttributes, useState } from "react";
+import { FC, forwardRef, InputHTMLAttributes, useId, useState } from "react";
 
 import EyeOpenedIcon from "assets/eye-opened.svg";
 import EyeClosedIcon from "assets/eye-closed.svg";
@@ -13,6 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 	({ label, isValidated, type, ...rest }, ref) => {
+		const id = useId();
 		const [isFocused, setIsFocused] = useState(false);
 		const [icon, setIcon] = useState(EyeClosedIcon);
 
@@ -34,13 +35,13 @@ const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 		return (
 			<>
 				{!!label && (
-					<label className={styles.label} htmlFor={label}>
+					<label className={styles.label} htmlFor={id}>
 						{label}
 					</label>
 				)}
 				<div className={classNames(inputClasses)}>
 					<input
-						id={label ?? undefined}
+						id={id}
 						{...rest}
 						onFocus={() => setIsFocused(true)}
 						onBlur={() => setIsFocused(false)}
@@ -48,15 +49,13 @@ const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 						ref={ref}
 					/>
 					{type === "password" && (
-						<span
+						<button
+							type="button"
 							className={styles.eye}
-							tabIndex={0}
-							role="button"
-							onKeyDown={handleToggle}
 							onClick={handleToggle}
 						>
 							<img src={icon} alt={`Иконка ${icon}`} />
-						</span>
+						</button>
 					)}
 				</div>
 			</>

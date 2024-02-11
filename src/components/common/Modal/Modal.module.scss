@@ -1,3 +1,5 @@
+@import "variables/index.scss";
+
 .wrapper {
 	position: fixed;
 	top: 0;
@@ -19,10 +21,17 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		background-color: #fff;
+		background-color: $modal-bg;
 		padding: 3rem;
 		border-radius: 6px;
 		z-index: 20;
+		transition: all 0.2s ease-out;
+
+		&.hidden {
+			opacity: 0;
+			scale: 0;
+			pointer-events: none;
+		}
 
 		.close {
 			border: none;

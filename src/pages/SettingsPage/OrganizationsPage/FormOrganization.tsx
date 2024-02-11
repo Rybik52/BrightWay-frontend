@@ -6,7 +6,7 @@ import styles from "./Organizations.module.scss";
 import Button from "components/common/Button";
 import DropDown, { DropDownItem } from "components/common/DropDown";
 import SelectDigitalSignature from "./DigitalSignature/SelectDigitalSignature";
-import { OrganizationCardData } from "components/OrganizationCard";
+import { IOrganization } from "store/organizationsSlice";
 
 interface IFormInput {
 	user_id: string;
@@ -20,7 +20,7 @@ interface IFormInput {
 
 interface AddOrganizationProps {
 	isEdit?: boolean;
-	data?: OrganizationCardData;
+	data?: IOrganization;
 }
 
 const FormOrganization: FC<AddOrganizationProps> = ({ isEdit, data }) => {

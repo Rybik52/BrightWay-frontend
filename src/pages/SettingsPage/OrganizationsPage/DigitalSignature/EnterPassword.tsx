@@ -2,18 +2,18 @@ import Button from "components/common/Button";
 import Card from "components/common/Card";
 import Input from "components/common/Input";
 import Modal from "components/common/Modal";
-import { DigitalSignatureData } from "components/DigitalSignature";
 import styles from "components/DigitalSignature/DigitalSignature.module.scss";
 import { FC, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { IDigitalSignature } from "store/digitalSignaturesSlice";
 
 interface EnterPasswordProps {
-	data?: DigitalSignatureData;
+	data?: IDigitalSignature;
 }
 
 const EnterPassword: FC<EnterPasswordProps> = ({ data }) => {
-	const { title, owner, org } = data!;
+	const { id, ownerName, orgTitle } = data!;
 	const [showModal, setShowModal] = useState(false);
 	const navigator = useNavigate();
 
@@ -53,12 +53,12 @@ const EnterPassword: FC<EnterPasswordProps> = ({ data }) => {
 			</Modal>
 			<Card>
 				<div className={styles.wrapper}>
-					<h3 className={styles.header}>{title}</h3>
+					<h3 className={styles.header}>{`Сертификат ${id}`}</h3>
 					<div className={styles.data}>
 						<span>Владелец</span>
-						<p>{owner}</p>
+						<p>{ownerName}</p>
 						<span>Организация</span>
-						<p>{org}</p>
+						<p>{orgTitle}</p>
 					</div>
 					<form
 						onSubmit={handleSubmit(onSubmit)}

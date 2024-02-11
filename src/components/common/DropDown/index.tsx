@@ -16,7 +16,7 @@ interface DropDownProps {
 	isValidated?: boolean;
 }
 
-const DropDown: FC<DropDownProps> = ({
+const Index: FC<DropDownProps> = ({
 	title,
 	items,
 	multiple,
@@ -86,12 +86,17 @@ const DropDown: FC<DropDownProps> = ({
 		[styles.error]: isValidated,
 	};
 
+	const listStyle = {
+		[styles.dd_list]: true,
+		[styles.dd_list__open]: isOpen,
+	};
+
 	return (
 		<div
 			className={classNames(wrapperStyle)}
 			tabIndex={0}
-			ref={dropDownRef}
 			role="button"
+			ref={dropDownRef}
 			onKeyDown={(e) => {
 				e.key === "Enter" && toggle();
 			}}
@@ -109,21 +114,20 @@ const DropDown: FC<DropDownProps> = ({
 					)}
 				</div>
 			</div>
-			{isOpen && (
-				<ul className={styles.dd_list}>
-					{items.map((item) => (
-						<li
-							key={item.id}
-							className={activeStyle(item)}
+			<ul className={classNames(listStyle)}>
+				{items.map((item) => (
+					<li key={item.id} className={activeStyle(item)}>
+						<button
+							type="button"
 							onClick={() => handleOnClick(item)}
 						>
-							<span>{item.value}</span>
-						</li>
-					))}
-				</ul>
-			)}
+							{item.value}
+						</button>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 };
 
-export default DropDown;
+export default Index;

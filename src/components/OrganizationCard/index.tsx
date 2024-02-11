@@ -4,32 +4,44 @@ import Card from "components/common/Card";
 import styles from "./OrganizationCard.module.scss";
 import { FC, useState } from "react";
 import Modal from "components/common/Modal";
-
-export interface OrganizationCardData {
-	organizationTitle: string;
-	organizationINN: number;
-	address: string;
-	ownerName: string;
-	ownerINN: number;
-}
+import { useDispatch } from "react-redux";
+import { IOrganization, deleteOrganization } from "store/organizationsSlice";
 
 interface OrganizationCardProps {
-	data: OrganizationCardData;
+	data: IOrganization;
 	onClick?: () => void;
 }
 
-const index: FC<OrganizationCardProps> = ({ data, onClick }) => {
-	const { organizationTitle, organizationINN, address, ownerName, ownerINN } =
-		data;
-		
+const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
+	const dispatch = useDispatch();
+
+	const {
+		id,
+		organizationTitle,
+		organizationINN,
+		address,
+		ownerName,
+		ownerINN,
+	} = data;
+
 	const [showModal, setShowModal] = useState(false);
+
+	const handleDelete = (id: number) => {
+		dispatch(deleteOrganization(id));
+		console.log("Удалено", id);
+	};
 
 	return (
 		<Card>
 			<Modal showModal={showModal} setShowModal={setShowModal} exitButton>
 				<h3>Данные будут удалены. Вы уверены?</h3>
 				<div className={styles.card_modal}>
-					<Button variant="contained">Удалить</Button>
+					<Button
+						onClick={() => handleDelete(id)}
+						variant="contained"
+					>
+						Удалить
+					</Button>
 					<Button
 						onClick={() => setShowModal(!showModal)}
 						variant="outlined"
@@ -86,4 +98,4 @@ const index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 	);
 };
 
-export default index;
+export default Index;

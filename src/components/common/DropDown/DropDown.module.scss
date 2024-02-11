@@ -1,14 +1,15 @@
 @import "variables/index.scss";
 
 .dd_wrapper {
+	width: 100%;
+	position: relative;
 	height: fit-content;
 	background-color: #fff;
 	border-radius: 6px;
-	padding: 1rem 1.5rem;
 	border: 1px solid transparent;
 
 	&:focus {
-		border: 1px solid $primary-color;
+		border-color: $primary-color;
 		outline: none;
 	}
 
@@ -22,6 +23,12 @@
 	}
 
 	.dd_header {
+		background-color: transparent;
+		border: none;
+		width: 100%;
+		position: relative;
+		z-index: 2;
+		padding: 1rem 0.5rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -51,27 +58,48 @@
 	}
 
 	.dd_list {
+		border-top: 0;
+		border-radius: 0 0 6px 6px;
+		position: absolute;
+		width: 100%;
+		height: 0;
+		overflow-y: auto;
+		background-color: inherit;
 		list-style: none;
+		z-index: 5;
+		top: 90%;
+		left: -1px;
+		pointer-events: none;
+		transition: all 200ms ease-out;
+
+		&__open {
+			height: 8rem;
+			border: 1px solid $primary-color;
+			pointer-events: all;
+		}
 
 		button {
 			all: unset;
+
 			&:focus {
 				border: 1px solid $primary-color;
 			}
 		}
 
 		&__item {
-			&__selected {
+			button {
+				all: unset;
+				width: 100%;
+			}
+
+			&__selected,
+			&:focus {
 				background-color: $active-page;
 			}
 
 			border-radius: 6px;
 			padding: 0.5rem;
 			cursor: pointer;
-
-			&:first-child {
-				margin-top: 0.5rem;
-			}
 
 			&:hover {
 				transition: all 200ms ease-out;

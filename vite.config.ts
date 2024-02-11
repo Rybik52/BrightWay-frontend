@@ -13,6 +13,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			components: "/src/components",
+			store: "/src/store",
 			pages: "/src/pages",
 			assets: "/src/assets",
 			variables: "/src/variables",

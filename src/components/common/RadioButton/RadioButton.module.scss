@@ -1,0 +1,11 @@
+.label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+
+	.input {
+		width: 24px;
+		height: 24px;
+	}
+}

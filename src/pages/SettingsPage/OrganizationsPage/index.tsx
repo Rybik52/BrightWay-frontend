@@ -1,40 +1,24 @@
-import OrganizationCard, {
-	OrganizationCardData,
-} from "components/OrganizationCard";
+import OrganizationCard from "components/OrganizationCard";
 import styles from "./Organizations.module.scss";
 import Card from "components/common/Card";
 
 import PlusIco from "assets/plus.svg?react";
 import { useState } from "react";
 import FormOrganization from "./FormOrganization";
+import { useSelector } from "react-redux";
+import { RootState } from "store/rootState"; // Путь зависит от вашей структуры проекта
+import { IOrganization } from "store/organizationsSlice";
 
 const Index = () => {
 	const [newOrganization, setNewOrganization] = useState(false);
-	const data = [
-		{
-			id: 1,
-			organizationTitle: "ООО “Название организации”",
-			organizationINN: 12345678902,
-			address: "656 000, г. Москва, ул. Иванова, 1В, офис 230",
-			ownerName: "Иванов Иван Иванович",
-			ownerINN: 12345678902,
-		},
-		{
-			id: 2,
-			organizationTitle: "ООО “Название организации”",
-			organizationINN: 12345678902,
-			address: "656 000, г. Москва, ул. Иванова, 1В, офис 230",
-			ownerName: "Иванов Иван Иванович",
-			ownerINN: 12345678902,
-		},
-	];
+	const data = useSelector((state: RootState) => state.organizations.data);
 
 	const [isEditing, setIsEditing] = useState(false);
 	const [selectedOrganization, setSelectedOrganization] = useState<
-		OrganizationCardData | undefined
-	>({} as OrganizationCardData);
+		IOrganization | undefined
+	>({} as IOrganization);
 
-	const handleEdit = (item: OrganizationCardData) => {
+	const handleEdit = (item: IOrganization) => {
 		setIsEditing(!isEditing);
 		setSelectedOrganization(item);
 	};

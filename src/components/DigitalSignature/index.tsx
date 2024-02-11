@@ -2,30 +2,23 @@ import Card from "components/common/Card";
 import styles from "./DigitalSignature.module.scss";
 import { FC } from "react";
 import Button from "components/common/Button";
-
-export interface DigitalSignatureData {
-	id: number;
-	title: string;
-	owner: string;
-	org: string;
-}
-
+import { DigitalSignature } from "store/digitalSignaturesSlice";
 interface DigitalSignatureProps {
-	data: DigitalSignatureData;
+	data: DigitalSignature;
 	onClick: () => void;
 }
 
 const index: FC<DigitalSignatureProps> = ({ data, onClick }) => {
-	const { title, owner, org } = data;
+	const { id, ownerName, orgTitle } = data;
 	return (
 		<Card>
 			<div className={styles.wrapper}>
-				<h3 className={styles.header}>{title}</h3>
+				<h3 className={styles.header}>{`Сертификат ${id}`}</h3>
 				<div className={styles.data}>
 					<span>Владелец</span>
-					<p>{owner}</p>
+					<p>{ownerName}</p>
 					<span>Организация</span>
-					<p>{org}</p>
+					<p>{orgTitle}</p>
 				</div>
 				<Button onClick={onClick} variant="contained">
 					Выбрать
