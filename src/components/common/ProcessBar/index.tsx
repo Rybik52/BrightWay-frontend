@@ -10,7 +10,16 @@ const index: FC<ProcessBarProps> = ({ percent }) => {
 		console.error(
 			`Значение percent должно быть в диапазоне от 0 до 100. Сейчас percent = ${percent}`
 		);
-		return null; // Или можно вернуть компонент-заглушку или другое значение по умолчанию
+		return (
+			<div className={styles.process}>
+				<div
+					className={styles.process__bg}
+					style={{ width: `100%`, backgroundColor: "#ec4d3a" }}
+				>
+					Ошибка
+				</div>
+			</div>
+		);
 	}
 
 	return (
@@ -19,7 +28,7 @@ const index: FC<ProcessBarProps> = ({ percent }) => {
 				className={styles.process__bg}
 				style={{ width: `${percent}%` }}
 			>
-				{percent === 100 ? "Завершено" : percent + "%"}
+				{percent === 100 ? "Завершено" : percent >= 30 && percent + "%"}
 			</div>
 		</div>
 	);

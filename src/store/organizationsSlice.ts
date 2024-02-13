@@ -34,4 +34,5 @@ const organizationsSlice = createSlice({
 
 export const { addOrganization, deleteOrganization } =
 	organizationsSlice.actions;
+
 export default organizationsSlice.reducer;

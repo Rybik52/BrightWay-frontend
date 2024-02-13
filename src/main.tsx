@@ -1,93 +1,72 @@
-import { FC } from "react";
+import { Provider } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
+import { store } from "store/store";
 import HomePage from "pages/HomePage";
 import LoginPage from "pages/LoginPage";
 import TasksPage from "pages/TasksPage";
 import NoticesPage from "pages/NoticesPage";
 import ReportsPage from "pages/ReportsPage";
-import SupportPage from "pages/SupportPage";
 import { createRoot } from "react-dom/client";
-import Layout from "components/common/Layout";
+import NotFoundPage from "pages/NotFoundPage";
 import SettingsPage from "pages/SettingsPage";
 import ProfilePage from "pages/SettingsPage/ProfilePage";
+import ProtectedRoute from "components/Auth/ProtectedRoute";
+import { MainLayout, PlainLayout } from "components/common/Layout";
 import OrganizationsPage from "pages/SettingsPage/OrganizationsPage";
-import { Provider } from "react-redux";
-import { store } from "store/store";
-
-import "./index.css";
 import DigitalSignaturePage from "pages/SettingsPage/DigitalSignaturePage";
 
-interface ProtectedRouteProps {
-	element: JSX.Element;
-}
+import "./index.css";
+import SupportPage from "pages/SupportPage";
 
-const isAuthenticated = () => {
-	return true;
-};
-
-const ProtectedRoute: FC<ProtectedRouteProps> = ({ element }) => {
-	// Проверяем, аутентифицирован ли пользователь
-	return isAuthenticated() ? element : <Navigate to="/login" />;
-};
+const router = createBrowserRouter([
+	{
+		path: "/login",
+		element: (
+			<PlainLayout>
+				<LoginPage />
+			</PlainLayout>
+		),
+	},
+	{
+		path: "*",
+		element: (
+			<PlainLayout>
+				<NotFoundPage />
+			</PlainLayout>
+		),
+	},
+	{
+		path: "/",
+		element: (
+			<ProtectedRoute>
+				<MainLayout />
+			</ProtectedRoute>
+		),
+		children: [
+			{ index: true, element: <HomePage /> },
+			{ path: "notices", element: <NoticesPage /> },
+			{ path: "tasks", element: <TasksPage /> },
+			{ path: "reports", element: <ReportsPage /> },
+			{
+				path: "settings",
+				element: <SettingsPage />,
+				children: [
+					{ path: "profile", element: <ProfilePage /> },
+					{ path: "organizations", element: <OrganizationsPage /> },
+					{
+						path: "digitalSignature",
+						element: <DigitalSignaturePage />,
+					},
+				],
+			},
+			{ path: "support", element: <SupportPage /> },
+		],
+	},
+]);
 
 createRoot(document.getElementById("root")!).render(
 	<Provider store={store}>
-		<BrowserRouter>
-			<Layout>
-				<Routes>
-					<Route path="/login" element={<LoginPage />} />
-					<Route
-						path="/home"
-						element={<ProtectedRoute element={<HomePage />} />}
-					/>
-					<Route
-						path="/notices"
-						element={<ProtectedRoute element={<NoticesPage />} />}
-					/>
-					<Route
-						path="/tasks"
-						element={<ProtectedRoute element={<TasksPage />} />}
-					/>
-					<Route
-						path="/reports"
-						element={<ProtectedRoute element={<ReportsPage />} />}
-					/>
-					<Route
-						path="/settings/*"
-						element={
-							<ProtectedRoute
-								element={
-									<Routes>
-										<Route
-											path="/"
-											element={<SettingsPage />}
-										/>
-										<Route
-											path="/profile"
-											element={<ProfilePage />}
-										/>
-										<Route
-											path="/organizations"
-											element={<OrganizationsPage />}
-										/>
-										<Route
-											path="/digitalSignature"
-											element={<DigitalSignaturePage />}
-										/>
-									</Routes>
-								}
-							/>
-						}
-					/>
-					<Route
-						path="/support"
-						element={<ProtectedRoute element={<SupportPage />} />}
-					/>
-					<Route path="*" element={<Navigate to="/login" />} />
-				</Routes>
-			</Layout>
-		</BrowserRouter>
+		<RouterProvider router={router} />
 	</Provider>
 );

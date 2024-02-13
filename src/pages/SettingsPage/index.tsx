@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 import Card from "components/common/Card";
 import {
@@ -11,6 +11,8 @@ import {
 import styles from "./SettingsPage.module.scss";
 
 const Index = () => {
+	const location = useLocation();
+
 	const data = [
 		{
 			title: "Данные аккаунта",
@@ -37,38 +39,43 @@ const Index = () => {
 			link: "mailto:support@brighttech.ru",
 		},
 	];
-	return (
-		<>
-			<h1>Настройки</h1>
-			<div className={styles.wrapper}>
-				{data.map((item, index) => (
-					<Link key={index} to={item.link}>
-						<Card>
-							<div className={styles.container}>
-								{item.icon}
-								<div className={styles.container__content}>
-									<h3
-										className={
-											styles.container__content_title
-										}
-									>
-										{item.title}
-									</h3>
-									<p
-										className={
-											styles.container__content_text
-										}
-									>
-										{item.text}
-									</p>
+
+	const Links = () => {
+		return (
+			<>
+				<h1>Настройки</h1>
+				<div className={styles.wrapper}>
+					{data.map((item, index) => (
+						<Link key={index} to={item.link}>
+							<Card>
+								<div className={styles.container}>
+									{item.icon}
+									<div className={styles.container__content}>
+										<h3
+											className={
+												styles.container__content_title
+											}
+										>
+											{item.title}
+										</h3>
+										<p
+											className={
+												styles.container__content_text
+											}
+										>
+											{item.text}
+										</p>
+									</div>
 								</div>
-							</div>
-						</Card>
-					</Link>
-				))}
-			</div>
-		</>
-	);
+							</Card>
+						</Link>
+					))}
+				</div>
+			</>
+		);
+	};
+
+	return location.pathname === "/settings" ? <Links /> : <Outlet />;
 };
 
 export default Index;

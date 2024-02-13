@@ -1,9 +1,10 @@
-import { ButtonHTMLAttributes, FC, ReactNode } from "react";
+import { ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 import styles from "./Button.module.scss";
 import classNames from "classnames";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children: string | ReactNode;
+interface ButtonProps
+	extends ButtonHTMLAttributes<HTMLButtonElement>,
+		PropsWithChildren {
 	variant: "outlined" | "contained" | "light" | "text";
 }
 

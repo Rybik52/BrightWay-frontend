@@ -1,27 +1,24 @@
-import { FC, ReactNode } from "react";
-import { useLocation } from "react-router-dom";
+import { FC, PropsWithChildren } from "react";
 import styles from "./Layout.module.scss";
 import Sidebar from "components/Sidebar";
+import { Outlet } from "react-router-dom";
 
-interface LayoutProps {
-	children: ReactNode;
-}
-
-const Index: FC<LayoutProps> = ({ children }) => {
-	const location = useLocation();
-
-	const isLoginPage = location.pathname === "/login";
-
-	if (isLoginPage) {
-		return <div className={styles.container}>{children}</div>;
-	}
-
+export const MainLayout = () => {
 	return (
 		<div className={styles.wrapper}>
 			<Sidebar />
-			<div className={styles.container}>{children}</div>
+			<div className={styles.container}>
+				<Outlet />
+			</div>
 		</div>
 	);
 };
 
-export default Index;
+export const PlainLayout: FC<PropsWithChildren> = ({ children }) => {
+	return <div className={styles.wrapper}>{children}</div>;
+};
+
+
+// export const SettingsLayout = () => {
+// 	return
+// }

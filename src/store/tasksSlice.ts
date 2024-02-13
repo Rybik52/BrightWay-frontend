@@ -9,7 +9,7 @@ interface ITasksItem {
 	party: string;
 	type: string;
 	dateOfCreate: number;
-	process: number;
+	progress: number;
 }
 
 interface TasksState {

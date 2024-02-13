@@ -7,10 +7,13 @@
 	border-radius: 4px;
 	background-color: $active-page;
 	width: 110px;
-	height: fit-content;
+	height: 2rem;
 
 	&__bg {
-		padding: 0.25rem;
+		height: inherit;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		border-radius: inherit;
 		text-align: center;
 		background-color: $primary-color;

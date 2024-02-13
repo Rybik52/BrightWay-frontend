@@ -34,7 +34,7 @@ export const fakeTasksData = [
 		party: "Партия",
 		type: "Отчет по выбытию ЛП",
 		dateOfCreate: Date.now(),
-		process: 40,
+		progress: 40,
 	},
 	{
 		id: 2,
@@ -44,7 +44,7 @@ export const fakeTasksData = [
 		party: "Партия",
 		type: "Отчет по выбытию ЛП",
 		dateOfCreate: Date.now(),
-		process: 100,
+		progress: 100,
 	},
 	{
 		id: 3,
@@ -54,7 +54,7 @@ export const fakeTasksData = [
 		party: "Партия",
 		type: "Отчет по выбытию ЛП",
 		dateOfCreate: Date.now(),
-		process: 65,
+		progress: 65,
 	},
 	{
 		id: 4,
@@ -64,7 +64,7 @@ export const fakeTasksData = [
 		party: "Партия",
 		type: "Отчет по выбытию ЛП",
 		dateOfCreate: Date.now(),
-		process: 20,
+		progress: 30,
 	},
 	{
 		id: 5,
@@ -74,7 +74,7 @@ export const fakeTasksData = [
 		party: "Партия",
 		type: "Отчет по выбытию ЛП",
 		dateOfCreate: Date.now(),
-		process: 20,
+		progress: 20,
 	},
 	{
 		id: 6,
@@ -84,6 +84,6 @@ export const fakeTasksData = [
 		party: "Партия",
 		type: "Отчет по выбытию ЛП",
 		dateOfCreate: Date.now(),
-		process: 20,
+		progress: 20,
 	},
 ];

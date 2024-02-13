@@ -11,7 +11,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Modal from "components/common/Modal";
 import { useNavigate } from "react-router-dom";
 
-const index = () => {
+const Index = () => {
 	const navigate = useNavigate();
 
 	const [isVisible, setIsVisible] = useState(false);
@@ -146,4 +146,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;
