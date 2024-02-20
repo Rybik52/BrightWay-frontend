@@ -1,10 +1,13 @@
 import { FC, FormEvent, useState } from "react";
-import DropDown from "components/common/DropDown";
+import DropDown, { DropDownItem } from "components/common/DropDown";
 import styles from "./Table.module.scss";
 import Button from "components/common/Button";
 import Input from "components/common/Input";
 import Modal from "components/common/Modal";
 import RadioButton from "components/common/RadioButton";
+import { RootState } from "store/rootState";
+import { useSelector } from "react-redux";
+import WeekPicker from "components/common/WeekPicker";
 
 interface EditTaskProps {
 	showModal: boolean;
@@ -13,6 +16,32 @@ interface EditTaskProps {
 
 const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 	const [type, setType] = useState("month");
+	const [form, setForm] = useState({
+		year: "",
+		type: "month",
+		gtin: "",
+		batch: "",
+		organizations: "",
+		digitalSignatures: "",
+	});
+
+	const digitalSignatures = useSelector(
+		(state: RootState) => state.digitalSignatures.data
+	);
+
+	const organizations = useSelector(
+		(state: RootState) => state.organizations.data
+	);
+
+	const organizationsTitles: DropDownItem[] = organizations.map((item) => ({
+		id: item.id,
+		value: item.organizationTitle,
+	}));
+
+	const ownersNames: DropDownItem[] = digitalSignatures.map((item) => ({
+		id: item.id,
+		value: item.ownerName,
+	}));
 
 	const handleTypeChange = (e: FormEvent<HTMLInputElement>) => {
 		setType(e.currentTarget.value);
@@ -33,6 +62,8 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
+		(e.target as HTMLFormElement).reset();
+		console.log(form);
 	};
 
 	return (
@@ -54,17 +85,42 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 						checked={type === "week"}
 					/>
 				</div>
+
 				<div className={styles.modal__inputs}>
 					{type === "month" ? (
-						<Input type="month" />
+						<Input
+							type="month"
+							placeholder="Месяц"
+							title="Выбор Месяца"
+						/>
 					) : (
-						<Input type="week" />
+						// <Input
+						// 	type="week"
+						// 	placeholder="Неделя"
+						// 	title="Выбор Недели"
+						// />
+						<WeekPicker />
 					)}
-					<Input type="text" placeholder="GTIN препарата*" />
-					<Input type="text" placeholder="Партия препарата*" />
-					<DropDown title="Отчет по выгрузке" items={years} />
-					<DropDown title="Организация*" items={uploadReport} />
-					<DropDown title="ЭЦП*" items={years} />
+					<Input
+						type="text"
+						placeholder="GTIN препарата*"
+						onChange={(e) =>
+							setForm({ ...form, gtin: e.target.value })
+						}
+					/>
+					<Input
+						type="text"
+						placeholder="Партия препарата*"
+						onChange={(e) =>
+							setForm({ ...form, batch: e.target.value })
+						}
+					/>
+					<DropDown title="Отчет по выгрузке" items={uploadReport} />
+					<DropDown
+						title="Организация*"
+						items={organizationsTitles}
+					/>
+					<DropDown title="ЭЦП*" items={ownersNames} />
 				</div>
 				<div className={styles.modal__buttons}>
 					<Button type="submit" variant="contained">

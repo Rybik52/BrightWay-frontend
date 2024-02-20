@@ -1,0 +1,50 @@
+.rs-calendar-table-cell:nth-child(7),
+.rs-calendar-table-cell:nth-child(8) {
+	color: #ec4d3a;
+}
+
+.rs-calendar-table-header-row {
+	text-transform: uppercase;
+}
+
+.rs-calendar-table-header-cell:nth-child(7)
+	> .rs-calendar-table-header-cell-content,
+.rs-calendar-table-header-cell:nth-child(8)
+	> .rs-calendar-table-header-cell-content {
+	color: #ec4d3a;
+}
+
+.rs-calendar-table-row:hover .rs-calendar-table-cell-content {
+	background-color: var(--rs-state-hover-bg);
+}
+.rs-picker-popup {
+	z-index: 20;
+	width: inherit;
+}
+
+.rs-stack-item {
+	width: 100%;
+}
+
+.datePicker {
+	width: 100%;
+}
+
+.rs-input {
+	padding: 22px 12px;
+	border: none;
+}
+
+.datePicker-weekInfo {
+	opacity: 0;
+	transition: opacity 0.3s ease-out;
+}
+
+.rs-input-group {
+	border: none;
+}
+
+.rs-input-group:focus-within,
+.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus {
+	outline: 1px solid #3f88e9;
+}

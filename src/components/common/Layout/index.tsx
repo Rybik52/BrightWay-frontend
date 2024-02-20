@@ -15,10 +15,5 @@ export const MainLayout = () => {
 };
 
 export const PlainLayout: FC<PropsWithChildren> = ({ children }) => {
-	return <div className={styles.wrapper}>{children}</div>;
+	return <div className={styles.container}>{children}</div>;
 };
-
-
-// export const SettingsLayout = () => {
-// 	return
-// }

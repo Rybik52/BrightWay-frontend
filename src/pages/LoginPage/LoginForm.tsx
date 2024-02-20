@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -7,17 +7,19 @@ import Input from "components/common/Input";
 import Button from "components/common/Button";
 
 import styles from "./LoginPage.module.scss";
+import { useLoginMutation } from "store/api";
 
 interface LoginFormProps {
 	toggleForm: (isVisible: boolean) => void;
 }
 interface IFormInput {
-	email: string;
+	username: string;
 	password: string;
 }
 
 const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 	const navigate = useNavigate();
+	const [login, { isError, isLoading, }] = useLoginMutation();
 
 	const {
 		register,
@@ -27,34 +29,44 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		// TODO: Добавить логику для обработки входа пользователя
-
-		console.log(data);
-		navigate("/home");
+		login(data);
 	};
+	const cookies = document.cookie;
+	console.log(cookies);
+	
+
+		useEffect(() => {
+			if (cookies) {
+				navigate("/home");
+			}
+		}, [cookies, navigate]);
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<h1>Вход в личный кабинет</h1>
+			{isError && <p className={styles.error}>Ошибка в авторизации</p>}
 			<div className={styles.form__inputs_container}>
 				<Input
-					{...register("email", {
+					disabled={isLoading}
+					{...register("username", {
 						required: "Это обязательное поле*",
 						pattern: {
 							value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
 							message: "Неверный email*",
 						},
 					})}
-					aria-invalid={errors.email ? "true" : "false"}
-					isValidated={!!errors.email}
+					aria-invalid={errors.username ? "true" : "false"}
+					isValidated={!!errors.username}
 					placeholder="Введите email*"
 					type="text"
 				/>
-				{errors.email && (
+				{errors.username && (
 					<p className={styles.error} role="alert">
-						{errors.email.message}
+						{errors.username.message}
 					</p>
 				)}
 				<Input
+					disabled={isLoading}
 					{...register("password", {
 						required: "Это обязательное поле*",
 					})}
@@ -70,6 +82,7 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 				)}
 			</div>
 			<Button
+				disabled={isLoading}
 				style={{ alignSelf: "center", marginTop: "2.5rem" }}
 				type="submit"
 				variant="contained"

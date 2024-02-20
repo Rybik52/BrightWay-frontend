@@ -64,6 +64,10 @@ const Index: FC<DropDownProps> = ({
 		if (onChange) {
 			onChange(newSelectedItems);
 		}
+
+		if (!multiple) {
+			setIsOpen(false);
+		}
 	};
 
 	const isItemInSelection = (item: DropDownItem) =>
@@ -77,9 +81,11 @@ const Index: FC<DropDownProps> = ({
 	};
 
 	const displayText =
-		selectedItems.length > 0
-			? selectedItems.map((item: DropDownItem) => item.value).join(", ")
-			: title;
+		selectedItems.length > 0 ? (
+			selectedItems.map((item: DropDownItem) => item.value).join(", ")
+		) : (
+			<span className={styles.dd_header__placeholder}>{title}</span>
+		);
 
 	const wrapperStyle = {
 		[styles.dd_wrapper]: true,
@@ -95,7 +101,7 @@ const Index: FC<DropDownProps> = ({
 		<div
 			className={classNames(wrapperStyle)}
 			tabIndex={0}
-			role="button"
+			role="open-dropdown"
 			ref={dropDownRef}
 			onKeyDown={(e) => {
 				e.key === "Enter" && toggle();

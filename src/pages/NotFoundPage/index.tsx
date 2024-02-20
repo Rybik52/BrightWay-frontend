@@ -12,7 +12,7 @@ const index = () => {
 					Возможно страница была удалена, или вы набрали неверный
 					адрес
 				</p>
-				<NavLink to="/">
+				<NavLink to="/home">
 					<Button variant="contained">Вернуться на главную</Button>
 				</NavLink>
 			</div>
