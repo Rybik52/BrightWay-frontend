@@ -18,6 +18,8 @@ import DigitalSignaturePage from "pages/SettingsPage/DigitalSignaturePage";
 
 import "./index.css";
 import SupportPage from "pages/SupportPage";
+import CustomProvider from "rsuite/esm/CustomProvider/CustomProvider";
+import { ruRU } from "rsuite/esm/locales";
 
 const router = createBrowserRouter([
 	{
@@ -39,17 +41,25 @@ const router = createBrowserRouter([
 	{
 		path: "/",
 		element: (
+			<PlainLayout>
+				<LoginPage />
+			</PlainLayout>
+		),
+	},
+	{
+		path: "",
+		element: (
 			<ProtectedRoute>
 				<MainLayout />
 			</ProtectedRoute>
 		),
 		children: [
-			{ index: true, element: <HomePage /> },
-			{ path: "notices", element: <NoticesPage /> },
-			{ path: "tasks", element: <TasksPage /> },
-			{ path: "reports", element: <ReportsPage /> },
+			{ path: "/home", element: <HomePage /> },
+			{ path: "/notices", element: <NoticesPage /> },
+			{ path: "/tasks", element: <TasksPage /> },
+			{ path: "/reports", element: <ReportsPage /> },
 			{
-				path: "settings",
+				path: "/settings",
 				element: <SettingsPage />,
 				children: [
 					{ path: "profile", element: <ProfilePage /> },
@@ -66,7 +76,9 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")!).render(
-	<Provider store={store}>
-		<RouterProvider router={router} />
-	</Provider>
+	<CustomProvider locale={ruRU}>
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
+	</CustomProvider>
 );

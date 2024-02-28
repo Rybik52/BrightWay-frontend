@@ -56,6 +56,7 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 				{errors.username && (
 					<p className={styles.error} role="alert">
 						{errors.username.message}
+						{errors.username.message}
 					</p>
 				)}
 				<Input
