@@ -56,9 +56,17 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 				</div>
 				<div className={styles.modal__inputs}>
 					{type === "month" ? (
-						<Input type="month" />
+						<Input
+							type="month"
+							title="Выбор месяца"
+							placeholder="Месяц*"
+						/>
 					) : (
-						<Input type="week" />
+						<Input
+							type="week"
+							title="Выбор недели"
+							placeholder="Неделя*"
+						/>
 					)}
 					<Input type="text" placeholder="GTIN препарата*" />
 					<Input type="text" placeholder="Партия препарата*" />

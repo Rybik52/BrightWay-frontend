@@ -2,9 +2,9 @@ import Card from "components/common/Card";
 import styles from "./DigitalSignature.module.scss";
 import { FC } from "react";
 import Button from "components/common/Button";
-import { DigitalSignature } from "store/digitalSignaturesSlice";
+import { IDigitalSignature } from "store/digitalSignaturesSlice";
 interface DigitalSignatureProps {
-	data: DigitalSignature;
+	data: IDigitalSignature;
 	onClick: () => void;
 }
 

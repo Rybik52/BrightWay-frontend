@@ -11,69 +11,139 @@ import {
 	ReportIcon,
 	SettingsIcon,
 	TasksIcon,
+	UserIcon,
 } from "assets/IconsComponent";
 
 import NavItem from "./NavItem";
 import styles from "./Sidebar.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "components/common/Modal";
 import Button from "components/common/Button";
+import { useGetUserByUsernameQuery } from "store/api";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	selectUser,
+	selectLoading,
+	selectError,
+	setUser,
+} from "store/userSlice";
+
+interface INavItem {
+	title: string;
+	icon: JSX.Element;
+	href: string;
+}
+
+const UserNavItems: INavItem[] = [
+	{
+		title: "Личный кабинет",
+		icon: <HomeIcon />,
+		href: "/home",
+	},
+	{
+		title: "Уведомления",
+		icon: <NoticeIcon />,
+		href: "/notices",
+	},
+	{
+		title: "Задания",
+		icon: <TasksIcon />,
+		href: "/tasks",
+	},
+	{
+		title: "Отчеты",
+		icon: <ReportIcon />,
+		href: "/reports",
+	},
+	{
+		title: "Настройки",
+		icon: <SettingsIcon />,
+		href: "/settings",
+	},
+	{
+		title: "Тех. поддержка",
+		icon: <HeadPhonesIcon />,
+		href: "/support",
+	},
+];
+
+const AdminNavItems: INavItem[] = [
+	{
+		title: "Пользователи",
+		icon: <UserIcon />,
+		href: "/notices",
+	},
+	{
+		title: "Уведомления",
+		icon: <NoticeIcon />,
+		href: "/notices",
+	},
+	{
+		title: "Настройки",
+		icon: <SettingsIcon />,
+		href: "/settings",
+	},
+	{
+		title: "Тех. поддержка",
+		icon: <HeadPhonesIcon />,
+		href: "/support",
+	},
+];
 
 const Index = () => {
+	const dispatch = useDispatch();
+	const user = useSelector(selectUser);
+	const loading = useSelector(selectLoading);
+	const error = useSelector(selectError);
 	const [showModal, setShowModal] = useState(false);
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
-	const NavItems = [
-		{
-			title: "Личный кабинет",
-			icon: <HomeIcon />,
-			href: "/home",
-		},
-		{
-			title: "Уведомления",
-			icon: <NoticeIcon />,
-			href: "/notices",
-		},
-		{
-			title: "Задания",
-			icon: <TasksIcon />,
-			href: "/tasks",
-		},
-		{
-			title: "Отчеты",
-			icon: <ReportIcon />,
-			href: "/reports",
-		},
-		{
-			title: "Настройки",
-			icon: <SettingsIcon />,
-			href: "/settings",
-		},
-
-		{
-			title: "Тех. поддержка",
-			icon: <HeadPhonesIcon />,
-			href: "/support",
-		},
-	];
 
 	const handelExit = () => {
 		setShowModal(!showModal);
 	};
+
+	// ?INFO временно получение пользователя
+	const { data, isError, isLoading } =
+		useGetUserByUsernameQuery("admin@admin.ru");
+
+	useEffect(() => {
+		if (data) {
+			dispatch(setUser(data));
+		}
+	}, [data, dispatch]);
+
+	let navItemsToRender: INavItem[] = [];
+	if (user !== null) {
+		if (user.role === "ROLE_ADMIN") {
+			navItemsToRender = AdminNavItems;
+		} else {
+			navItemsToRender = UserNavItems;
+		}
+	}
+
+	if (loading || isLoading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error || isError) {
+		return <div>Error: {error ?? "An error occurred"}</div>;
+	}
 
 	return (
 		<aside className={styles.wrapper}>
 			<div className={styles.padding}>
 				<img className={styles.logo} src={logo} alt="brightTech logo" />
 				<div className={styles.user}></div>
-				<UserStatus
-					isAdmin={false}
-					name={"Иванов Александр Михайлович"}
-				/>
+				{user !== null ? (
+					<UserStatus role={user.role} name={user.fullName} />
+				) : (
+					<div>Не удалось загрузить пользователя</div>
+				)}
 			</div>
 			<div className={styles.nav_container}>
 				<ul className={styles.nav_list}>
-					{NavItems.map((item, index) => (
+					{navItemsToRender.map((item, index) => (
 						<NavLink key={index} to={item.href}>
 							<li
 								className={classnames(styles.nav_list__item, {
