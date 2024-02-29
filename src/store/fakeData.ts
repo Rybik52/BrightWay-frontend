@@ -87,3 +87,9 @@ export const fakeTasksData = [
 		progress: 20,
 	},
 ];
+
+export const fakeUser = {
+	id: 1,
+	active: true,
+	
+}

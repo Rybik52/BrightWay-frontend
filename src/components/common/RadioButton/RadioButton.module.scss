@@ -1,3 +1,5 @@
+@import "variables/index.scss";
+
 .label {
 	display: flex;
 	align-items: center;
@@ -7,5 +9,6 @@
 	.input {
 		width: 24px;
 		height: 24px;
+		accent-color: $primary-color;
 	}
 }

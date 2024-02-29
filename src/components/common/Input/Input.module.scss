@@ -46,6 +46,7 @@
 		&[type="month"],
 		&[type="date"],
 		&::-webkit-datetime-edit {
+			accent-color: $primary-color;
 			width: 100%;
 			font-family: Inter, sans-serif;
 			font-weight: 400;

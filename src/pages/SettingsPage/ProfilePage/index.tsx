@@ -10,16 +10,18 @@ import styles from "./ProfilePage.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Modal from "components/common/Modal";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "store/userSlice";
 
 const Index = () => {
+	const user = useSelector(selectUser);
 	const navigate = useNavigate();
-
 	const [isVisible, setIsVisible] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
 	type Inputs = {
-		name: string;
-		email: string;
+		fullName: string;
+		username: string;
 	};
 
 	const {
@@ -74,25 +76,25 @@ const Index = () => {
 							className={styles.cards_container__card_form}
 						>
 							<Input
-								{...register("name", {
+								{...register("fullName", {
 									required: "Это обязательное поле*",
 								})}
 								label="Ваше ФИО"
 								type="name"
-								placeholder="Иванов Александр Михайлович"
-								isValidated={!!errors.name}
+								placeholder={user?.fullName}
+								isValidated={!!errors.fullName}
 							/>
 							<div
 								className={
 									styles.change_password__container__item_form__info
 								}
 							>
-								{errors.name && (
-									<span>{errors.name.message}</span>
+								{errors.fullName && (
+									<span>{errors.fullName.message}</span>
 								)}
 							</div>
 							<Input
-								{...register("email", {
+								{...register("username", {
 									required: "Это обязательное поле*",
 									pattern: {
 										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -100,17 +102,16 @@ const Index = () => {
 									},
 								})}
 								label="Ваш email"
-								type="email"
-								placeholder="Ваш email"
-								isValidated={!!errors.email}
+								placeholder={user?.username}
+								isValidated={!!errors.username}
 							/>
 							<div
 								className={
 									styles.change_password__container__item_form__info
 								}
 							>
-								{errors.email && (
-									<span>{errors.email.message}</span>
+								{errors.username && (
+									<span>{errors.username.message}</span>
 								)}
 							</div>
 							<Button type="submit" variant="contained">

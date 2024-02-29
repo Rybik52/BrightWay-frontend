@@ -1,18 +1,19 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from "store/rootState";
-import Button from "components/common/Button";
-import { deleteTask } from "store/tasksSlice";
-import ProcessBar from "components/common/ProcessBar";
-import Pagination from "components/common/Pagination";
 import { ArrowRightIcon, PencilIcon, TrashIcon } from "assets/IconsComponent";
+import Button from "components/common/Button";
+import Pagination from "components/common/Pagination";
+import ProcessBar from "components/common/ProcessBar";
+import { RootState } from "store/rootState";
+import { deleteTask, setData } from "store/tasksSlice";
 
-import EditTask from "./EditTask";
-import { formatDate } from "./utils";
+import { useGetQueueDataQuery } from "store/api";
 import DeleteTaskModal from "./DeleteTaskModal";
+import EditTask from "./EditTask";
 import styles from "./Table.module.scss";
+import { getMonthName } from "./utils";
 interface TableProps {
 	isPagination?: boolean;
 }
@@ -20,7 +21,7 @@ interface TableProps {
 const Index: FC<TableProps> = ({ isPagination }) => {
 	const dispatch = useDispatch();
 	const [deletedRows, setDeletedRows] = useState<number[]>([]);
-	const data = useSelector((state: RootState) => state.tasks.data);
+	const tasks = useSelector((state: RootState) => state.tasks.data);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
 
@@ -32,6 +33,22 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 			dispatch(deleteTask(id));
 		}, 200);
 	};
+
+	const { data, isError, isLoading } = useGetQueueDataQuery({});
+
+	useEffect(() => {
+		if (data) {
+			dispatch(setData(data));
+		}
+	}, [data, dispatch]);
+
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
+
+	if (isError) {
+		return <div>Error: {isError} "An error occurred"</div>;
+	}
 
 	return (
 		<>
@@ -59,7 +76,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{data.map((item) => (
+						{tasks.map((item) => (
 							<tr
 								className={
 									deletedRows.includes(item.id)
@@ -68,16 +85,14 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 								}
 								key={item.id}
 							>
-								<td>{formatDate(item.date)}</td>
-								<td>{item.week}</td>
-								<td>{item.gtin}</td>
-								<td>{item.party}</td>
-								<td>{item.type}</td>
 								<td>
-									{new Date(
-										item.dateOfCreate
-									).toLocaleDateString("ru")}
+									{getMonthName(item.month)} {item.year}
 								</td>
+								<td>{item.week ?? "-"}</td>
+								<td>{item.gtin === "" ? "-" : item.gtin}</td>
+								<td>{item.batch === "" ? "-" : item.batch}</td>
+								<td>{item.type}</td>
+								<td>2w</td>
 								<td className={styles.table__progress}>
 									<ProcessBar percent={item.progress} />
 									<span>

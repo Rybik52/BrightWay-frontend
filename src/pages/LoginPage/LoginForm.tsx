@@ -1,13 +1,13 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useLoginMutation } from "store/api";
 
 import Input from "components/common/Input";
 import Button from "components/common/Button";
 
 import styles from "./LoginPage.module.scss";
-import { useLoginMutation } from "store/api";
 
 interface LoginFormProps {
 	toggleForm: (isVisible: boolean) => void;
@@ -19,7 +19,8 @@ interface IFormInput {
 
 const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 	const navigate = useNavigate();
-	const [login, { isError, isLoading, }] = useLoginMutation();
+
+	const [login, { isError, isLoading }] = useLoginMutation();
 
 	const {
 		register,
@@ -30,21 +31,13 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		// TODO: Добавить логику для обработки входа пользователя
 		login(data);
+		navigate("/");
 	};
-	const cookies = document.cookie;
-	console.log(cookies);
-	
-
-		useEffect(() => {
-			if (cookies) {
-				navigate("/home");
-			}
-		}, [cookies, navigate]);
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<h1>Вход в личный кабинет</h1>
-			{isError && <p className={styles.error}>Ошибка в авторизации</p>}
+			{isError && <p className={styles.error}>Ошибка авторизации</p>}
 			<div className={styles.form__inputs_container}>
 				<Input
 					disabled={isLoading}
@@ -62,6 +55,7 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 				/>
 				{errors.username && (
 					<p className={styles.error} role="alert">
+						{errors.username.message}
 						{errors.username.message}
 					</p>
 				)}
