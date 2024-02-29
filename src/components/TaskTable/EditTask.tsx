@@ -15,6 +15,12 @@ interface EditTaskProps {
 }
 
 const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
+	const [selectedWeek, setSelectedWeek] = useState(new Date());
+
+	const handleWeekChange = (week: Date) => {
+		setSelectedWeek(week);
+	};
+
 	const [type, setType] = useState("month");
 	const [form, setForm] = useState({
 		year: "",
@@ -94,15 +100,14 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 							title="Выбор Месяца"
 						/>
 					) : (
-						// <Input
-						// 	type="week"
-						// 	placeholder="Неделя"
-						// 	title="Выбор Недели"
-						// />
-						<WeekPicker />
+						<WeekPicker
+							selectedWeek={selectedWeek}
+							onWeekChange={handleWeekChange}
+						/>
 					)}
 					<Input
 						type="text"
+						readOnly
 						placeholder="GTIN препарата*"
 						onChange={(e) =>
 							setForm({ ...form, gtin: e.target.value })

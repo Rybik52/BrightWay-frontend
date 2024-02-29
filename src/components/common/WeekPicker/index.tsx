@@ -1,60 +1,49 @@
-import moment from "moment";
-import { useState } from "react";
-import { DatePicker, Stack } from "rsuite";
-import "rsuite/dist/rsuite-no-reset.min.css";
+import { FC, useState } from "react";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./WeekPicker.css";
+import Input from "../Input";
+import { Locale, endOfWeek, getWeek, startOfWeek, format } from "date-fns";
+import ru from "date-fns/locale/ru";
+registerLocale("ru", ru as unknown as Locale);
 
-interface WeekData {
-	data: Date | null;
-	dataFrom: Date | null;
-	dataTo: Date | null;
-	weekNumber: number | null;
+interface WeekPickerProps {
+	selectedWeek: Date;
+	onWeekChange: (date: Date) => void;
 }
 
-const Index: React.FC = () => {
-	const [weekData, setWeekData] = useState<WeekData>({
-		data: null,
-		dataFrom: null,
-		dataTo: null,
-		weekNumber: null,
-	});
+const Index: FC<WeekPickerProps> = () => {
+	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+	const [weekNumber, setWeekNumber] = useState<number | null>(null);
 
-	const handleWeekChange = (date: Date): void => {
-		const weekNumber: number = moment(date).isoWeek();
-		const dataFrom: Date = moment(date).startOf("isoWeek").toDate();
-		const dataTo: Date = moment(date).endOf("isoWeek").toDate();
-
-		setWeekData({
-			data: date,
-			dataFrom,
-			dataTo,
-			weekNumber,
-		});
+	const handleDateChange = (date: Date) => {
+		setSelectedDate(date);
+		setWeekNumber(getWeek(date));
 	};
 
 	return (
-		<Stack direction="column" alignItems="flex-start">
+		<>
 			<p
-				className="datePicker-weekInfo"
-				style={weekData.data != null ? { opacity: 1 } : undefined}
+				className={`react-datepicker__week-info ${
+					weekNumber && "visible"
+				}`}
 			>
-				{weekData.dataFrom?.toLocaleDateString("ru")}-
-				{weekData.dataTo?.toLocaleDateString("ru")} (
-				{weekData.weekNumber}-я Неделя)
+				{selectedDate &&
+					format(startOfWeek(selectedDate), "dd.MM.yyyy")}
+				-{selectedDate && format(endOfWeek(selectedDate), "dd.MM.yyyy")}{" "}
+				({weekNumber}-ая неделя)
 			</p>
 			<DatePicker
-				className="datePicker"
-				oneTap
-				value={weekData.data}
-				onChange={(value: Date | null) =>
-					handleWeekChange(value ?? new Date())
-				}
-				isoWeek
-				showWeekNumbers
-				format="dd.MM.yyyy"
-				placeholder="Неделя*"
+				fixedHeight
+				preventOpenOnFocus
+				placeholderText="Неделя*"
+				customInput={<Input type="text" />}
+				selected={selectedDate}
+				onChange={handleDateChange}
+				dateFormat="dd.MM.yyyy"
+				locale={"ru"}
 			/>
-		</Stack>
+		</>
 	);
 };
 

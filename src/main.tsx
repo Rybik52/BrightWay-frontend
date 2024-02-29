@@ -18,8 +18,6 @@ import DigitalSignaturePage from "pages/SettingsPage/DigitalSignaturePage";
 
 import "./index.css";
 import SupportPage from "pages/SupportPage";
-import CustomProvider from "rsuite/esm/CustomProvider/CustomProvider";
-import { ruRU } from "rsuite/esm/locales";
 
 const router = createBrowserRouter([
 	{
@@ -76,9 +74,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")!).render(
-	<CustomProvider locale={ruRU}>
-		<Provider store={store}>
-			<RouterProvider router={router} />
-		</Provider>
-	</CustomProvider>
+	<Provider store={store}>
+		<RouterProvider router={router} />
+	</Provider>
 );

@@ -1,50 +1,83 @@
-.rs-calendar-table-cell:nth-child(7),
-.rs-calendar-table-cell:nth-child(8) {
-	color: #ec4d3a;
+.react-datepicker {
+	font-family: "Inter", sans-serif;
+	border-color: #3f88e9;
 }
 
-.rs-calendar-table-header-row {
+.react-datepicker-popper {
+	z-index: 10;
+}
+
+.react-datepicker__triangle {
+	stroke: #3f88e9 !important;
+	fill: #fff !important;
+	color: #fff !important;
+}
+
+.react-datepicker__header,
+.react-datepicker__current-month {
+	text-transform: capitalize;
+	font-weight: 400;
+	color: #3f88e9;
+	fill: #3f88e9;
+	border: none;
+	background-color: #fff;
+}
+
+.react-datepicker__header {
+	padding-bottom: 0;
+}
+
+.react-datepicker__navigation-icon--next::before,
+.react-datepicker__navigation-icon--previous::before {
+	border-color: #3f88e9;
+	border-width: 2px 2px 0 0;
+}
+
+.react-datepicker__week {
+	border-radius: 0.2rem;
+	transition: 200ms background-color ease-out;
+}
+
+.react-datepicker__week:hover {
+	background-color: #f5f5f5;
+}
+
+.react-datepicker__day-names {
 	text-transform: uppercase;
 }
 
-.rs-calendar-table-header-cell:nth-child(7)
-	> .rs-calendar-table-header-cell-content,
-.rs-calendar-table-header-cell:nth-child(8)
-	> .rs-calendar-table-header-cell-content {
+.react-datepicker__day-name {
+	color: #8f9399;
+}
+
+.react-datepicker__day--selected {
+	background-color: #3f88e9;
+	border-radius: 0.2rem;
+	transition: 200ms background-color ease-out;
+}
+
+.react-datepicker__day--selected:hover {
+	background-color: #0265e8;
+	border-radius: inherit;
+}
+
+.react-datepicker__day-name:nth-child(6),
+.react-datepicker__day-name:nth-child(7),
+.react-datepicker__day:nth-child(6),
+.react-datepicker__day:nth-child(7) {
 	color: #ec4d3a;
 }
 
-.rs-calendar-table-row:hover .rs-calendar-table-cell-content {
-	background-color: var(--rs-state-hover-bg);
-}
-.rs-picker-popup {
-	z-index: 20;
-	width: inherit;
-}
-
-.rs-stack-item {
-	width: 100%;
-}
-
-.datePicker {
-	width: 100%;
-}
-
-.rs-input {
-	padding: 22px 12px;
-	border: none;
-}
-
-.datePicker-weekInfo {
+.react-datepicker__week-info {
+	margin-top: 0.5rem;
 	opacity: 0;
-	transition: opacity 0.3s ease-out;
+	transition: opacity 200ms ease-out;
 }
 
-.rs-input-group {
-	border: none;
+.visible {
+	opacity: 1;
 }
 
-.rs-input-group:focus-within,
-.rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus {
-	outline: 1px solid #3f88e9;
+.react-datepicker__tab-loop {
+	position: absolute;
 }
