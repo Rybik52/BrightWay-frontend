@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fakeTasksData } from "./fakeData";
 
 interface ITasksItem {
 	id: number;
-	date: number;
-	week: string;
-	gtin: string;
-	party: string;
+	year: number;
+	month: number;
+	week: number | null;
+	gtin: string | null;
+	batch: string;
 	type: string;
-	dateOfCreate: number;
 	progress: number;
 }
 
@@ -17,7 +16,18 @@ interface TasksState {
 }
 
 const initialState: TasksState = {
-	data: fakeTasksData,
+	data: [
+		{
+			id: 1,
+			year: 2022,
+			month: 12,
+			week: 12,
+			gtin: null,
+			batch: "",
+			type: "",
+			progress: 0,
+		},
+	],
 };
 
 const tasksSlice = createSlice({

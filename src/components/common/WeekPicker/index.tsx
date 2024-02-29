@@ -1,7 +1,7 @@
-import moment from "moment";
+// import moment from "moment";
 import { useState } from "react";
-import { DatePicker, Stack } from "rsuite";
-import "rsuite/dist/rsuite-no-reset.min.css";
+// import { DatePicker, Stack } from "rsuite";
+// import "rsuite/dist/rsuite-no-reset.min.css";
 import "./WeekPicker.css";
 
 interface WeekData {
@@ -32,30 +32,7 @@ const Index: React.FC = () => {
 		});
 	};
 
-	return (
-		<Stack direction="column" alignItems="flex-start">
-			<p
-				className="datePicker-weekInfo"
-				style={weekData.data != null ? { opacity: 1 } : undefined}
-			>
-				{weekData.dataFrom?.toLocaleDateString("ru")}-
-				{weekData.dataTo?.toLocaleDateString("ru")} (
-				{weekData.weekNumber}-я Неделя)
-			</p>
-			<DatePicker
-				className="datePicker"
-				oneTap
-				value={weekData.data}
-				onChange={(value: Date | null) =>
-					handleWeekChange(value ?? new Date())
-				}
-				isoWeek
-				showWeekNumbers
-				format="dd.MM.yyyy"
-				placeholder="Неделя*"
-			/>
-		</Stack>
-	);
+	return <div>d</div>;
 };
 
 export default Index;
