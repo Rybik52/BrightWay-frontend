@@ -15,6 +15,7 @@ import styles from "../Table.module.scss";
 import DeleteTaskModal from "./DeleteTaskModal";
 import EditTask from "./EditTask";
 import { getMonthName } from "./utils";
+import FetchError from "../FetchError";
 
 interface TableProps {
 	isPagination?: boolean;
@@ -49,14 +50,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 	}
 
 	if (isError) {
-		return (
-			<div>
-				<h2>Не удалось загрузить задания</h2>
-				<Button onClick={() => refetch()} variant="light">
-					Повторить попытку
-				</Button>
-			</div>
-		);
+		return <FetchError fetchName="задания" onClick={refetch} />;
 	}
 
 	const tasksElements = tasks.map((item) => (

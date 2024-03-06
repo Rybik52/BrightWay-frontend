@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface IUser {
-	id: number;
+export interface IUser {
+	id?: number;
 	fullName: string;
 	active: boolean;
 	role: "ROLE_ADMIN" | "ROLE_USER";

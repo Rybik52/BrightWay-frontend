@@ -24,6 +24,25 @@ export const queueApi = createApi({
 				method: "GET",
 			}),
 		}),
+		getUsersAll: builder.query({
+			query: () => ({
+				url: "api/users/all",
+				method: "GET",
+			}),
+		}),
+		addUser: builder.mutation({
+			query: ({ username, fullName, password }) => ({
+				url: "api/users/add",
+				method: "POST",
+				body: {
+					username,
+					fullName,
+					password,
+					active: true,
+					role: "ROLE_USER",
+				},
+			}),
+		}),
 	}),
 });
 
@@ -31,4 +50,6 @@ export const {
 	useGetQueueDataQuery,
 	useLoginMutation,
 	useGetUserByUsernameQuery,
+	useGetUsersAllQuery,
+	useAddUserMutation
 } = queueApi;

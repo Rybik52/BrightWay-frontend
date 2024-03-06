@@ -1,45 +1,28 @@
 import Button from "components/common/Button";
 import styles from "../Table.module.scss";
 import { ArrowPrevIcon } from "assets/IconsComponent";
+import { useGetUsersAllQuery } from "store/api";
+import FetchError from "../FetchError";
+import SpinLoader from "components/common/SpinLoader";
+import { IUser } from "store/userSlice";
 
-const index = () => {
-	const data = [
-		{
-			id: 1,
-			fullName: "Михаил Михайлов Михайлович",
-			username: "ivanov@mail.ru",
-			org: "ООО «Название компании»",
-			status: "Удален",
-		},
-		{
-			id: 2,
-			fullName: "Михаил Михайлов Михайлович",
-			username: "ivanov@mail.ru",
-			org: "ООО «Название компании»",
-			status: "Удален",
-		},
-		{
-			id: 3,
-			fullName: "Михаил Михайлов Михайлович",
-			username: "ivanov@mail.ru",
-			org: "ООО «Название компании»",
-			status: "Удален",
-		},
-		{
-			id: 4,
-			fullName: "Михаил Михайлов Михайлович",
-			username: "ivanov@mail.ru",
-			org: "ООО «Название компании»",
-			status: "Удален",
-		},
-	];
+const Index = () => {
+	const { data, isError, isLoading, refetch } = useGetUsersAllQuery({});
 
-	const usersElements = data.map((item) => (
+	if (isLoading) {
+		return <SpinLoader />;
+	}
+
+	if (isError) {
+		return <FetchError fetchName="пользователей" onClick={refetch} />;
+	}
+
+	const usersElements = data.map((item: IUser) => (
 		<tr key={item.id}>
 			<td>{item.fullName}</td>
 			<td>{item.username}</td>
-			<td>{item.org}</td>
-			<td>{item.status}</td>
+			<td>ООО «Название компании»</td>
+			<td>-</td>
 			<td>
 				<Button variant="contained" style={{ fontWeight: "normal" }}>
 					Войти в аккаунт
@@ -86,4 +69,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default Index;

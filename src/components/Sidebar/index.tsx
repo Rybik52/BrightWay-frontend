@@ -95,7 +95,7 @@ const Index = () => {
 
 	// ?INFO временно получение пользователя
 	const { data, isLoading, isError } =
-		useGetUserByUsernameQuery("user@user.ru");
+		useGetUserByUsernameQuery("admin@admin.ru");
 
 	useEffect(() => {
 		if (data) {
