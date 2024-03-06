@@ -8,11 +8,11 @@ import ru from "date-fns/locale/ru";
 registerLocale("ru", ru as unknown as Locale);
 
 interface WeekPickerProps {
-	selectedWeek: Date;
-	onWeekChange: (date: Date) => void;
+	isOpen: boolean;
+	onClick: () => void;
 }
 
-const Index: FC<WeekPickerProps> = () => {
+const Index: FC<WeekPickerProps> = ({ isOpen }) => {
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 	const [weekNumber, setWeekNumber] = useState<number | null>(null);
 
@@ -34,8 +34,7 @@ const Index: FC<WeekPickerProps> = () => {
 				({weekNumber}-ая неделя)
 			</p>
 			<DatePicker
-				fixedHeight
-				preventOpenOnFocus
+				open={isOpen}
 				placeholderText="Неделя*"
 				customInput={<Input type="text" />}
 				selected={selectedDate}

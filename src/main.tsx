@@ -18,6 +18,7 @@ import DigitalSignaturePage from "pages/SettingsPage/DigitalSignaturePage";
 
 import "./index.css";
 import SupportPage from "pages/SupportPage";
+import UsersPage from "pages/UsersPage";
 
 const router = createBrowserRouter([
 	{
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
 			{ path: "/notices", element: <NoticesPage /> },
 			{ path: "/tasks", element: <TasksPage /> },
 			{ path: "/reports", element: <ReportsPage /> },
+			{ path: "/users", element: <UsersPage /> },
 			{
 				path: "/settings",
 				element: <SettingsPage />,

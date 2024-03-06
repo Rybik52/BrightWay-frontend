@@ -86,8 +86,32 @@
 		}
 	}
 
+	&.cancel {
+		border-radius: 4px;
+		color: $inactive-color;
+		background-color: none;
+		border: 1px solid $inactive-color;
+
+		&:hover {
+			opacity: 0.7;
+		}
+
+		&:disabled {
+			color: $inactive-color;
+			border-color: $inactive-color;
+
+			* {
+				stroke: $inactive-color;
+			}
+		}
+	}
+
 	&:disabled {
 		cursor: not-allowed;
+
+		&:active {
+			box-shadow: none;
+		}
 	}
 
 	&:active {

@@ -9,11 +9,13 @@ import ProcessBar from "components/common/ProcessBar";
 import { RootState } from "store/rootState";
 import { deleteTask, setData } from "store/tasksSlice";
 
+import SpinLoader from "components/common/SpinLoader";
 import { useGetQueueDataQuery } from "store/api";
+import styles from "../Table.module.scss";
 import DeleteTaskModal from "./DeleteTaskModal";
 import EditTask from "./EditTask";
-import styles from "./Table.module.scss";
 import { getMonthName } from "./utils";
+
 interface TableProps {
 	isPagination?: boolean;
 }
@@ -34,7 +36,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 		}, 200);
 	};
 
-	const { data, isError, isLoading } = useGetQueueDataQuery({});
+	const { data, isError, isLoading, refetch } = useGetQueueDataQuery({});
 
 	useEffect(() => {
 		if (data) {
@@ -43,12 +45,54 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 	}, [data, dispatch]);
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return <SpinLoader />;
 	}
 
 	if (isError) {
-		return <div>Error: {isError} "An error occurred"</div>;
+		return (
+			<div>
+				<h2>Не удалось загрузить задания</h2>
+				<Button onClick={() => refetch()} variant="light">
+					Повторить попытку
+				</Button>
+			</div>
+		);
 	}
+
+	const tasksElements = tasks.map((item) => (
+		<tr
+			className={deletedRows.includes(item.id) ? styles.deleting : ""}
+			key={item.id}
+		>
+			<td>
+				{getMonthName(item.month)} {item.year}
+			</td>
+			<td>{item.week ?? "-"}</td>
+			<td>{item.gtin === "" ? "-" : item.gtin}</td>
+			<td>{item.batch === "" ? "-" : item.batch}</td>
+			<td>{item.type}</td>
+			<td>2w</td>
+			<td className={styles.table__progress}>
+				<ProcessBar percent={item.progress} />
+				<span>
+					<Button
+						title="Редактировать задание"
+						onClick={() => setShowEditModal(true)}
+						variant="text"
+					>
+						<PencilIcon />
+					</Button>
+					<Button
+						title="Удалить задание"
+						onClick={() => handleDelete(item.id)}
+						variant="text"
+					>
+						<TrashIcon />
+					</Button>
+				</span>
+			</td>
+		</tr>
+	));
 
 	return (
 		<>
@@ -75,50 +119,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 							<th>Прогресс</th>
 						</tr>
 					</thead>
-					<tbody>
-						{tasks.map((item) => (
-							<tr
-								className={
-									deletedRows.includes(item.id)
-										? styles.deleting
-										: ""
-								}
-								key={item.id}
-							>
-								<td>
-									{getMonthName(item.month)} {item.year}
-								</td>
-								<td>{item.week ?? "-"}</td>
-								<td>{item.gtin === "" ? "-" : item.gtin}</td>
-								<td>{item.batch === "" ? "-" : item.batch}</td>
-								<td>{item.type}</td>
-								<td>2w</td>
-								<td className={styles.table__progress}>
-									<ProcessBar percent={item.progress} />
-									<span>
-										<Button
-											title="Редактировать задание"
-											onClick={() =>
-												setShowEditModal(true)
-											}
-											variant="text"
-										>
-											<PencilIcon />
-										</Button>
-										<Button
-											title="Удалить задание"
-											onClick={() =>
-												handleDelete(item.id)
-											}
-											variant="text"
-										>
-											<TrashIcon />
-										</Button>
-									</span>
-								</td>
-							</tr>
-						))}
-					</tbody>
+					<tbody>{tasksElements}</tbody>
 				</table>
 			</div>
 			{isPagination ? (

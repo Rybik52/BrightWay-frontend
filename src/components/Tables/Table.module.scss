@@ -53,6 +53,23 @@
 			scale: 0;
 		}
 
+		&.left {
+			tr,
+			th {
+				text-align: left;
+			}
+
+			tr,
+			td {
+				text-align: left;
+				padding: 0 1rem;
+
+				&:has(button) {
+					padding: 0;
+				}
+			}
+		}
+
 		thead,
 		th {
 			position: sticky;
@@ -62,7 +79,7 @@
 
 		tr,
 		th {
-			padding: 1rem 1rem 1rem 0;
+			padding: 1rem;
 
 			background-color: $wrapper-bg;
 			font-size: 1rem;
@@ -90,8 +107,8 @@
 
 		tr {
 			transition: background-color 200ms ease-out;
-			border-radius: 6px;
-			border-bottom: 1px solid $wrapper-bg;
+			border-radius: 6px 0 0 6px;
+			border-bottom: 2px solid $wrapper-bg;
 
 			&:hover {
 				background-color: $wrapper-bg;

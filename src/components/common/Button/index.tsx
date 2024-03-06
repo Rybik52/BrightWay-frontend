@@ -5,7 +5,7 @@ import classNames from "classnames";
 interface ButtonProps
 	extends ButtonHTMLAttributes<HTMLButtonElement>,
 		PropsWithChildren {
-	variant: "outlined" | "contained" | "light" | "text";
+	variant: "outlined" | "contained" | "light" | "text" | "cancel";
 }
 
 const index: FC<ButtonProps> = ({ children, variant, ...rest }) => {
@@ -15,6 +15,7 @@ const index: FC<ButtonProps> = ({ children, variant, ...rest }) => {
 		[styles.contained]: variant === "contained",
 		[styles.light]: variant === "light",
 		[styles.text]: variant === "text",
+		[styles.cancel]: variant === "cancel",
 	};
 
 	return (

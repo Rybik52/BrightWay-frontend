@@ -1,5 +1,5 @@
 import Card from "components/common/Card";
-import TaskTable from "components/TaskTable";
+import TaskTable from "components/Tables/Tasks";
 import Button from "components/common/Button";
 import {
 	BankIcon,

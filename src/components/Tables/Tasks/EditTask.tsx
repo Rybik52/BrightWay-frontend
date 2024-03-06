@@ -1,26 +1,34 @@
-import { FC, FormEvent, useState } from "react";
-import DropDown, { DropDownItem } from "components/common/DropDown";
-import styles from "./Table.module.scss";
 import Button from "components/common/Button";
+import DropDown, { DropDownItem } from "components/common/DropDown";
 import Input from "components/common/Input";
 import Modal from "components/common/Modal";
 import RadioButton from "components/common/RadioButton";
-import { RootState } from "store/rootState";
-import { useSelector } from "react-redux";
 import WeekPicker from "components/common/WeekPicker";
+import { FC, FormEvent, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "store/rootState";
+import styles from "../Table.module.scss";
 
 interface EditTaskProps {
 	showModal: boolean;
 	setShowModal: (showModal: boolean) => void;
 }
 
+const years = [
+	{ id: 1, value: "2021" },
+	{ id: 2, value: "2022" },
+	{ id: 3, value: "2023" },
+];
+
+const uploadReport = [
+	{ id: 1, value: "Отчет о выбытии" },
+	{ id: 2, value: "Отчет по ценам" },
+	{ id: 3, value: "Отчет по движению" },
+	{ id: 4, value: "Отчет по остаткам" },
+];
+
 const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
-	const [selectedWeek, setSelectedWeek] = useState(new Date());
-
-	const handleWeekChange = (week: Date) => {
-		setSelectedWeek(week);
-	};
-
+	const [isOpen, setIsOpen] = useState(false);
 	const [type, setType] = useState("month");
 	const [form, setForm] = useState({
 		year: "",
@@ -52,19 +60,6 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 	const handleTypeChange = (e: FormEvent<HTMLInputElement>) => {
 		setType(e.currentTarget.value);
 	};
-
-	const years = [
-		{ id: 1, value: "2021" },
-		{ id: 2, value: "2022" },
-		{ id: 3, value: "2023" },
-	];
-
-	const uploadReport = [
-		{ id: 1, value: "Отчет о выбытии" },
-		{ id: 2, value: "Отчет по ценам" },
-		{ id: 3, value: "Отчет по движению" },
-		{ id: 4, value: "Отчет по остаткам" },
-	];
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
@@ -101,13 +96,12 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 						/>
 					) : (
 						<WeekPicker
-							selectedWeek={selectedWeek}
-							onWeekChange={handleWeekChange}
+							onClick={() => setIsOpen(!isOpen)}
+							isOpen={isOpen}
 						/>
 					)}
 					<Input
 						type="text"
-						readOnly
 						placeholder="GTIN препарата*"
 						onChange={(e) =>
 							setForm({ ...form, gtin: e.target.value })

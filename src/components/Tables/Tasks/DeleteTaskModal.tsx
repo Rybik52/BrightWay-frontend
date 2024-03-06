@@ -2,7 +2,7 @@ import Button from "components/common/Button";
 import Modal from "components/common/Modal";
 import { FC } from "react";
 
-import styles from "./Table.module.scss";
+import styles from "../Table.module.scss";
 
 interface DeleteTaskModalProps {
 	showModal: boolean;

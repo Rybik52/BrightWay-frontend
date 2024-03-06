@@ -1,0 +1,25 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 2.25rem;
+}
+
+.wrapper {
+	width: 20vw;
+
+	&__header {
+		margin-bottom: 1.5rem;
+	}
+
+	&__form {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		&_buttons {
+			margin-top: 2.25rem;
+			display: flex;
+			gap: 1.5rem;
+		}
+	}
+}

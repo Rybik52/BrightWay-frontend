@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import TaskTable from "components/TaskTable";
+import TaskTable from "components/Tables/Tasks";
 import Button from "components/common/Button";
 
 import Schedule from "./Schedule";

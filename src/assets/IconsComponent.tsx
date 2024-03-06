@@ -51,6 +51,7 @@ import NoticeIcon from "assets/NavIcons/notice.svg?react";
 import ReportIcon from "assets/NavIcons/report.svg?react";
 import SettingsIcon from "assets/NavIcons/settings.svg?react";
 import HeadPhonesIcon from "assets/NavIcons/headphones.svg?react";
+import AvatarIcon from "assets/NavIcons/avatar.svg?react";
 
 export {
 	ExitIcon,
@@ -60,4 +61,5 @@ export {
 	ReportIcon,
 	SettingsIcon,
 	HeadPhonesIcon,
+	AvatarIcon,
 };

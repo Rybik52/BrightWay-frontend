@@ -1,9 +1,10 @@
 import classnames from "classnames";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import logo from "assets/brightTech.svg";
 import UserStatus from "components/UserStatus";
 import {
+	AvatarIcon,
 	ExitIcon,
 	HeadPhonesIcon,
 	HomeIcon,
@@ -11,23 +12,16 @@ import {
 	ReportIcon,
 	SettingsIcon,
 	TasksIcon,
-	UserIcon,
 } from "assets/IconsComponent";
 
 import NavItem from "./NavItem";
 import styles from "./Sidebar.module.scss";
 import { useEffect, useState } from "react";
-import Modal from "components/common/Modal";
-import Button from "components/common/Button";
 import { useGetUserByUsernameQuery } from "store/api";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	selectUser,
-	selectLoading,
-	selectError,
-	setUser,
-} from "store/userSlice";
-
+import { selectUser, setUser } from "store/userSlice";
+import SpinLoader from "components/common/SpinLoader";
+import ExitModal from "./ExitModal";
 interface INavItem {
 	title: string;
 	icon: JSX.Element;
@@ -70,8 +64,8 @@ const UserNavItems: INavItem[] = [
 const AdminNavItems: INavItem[] = [
 	{
 		title: "Пользователи",
-		icon: <UserIcon />,
-		href: "/notices",
+		icon: <AvatarIcon />,
+		href: "/users",
 	},
 	{
 		title: "Уведомления",
@@ -91,59 +85,57 @@ const AdminNavItems: INavItem[] = [
 ];
 
 const Index = () => {
+	const [showModal, setShowModal] = useState(false);
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
-	const loading = useSelector(selectLoading);
-	const error = useSelector(selectError);
-	const [showModal, setShowModal] = useState(false);
 	const { pathname } = useLocation();
-	const navigate = useNavigate();
-
 	const handelExit = () => {
 		setShowModal(!showModal);
 	};
 
 	// ?INFO временно получение пользователя
-	const { data, isError, isLoading } =
+	const { data, isLoading, isError } =
 		useGetUserByUsernameQuery("user@user.ru");
 
 	useEffect(() => {
 		if (data) {
 			dispatch(setUser(data));
 		}
-	}, [data, dispatch]);
 
-	let navItemsToRender: INavItem[] = [];
-	if (user !== null) {
-		if (user.role === "ROLE_ADMIN") {
-			navItemsToRender = AdminNavItems;
-		} else {
-			navItemsToRender = UserNavItems;
+		if (isError) {
+			dispatch(
+				setUser({
+					id: 1,
+					fullName: "Тест Тестович",
+					active: true,
+					role: "ROLE_ADMIN",
+					username: "test@gmail.com",
+				})
+			);
 		}
-	}
+	}, [data, dispatch, isError]);
 
-	if (loading || isLoading) {
-		return <div>Loading...</div>;
-	}
-
-	if (error || isError) {
-		return <div>Error: {error ?? "An error occurred"}</div>;
+	let userView;
+	if (isLoading) {
+		userView = <SpinLoader />;
+	} else if (user !== null) {
+		userView = <UserStatus role={user.role} name={user.fullName} />;
+	} else {
+		userView = <div>Не удалось загрузить пользователя</div>;
 	}
 
 	return (
 		<aside className={styles.wrapper}>
 			<div className={styles.padding}>
 				<img className={styles.logo} src={logo} alt="brightTech logo" />
-				<div className={styles.user}></div>
-				{user !== null ? (
-					<UserStatus role={user.role} name={user.fullName} />
-				) : (
-					<div>Не удалось загрузить пользователя</div>
-				)}
+				<div className={styles.user}>{userView}</div>
 			</div>
 			<div className={styles.nav_container}>
 				<ul className={styles.nav_list}>
-					{navItemsToRender.map((item, index) => (
+					{(user && user.role === "ROLE_ADMIN"
+						? AdminNavItems
+						: UserNavItems
+					).map((item, index) => (
 						<NavLink key={index} to={item.href}>
 							<li
 								className={classnames(styles.nav_list__item, {
@@ -166,30 +158,7 @@ const Index = () => {
 					</button>
 				</ul>
 			</div>
-			<Modal exitButton showModal={showModal} setShowModal={setShowModal}>
-				<div className={styles.modal_exit}>
-					<h3>Выйти из аккаунта?</h3>
-					<div className={styles.modal_exit__buttons}>
-						<Button
-							variant="contained"
-							onClick={() => {
-								navigate("/login");
-							}}
-						>
-							Выйти
-						</Button>
-						<Button
-							variant="outlined"
-							style={{ color: "gray", borderColor: "gray" }}
-							onClick={() => {
-								setShowModal(!showModal);
-							}}
-						>
-							Отмена
-						</Button>
-					</div>
-				</div>
-			</Modal>
+			<ExitModal showModal={showModal} setShowModal={setShowModal} />
 		</aside>
 	);
 };

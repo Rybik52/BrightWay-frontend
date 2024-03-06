@@ -91,7 +91,7 @@ const EditSchedule: FC<EditScheduleProps> = ({ showModal, setShowModal }) => {
 					<Button
 						type="button"
 						onClick={() => setShowModal(false)}
-						variant="outlined"
+						variant="cancel"
 					>
 						Отменить
 					</Button>
