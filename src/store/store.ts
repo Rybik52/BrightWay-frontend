@@ -5,6 +5,7 @@ import digitalSignaturesReducer from "./digitalSignaturesSlice";
 import organizationsReducer from "./organizationsSlice";
 import tasksReducer from "./tasksSlice";
 import userReducer from "./userSlice";
+import modalReducer from "./modalSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
 		tasks: tasksReducer,
 		[queueApi.reducerPath]: queueApi.reducer,
 		user: userReducer,
+		modal: modalReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(queueApi.middleware),

@@ -1,16 +1,12 @@
 import Button from "components/common/Button";
 import Input from "components/common/Input";
 import Modal from "components/common/Modal";
-import { FC } from "react";
-import styles from "./UserPage.module.scss";
 import st from "pages/LoginPage/LoginPage.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useAddUserMutation } from "store/api";
-
-interface AddUserModalProps {
-	showModal: boolean;
-	setShowModal: (showModal: boolean) => void;
-}
+import { closeModal } from "store/modalSlice";
+import styles from "./UserPage.module.scss";
 
 interface IFormInput {
 	username: string;
@@ -18,7 +14,7 @@ interface IFormInput {
 	password: string;
 }
 
-const AddUserModal: FC<AddUserModalProps> = ({ showModal, setShowModal }) => {
+const AddUserModal = () => {
 	const [addUser, { isError, isLoading }] = useAddUserMutation();
 	const {
 		register,
@@ -28,11 +24,16 @@ const AddUserModal: FC<AddUserModalProps> = ({ showModal, setShowModal }) => {
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		addUser(data);
-		setShowModal(false);
+		handleClose();
+	};
+	const dispatch = useDispatch();
+
+	const handleClose = () => {
+		dispatch(closeModal({ modalId: "AddUserModal" }));
 	};
 
 	return (
-		<Modal exitButton showModal={showModal} setShowModal={setShowModal}>
+		<Modal modalTitle="AddUserModal" exitButton>
 			<div className={styles.wrapper}>
 				<div className={styles.wrapper__header}>
 					<h3>Добавить нового пользователя</h3>
@@ -96,7 +97,7 @@ const AddUserModal: FC<AddUserModalProps> = ({ showModal, setShowModal }) => {
 						</Button>
 						<Button
 							type="button"
-							onClick={() => setShowModal(false)}
+							onClick={handleClose}
 							variant="cancel"
 						>
 							Отмена

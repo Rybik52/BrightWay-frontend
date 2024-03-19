@@ -43,13 +43,36 @@ export const queueApi = createApi({
 				},
 			}),
 		}),
+		changeUserRoleAndState: builder.mutation({
+			query: ({ id, role, state }) => ({
+				url: `api/users/edit`,
+				method: "POST",
+				body: {
+					id,
+					role,
+					state: {
+						lastActivity: state.lastActivity,
+						status: state.status,
+						status_time: state.status_time,
+					},
+				},
+			}),
+		}),
+		deleteUser: builder.query({
+			query: (id: string) => ({
+				url: `api/users/delete/${id}`,
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
 export const {
+	useDeleteUserQuery,
 	useGetQueueDataQuery,
 	useLoginMutation,
 	useGetUserByUsernameQuery,
 	useGetUsersAllQuery,
-	useAddUserMutation
+	useAddUserMutation,
+	useChangeUserRoleAndStateMutation,
 } = queueApi;

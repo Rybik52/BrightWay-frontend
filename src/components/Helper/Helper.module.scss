@@ -11,6 +11,22 @@
 	font-family: Inter, sans-serif;
 	transition: all 200ms ease-out;
 
+	.deleted {
+		color: $inactive-color;
+		svg,
+		path:first-child {
+			fill: $inactive-color;
+		}
+	}
+
+	.blocked {
+		color: $error-color;
+		svg,
+		path:first-child {
+			fill: $error-color;
+		}
+	}
+
 	&:disabled {
 		cursor: not-allowed;
 		color: $inactive-color;
@@ -19,20 +35,24 @@
 			filter: grayscale(1);
 		}
 	}
+
 	.description {
+		cursor: default;
 		position: absolute;
 		width: 20rem;
 		height: fit-content;
 		color: $text-color;
 		font-size: 0.875rem;
-		top: 0;
+		top: -130px;
+		left: -250px;
+		z-index: 1;
 		background-color: #fff;
 		border: 1px solid $primary-color;
 		padding: 1rem;
 		border-radius: 6px;
 		transition: all 200ms ease-out;
 		transform: translate(30px, 180px);
-		
+
 		&.hidden {
 			opacity: 0;
 			pointer-events: none;

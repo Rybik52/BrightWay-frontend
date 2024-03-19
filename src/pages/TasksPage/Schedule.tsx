@@ -1,26 +1,19 @@
 import Button from "components/common/Button";
 import Modal from "components/common/Modal";
 import styles from "./TasksPage.module.scss";
-import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { closeModal, openModal } from "store/modalSlice";
 
-interface ScheduleProps {
-	showModal: boolean;
-	setShowModal: (showModal: boolean) => void;
-	onClicked: (showModalEdit: boolean) => void;
-}
+const Schedule = () => {
+	const dispatch = useDispatch();
 
-const Schedule: FC<ScheduleProps> = ({
-	showModal,
-	setShowModal,
-	onClicked,
-}) => {
 	const handelClick = () => {
-		setShowModal(false);
-		onClicked(true);
+		dispatch(closeModal({ modalId: "ScheduleModal" }));
+		dispatch(openModal({ modalId: "ScheduleEditModal" }));
 	};
 
 	return (
-		<Modal exitButton showModal={showModal} setShowModal={setShowModal}>
+		<Modal modalTitle="ScheduleModal" exitButton>
 			<div className={styles.modal}>
 				<h3>Текущее расписание заданий</h3>
 				<div className={styles.modal__grid}>

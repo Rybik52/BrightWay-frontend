@@ -1,8 +1,6 @@
 import classnames from "classnames";
 import { NavLink, useLocation } from "react-router-dom";
 
-import logo from "assets/brightTech.svg";
-import UserStatus from "components/UserStatus";
 import {
 	AvatarIcon,
 	ExitIcon,
@@ -13,15 +11,18 @@ import {
 	SettingsIcon,
 	TasksIcon,
 } from "assets/IconsComponent";
+import logo from "assets/brightTech.svg";
+import UserInfo from "components/UserInfo";
 
+import SpinLoader from "components/common/SpinLoader";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetUserByUsernameQuery } from "store/api";
+import { selectUser, setUser } from "store/userSlice";
+import ExitModal from "./ExitModal";
 import NavItem from "./NavItem";
 import styles from "./Sidebar.module.scss";
-import { useEffect, useState } from "react";
-import { useGetUserByUsernameQuery } from "store/api";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setUser } from "store/userSlice";
-import SpinLoader from "components/common/SpinLoader";
-import ExitModal from "./ExitModal";
+import { openModal } from "store/modalSlice";
 interface INavItem {
 	title: string;
 	icon: JSX.Element;
@@ -85,12 +86,12 @@ const AdminNavItems: INavItem[] = [
 ];
 
 const Index = () => {
-	const [showModal, setShowModal] = useState(false);
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const { pathname } = useLocation();
-	const handelExit = () => {
-		setShowModal(!showModal);
+
+	const handleOpenModal = () => {
+		dispatch(openModal({ modalId: "ExitModal" }));
 	};
 
 	// ?INFO временно получение пользователя
@@ -119,7 +120,7 @@ const Index = () => {
 	if (isLoading) {
 		userView = <SpinLoader />;
 	} else if (user !== null) {
-		userView = <UserStatus role={user.role} name={user.fullName} />;
+		userView = <UserInfo role={user.role} name={user.fullName} />;
 	} else {
 		userView = <div>Не удалось загрузить пользователя</div>;
 	}
@@ -151,14 +152,14 @@ const Index = () => {
 				</ul>
 				<ul className={styles.nav_list}>
 					<button
-						onClick={handelExit}
+						onClick={handleOpenModal}
 						className={styles.nav_list__item}
 					>
 						<NavItem title="Выход" icon={<ExitIcon />} />
 					</button>
 				</ul>
 			</div>
-			<ExitModal showModal={showModal} setShowModal={setShowModal} />
+			<ExitModal />
 		</aside>
 	);
 };

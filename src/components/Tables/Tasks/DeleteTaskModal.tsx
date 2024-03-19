@@ -1,23 +1,20 @@
 import Button from "components/common/Button";
 import Modal from "components/common/Modal";
-import { FC } from "react";
-
 import styles from "../Table.module.scss";
+import { useDispatch } from "react-redux";
+import { closeModal } from "store/modalSlice";
 
-interface DeleteTaskModalProps {
-	showModal: boolean;
-	setShowModal: (showModal: boolean) => void;
-}
+const DeleteTaskModal = () => {
+	const dispatch = useDispatch();
+	const handleClose = () => {
+		dispatch(closeModal({ modalId: "DeleteTaskModal" }));
+	};
 
-const DeleteTaskModal: FC<DeleteTaskModalProps> = ({
-	showModal,
-	setShowModal,
-}) => {
 	return (
-		<Modal exitButton showModal={showModal} setShowModal={setShowModal}>
+		<Modal modalTitle="DeleteTaskModal" exitButton>
 			<div className={styles.modal}>
 				<h3>Задание удалено</h3>
-				<Button onClick={() => setShowModal(false)} variant="contained">
+				<Button onClick={handleClose} variant="contained">
 					Вернуться к заданиям
 				</Button>
 			</div>

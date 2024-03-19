@@ -3,22 +3,29 @@ import Card from "components/common/Card";
 import Input from "components/common/Input";
 import Modal from "components/common/Modal";
 import styles from "components/DigitalSignature/DigitalSignature.module.scss";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IDigitalSignature } from "store/digitalSignaturesSlice";
+import { closeModal, openModal } from "store/modalSlice";
 
 interface EnterPasswordProps {
 	data?: IDigitalSignature;
 }
 
 const EnterPassword: FC<EnterPasswordProps> = ({ data }) => {
-	const { id, ownerName, orgTitle } = data!;
-	const [showModal, setShowModal] = useState(false);
 	const navigator = useNavigate();
+	const dispatch = useDispatch();
+	const { id, ownerName, orgTitle } = data!;
 
 	type Inputs = {
 		password: string;
+	};
+
+	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: "EnterPasswordModalConfirm" }));
+		navigator(0);
 	};
 
 	const {
@@ -29,24 +36,18 @@ const EnterPassword: FC<EnterPasswordProps> = ({ data }) => {
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		console.log(data);
-		setShowModal(!showModal);
+		dispatch(openModal({ modalId: "EnterPasswordModalConfirm" }));
 	};
 
 	return (
 		<>
-			<Modal exitButton showModal={showModal} setShowModal={setShowModal}>
+			<Modal modalTitle="EnterPasswordModalConfirm" exitButton>
 				<div className={styles.modal}>
 					<div>
 						<h3>Организация успешна добавлена</h3>
 						<p>Она будет отражена в вашем кабинете</p>
 					</div>
-					<Button
-						onClick={() => {
-							setShowModal(!showModal);
-							navigator(0);
-						}}
-						variant="contained"
-					>
+					<Button onClick={handleCloseModal} variant="contained">
 						Закрыть
 					</Button>
 				</div>
@@ -75,7 +76,7 @@ const EnterPassword: FC<EnterPasswordProps> = ({ data }) => {
 							{...register("password", {
 								required: "Это обязательное поле*",
 							})}
-							disabled={showModal && true}
+							// disabled={showModal && true}
 							type="password"
 							placeholder="Введите пароль*"
 							isValidated={!!errors.password}

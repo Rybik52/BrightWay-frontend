@@ -63,9 +63,30 @@
 			td {
 				text-align: left;
 				padding: 0 1rem;
+				position: relative;
 
-				&:has(button) {
+				.enter_button,
+				.actions_button {
 					padding: 0;
+
+					button {
+						font-size: 0.875rem;
+						font-weight: 400;
+					}
+				}
+
+				.actions_button {
+					button {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+
+					svg {
+						width: 20px;
+						height: 20px;
+						transition: rotate 200ms ease-out;
+					}
 				}
 			}
 		}
@@ -114,5 +135,54 @@
 				background-color: $wrapper-bg;
 			}
 		}
+	}
+}
+
+.grey {
+	color: $inactive-color;
+}
+
+.actions_list {
+	opacity: 0;
+	pointer-events: none;
+	top: 100%;
+	right: 0;
+	z-index: 1;
+	position: absolute;
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	background-color: #fff;
+	border: 1px solid $primary-color;
+	border-radius: 6px;
+
+	transition: all 200ms ease-out;
+
+	&.active {
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	li {
+		cursor: pointer;
+		padding: 10px 12px;
+		transition: background-color 200ms ease-out;
+
+		&:hover {
+			background-color: $active-page;
+		}
+
+		&:first-child {
+			border-radius: 6px 6px 0 0;
+		}
+
+		&:last-child {
+			border-radius: 0 0 6px 6px;
+		}
+	}
+
+	button {
+		width: 100%;
+		all: unset;
 	}
 }

@@ -9,10 +9,13 @@ import Modal from "components/common/Modal";
 import Button from "components/common/Button";
 
 import styles from "./ProfilePage.module.scss";
+import { useDispatch } from "react-redux";
+import { closeModal, openModal } from "store/modalSlice";
 
 const NewPassword = () => {
 	const navigate = useNavigate();
-	const [showModal, setShowModal] = useState(false);
+	const dispatch = useDispatch();
+
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	type Inputs = {
@@ -28,21 +31,17 @@ const NewPassword = () => {
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		console.log(data);
 		setIsSubmitting(true);
-		setShowModal(!showModal);
+		dispatch(openModal({ modalId: "NewPasswordModal" }));
 	};
 
 	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: "NewPasswordModal" }));
 		navigate(-1);
 	};
 
 	return (
 		<>
-			<Modal
-				goBack
-				exitButton
-				showModal={showModal}
-				setShowModal={setShowModal}
-			>
+			<Modal modalTitle="NewPasswordModal" goBack exitButton>
 				<h3>Запрос был отправлен администратору</h3>
 				<p>Статус одобрения вам придет на почту</p>
 				<Button
