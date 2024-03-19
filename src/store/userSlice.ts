@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface IUser {
-	id?: number;
+	id: number;
 	fullName: string;
-	active: boolean;
-	role: "ROLE_ADMIN" | "ROLE_USER";
 	username: string;
+	role: "ROLE_ADMIN" | "ROLE_USER";
+	state: IUserStatusState;
+}
+
+export interface IUserStatusState {
+	lastActivity: string;
+	isActiveNow: boolean;
+	
+	status?: "deleted" | "blocked";
+	status_time?: string;
 }
 
 interface UserState {

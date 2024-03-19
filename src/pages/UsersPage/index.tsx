@@ -2,27 +2,35 @@ import UsersTable from "components/Tables/Users";
 import Button from "components/common/Button";
 import styles from "./UserPage.module.scss";
 import { useGetQueueDataQuery } from "store/api";
-import { useState } from "react";
 import AddUserModal from "./AddUserModal";
+import { useDispatch } from "react-redux";
+import { openModal } from "store/modalSlice";
 
 const Index = () => {
 	const { isError, isLoading } = useGetQueueDataQuery({});
-	const [showModal, setShowModal] = useState(false);
+	const dispatch = useDispatch();
 
+	const handleOpenModal = () => {
+		dispatch(
+			openModal({
+				modalId: "AddUserModal",
+			})
+		);
+	};
 	return (
 		<>
 			<div className={styles.header}>
 				<h1>Список пользователей</h1>
 				<Button
-					onClick={() => setShowModal(!showModal)}
-					// disabled={isLoading || isError}
+					onClick={handleOpenModal}
+					disabled={isLoading || isError}
 					variant="light"
 				>
 					Добавить пользователя +
 				</Button>
 			</div>
 			<UsersTable />
-			<AddUserModal showModal={showModal} setShowModal={setShowModal} />
+			<AddUserModal />
 		</>
 	);
 };

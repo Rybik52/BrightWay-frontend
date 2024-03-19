@@ -1,16 +1,12 @@
 import Button from "components/common/Button";
 import Modal from "components/common/Modal";
 import DropDown from "components/common/DropDown";
-import { FC } from "react";
 import styles from "./TasksPage.module.scss";
 import CheckBox from "components/common/CheckBox/Index";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { DaysOfWeek } from "./DaysOfWeek";
-
-interface EditScheduleProps {
-	showModal: boolean;
-	setShowModal: (showModal: boolean) => void;
-}
+import { useDispatch } from "react-redux";
+import { closeModal, openModal } from "store/modalSlice";
 
 interface Inputs {
 	daysOfWeek: DaysOfWeek;
@@ -18,13 +14,14 @@ interface Inputs {
 	time: string;
 }
 
-const EditSchedule: FC<EditScheduleProps> = ({ showModal, setShowModal }) => {
+const EditSchedule = () => {
+	const dispatch = useDispatch();
+
 	const { handleSubmit, control, reset } = useForm<Inputs>();
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		console.log(data);
-
-		setShowModal(false);
+		dispatch(openModal({ modalId: "EditScheduleModal" }));
 		reset();
 	};
 
@@ -48,7 +45,7 @@ const EditSchedule: FC<EditScheduleProps> = ({ showModal, setShowModal }) => {
 	];
 
 	return (
-		<Modal showModal={showModal} setShowModal={setShowModal}>
+		<Modal modalTitle="EditScheduleModal">
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 				<h3>Редактировать задание по расписанию</h3>
 				<div className={styles.form__row}>
@@ -90,7 +87,11 @@ const EditSchedule: FC<EditScheduleProps> = ({ showModal, setShowModal }) => {
 					</Button>
 					<Button
 						type="button"
-						onClick={() => setShowModal(false)}
+						onClick={() =>
+							dispatch(
+								closeModal({ modalId: "EditScheduleModal" })
+							)
+						}
 						variant="cancel"
 					>
 						Отменить

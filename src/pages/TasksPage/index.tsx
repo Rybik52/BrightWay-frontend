@@ -1,28 +1,23 @@
-import { useState } from "react";
-
 import TaskTable from "components/Tables/Tasks";
 import Button from "components/common/Button";
 
 import Schedule from "./Schedule";
 import EditSchedule from "./EditSchedule";
 import styles from "./TasksPage.module.scss";
+import { openModal } from "store/modalSlice";
+import { useDispatch } from "react-redux";
 
 const Index = () => {
-	const [showModal, setShowModal] = useState(false);
-	const [showModalEdit, setShowModalEdit] = useState(false);
+	const dispatch = useDispatch();
+	const handleOpenSchedule = () => {
+		dispatch(openModal({ modalId: "ScheduleModal" }));
+	};
 
 	return (
 		<>
-			<Schedule
-				showModal={showModal}
-				setShowModal={setShowModal}
-				onClicked={() => setShowModalEdit(true)}
-			/>
+			<Schedule />
 
-			<EditSchedule
-				showModal={showModalEdit}
-				setShowModal={setShowModalEdit}
-			/>
+			<EditSchedule />
 
 			<h1 className={styles.header}>
 				Текущие задания в очереди на выгрузку
@@ -30,7 +25,7 @@ const Index = () => {
 			<div className={styles.buttons_wrapper}>
 				<Button variant="outlined">Одинарное задание +</Button>
 				<Button variant="outlined">Задание по расписанию +</Button>
-				<Button onClick={() => setShowModal(true)} variant="contained">
+				<Button onClick={handleOpenSchedule} variant="contained">
 					Текущее расписание
 				</Button>
 			</div>

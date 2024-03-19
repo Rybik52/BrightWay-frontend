@@ -2,10 +2,11 @@ import { BankIcon, PencilIcon, TrashIcon } from "assets/IconsComponent";
 import Button from "components/common/Button";
 import Card from "components/common/Card";
 import styles from "./OrganizationCard.module.scss";
-import { FC, useState } from "react";
+import { FC } from "react";
 import Modal from "components/common/Modal";
 import { useDispatch } from "react-redux";
 import { IOrganization, deleteOrganization } from "store/organizationsSlice";
+import { closeModal, openModal } from "store/modalSlice";
 
 interface OrganizationCardProps {
 	data: IOrganization;
@@ -24,16 +25,21 @@ const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 		ownerINN,
 	} = data;
 
-	const [showModal, setShowModal] = useState(false);
+	const handleOpenModal = () => {
+		dispatch(openModal({ modalId: "OrganizationCardConfirm" }));
+	};
+	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: "OrganizationCardConfirm" }));
+	};
 
 	const handleDelete = (id: number) => {
 		dispatch(deleteOrganization(id));
-		console.log("Удалено", id);
+		dispatch(closeModal({ modalId: "OrganizationCardConfirm" }));
 	};
 
 	return (
 		<Card>
-			<Modal showModal={showModal} setShowModal={setShowModal} exitButton>
+			<Modal modalTitle="OrganizationCardConfirm" exitButton>
 				<h3>Данные будут удалены. Вы уверены?</h3>
 				<div className={styles.card_modal}>
 					<Button
@@ -42,10 +48,7 @@ const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 					>
 						Удалить
 					</Button>
-					<Button
-						onClick={() => setShowModal(!showModal)}
-						variant="outlined"
-					>
+					<Button onClick={handleCloseModal} variant="outlined">
 						Отмена
 					</Button>
 				</div>
@@ -62,7 +65,7 @@ const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 					</Button>
 					<Button
 						title="Удалить организацию"
-						onClick={() => setShowModal(!showModal)}
+						onClick={handleOpenModal}
 						variant="text"
 					>
 						<TrashIcon />

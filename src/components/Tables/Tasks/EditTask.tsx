@@ -4,15 +4,11 @@ import Input from "components/common/Input";
 import Modal from "components/common/Modal";
 import RadioButton from "components/common/RadioButton";
 import WeekPicker from "components/common/WeekPicker";
-import { FC, FormEvent, useState } from "react";
-import { useSelector } from "react-redux";
+import { FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store/rootState";
 import styles from "../Table.module.scss";
-
-interface EditTaskProps {
-	showModal: boolean;
-	setShowModal: (showModal: boolean) => void;
-}
+import { closeModal } from "store/modalSlice";
 
 const years = [
 	{ id: 1, value: "2021" },
@@ -27,7 +23,8 @@ const uploadReport = [
 	{ id: 4, value: "Отчет по остаткам" },
 ];
 
-const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
+const EditTask = () => {
+	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
 	const [type, setType] = useState("month");
 	const [form, setForm] = useState({
@@ -57,6 +54,10 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 		value: item.ownerName,
 	}));
 
+	const handleClose = () => {
+		dispatch(closeModal({ modalId: "EditTaskModal" }));
+	};
+
 	const handleTypeChange = (e: FormEvent<HTMLInputElement>) => {
 		setType(e.currentTarget.value);
 	};
@@ -68,7 +69,7 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 	};
 
 	return (
-		<Modal showModal={showModal} setShowModal={setShowModal}>
+		<Modal modalTitle="EditTaskModal">
 			<form onSubmit={handleSubmit} className={styles.modal}>
 				<h3>Редактировать задание на одинарный отчет</h3>
 				<DropDown title="Год*" items={years} />
@@ -127,7 +128,7 @@ const EditTask: FC<EditTaskProps> = ({ showModal, setShowModal }) => {
 					</Button>
 					<Button
 						type="button"
-						onClick={() => setShowModal(false)}
+						onClick={handleClose}
 						variant="outlined"
 					>
 						Отмена

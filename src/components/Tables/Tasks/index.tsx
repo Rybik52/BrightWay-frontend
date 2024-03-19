@@ -16,6 +16,7 @@ import DeleteTaskModal from "./DeleteTaskModal";
 import EditTask from "./EditTask";
 import { getMonthName } from "./utils";
 import FetchError from "../FetchError";
+import { openModal } from "store/modalSlice";
 
 interface TableProps {
 	isPagination?: boolean;
@@ -25,11 +26,13 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 	const dispatch = useDispatch();
 	const [deletedRows, setDeletedRows] = useState<number[]>([]);
 	const tasks = useSelector((state: RootState) => state.tasks.data);
-	const [showDeleteModal, setShowDeleteModal] = useState(false);
-	const [showEditModal, setShowEditModal] = useState(false);
+
+	const handleOpenEditModal = () => {
+		dispatch(openModal({ modalId: "DeleteTaskModal" }));
+	};
 
 	const handleDelete = (id: number) => {
-		setShowDeleteModal(true);
+		handleOpenEditModal();
 		setDeletedRows([...deletedRows, id]);
 
 		setInterval(() => {
@@ -71,7 +74,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 				<span>
 					<Button
 						title="Редактировать задание"
-						onClick={() => setShowEditModal(true)}
+						onClick={handleOpenEditModal}
 						variant="text"
 					>
 						<PencilIcon />
@@ -90,15 +93,9 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 
 	return (
 		<>
-			<DeleteTaskModal
-				showModal={showDeleteModal}
-				setShowModal={setShowDeleteModal}
-			/>
+			<DeleteTaskModal />
 
-			<EditTask
-				showModal={showEditModal}
-				setShowModal={setShowEditModal}
-			/>
+			<EditTask />
 
 			<div className={styles.table_wrapper}>
 				<table className={styles.table}>

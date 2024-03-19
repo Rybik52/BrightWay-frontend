@@ -3,12 +3,13 @@ import Button from "components/common/Button";
 import Card from "components/common/Card";
 import Modal from "components/common/Modal";
 import styles from "components/OrganizationCard/OrganizationCard.module.scss";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useDispatch } from "react-redux";
 import {
 	deleteDigitalSignature,
 	IDigitalSignature,
 } from "store/digitalSignaturesSlice";
+import { closeModal, openModal } from "store/modalSlice";
 
 interface DigitalSignatureCardProps {
 	data: IDigitalSignature;
@@ -16,17 +17,23 @@ interface DigitalSignatureCardProps {
 
 const Index: FC<DigitalSignatureCardProps> = ({ data }) => {
 	const dispatch = useDispatch();
-	const [showModal, setShowModal] = useState(false);
 	const { id, ownerName, INN, type, date, auth, orgTitle } = data;
+
+	const handleOpenModal = () => {
+		dispatch(openModal({ modalId: "DigitalSignatureCardConfirm" }));
+	};
+	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: "DigitalSignatureCardConfirm" }));
+	};
 
 	const handleDelete = (id: number) => {
 		dispatch(deleteDigitalSignature(id));
-		setShowModal(false);
+		handleCloseModal();
 	};
 
 	return (
 		<Card>
-			<Modal showModal={showModal} setShowModal={setShowModal} exitButton>
+			<Modal modalTitle="DigitalSignatureCardConfirm" exitButton>
 				<div>
 					<h3>ЭЦП будет удалена. Вы уверены?</h3>
 					<p>
@@ -41,10 +48,7 @@ const Index: FC<DigitalSignatureCardProps> = ({ data }) => {
 					>
 						Удалить
 					</Button>
-					<Button
-						onClick={() => setShowModal(!showModal)}
-						variant="outlined"
-					>
+					<Button onClick={handleCloseModal} variant="outlined">
 						Отмена
 					</Button>
 				</div>
@@ -54,7 +58,7 @@ const Index: FC<DigitalSignatureCardProps> = ({ data }) => {
 				<nav>
 					<Button
 						title="Удалить сертификат"
-						onClick={() => setShowModal(!showModal)}
+						onClick={handleOpenModal}
 						variant="text"
 					>
 						Удалить

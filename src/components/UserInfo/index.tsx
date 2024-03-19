@@ -1,15 +1,16 @@
 import { FC } from "react";
 
-import UserIco from "assets/user.svg";
 import AdminIco from "assets/admin.svg";
+import UserIco from "assets/user.svg";
 
 import styles from "./UserStatus.module.scss";
-interface UserStatusProps {
+
+interface UserInfoProps {
 	role: "ROLE_ADMIN" | "ROLE_USER";
 	name: string;
 }
 
-const index: FC<UserStatusProps> = ({ role, name }) => {
+const index: FC<UserInfoProps> = ({ role, name }) => {
 	const Icon = role === "ROLE_ADMIN" ? AdminIco : UserIco;
 	const status = role === "ROLE_ADMIN" ? "Администратор" : "Пользователь";
 

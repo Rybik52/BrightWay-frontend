@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, PropsWithChildren, useEffect, useRef } from "react";
 
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
@@ -6,34 +6,42 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from "assets/close.svg?react";
 
 import styles from "./Modal.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store/rootState";
+import { closeModal } from "store/modalSlice";
 
-interface ModalProps {
+interface ModalProps extends PropsWithChildren {
+	modalTitle: string;
 	exitButton?: boolean;
 	goBack?: boolean; // Параметр который позволяет вернуться на предыдущую страницу при закрытии модального окна
-	children: React.ReactNode;
-	showModal: boolean;
-	setShowModal: (isVisible: boolean) => void;
 }
 
 const Index: FC<ModalProps> = ({
 	children,
-	showModal,
-	setShowModal,
 	exitButton,
 	goBack,
+	modalTitle,
 }) => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const modalRef = useRef<HTMLDivElement>(null);
-	const modalStyles = { [styles.wrapper]: true, [styles.hidden]: !showModal };
+	const isOpen = useSelector(
+		(state: RootState) => state.modal[modalTitle]?.isOpen
+	);
+
+	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: modalTitle }));
+		goBack && navigate(-1);
+	};
+
+	const modalStyles = {
+		[styles.wrapper]: true,
+		[styles.hidden]: !isOpen,
+	};
 
 	const contentStyles = {
 		[styles.content]: true,
-		[styles.hidden]: !showModal,
-	};
-	const navigate = useNavigate();
-
-	const handleClose = () => {
-		setShowModal(!showModal);
-		goBack && navigate(-1);
+		[styles.hidden]: !isOpen,
 	};
 
 	const handleKeyDown = (
@@ -65,7 +73,7 @@ const Index: FC<ModalProps> = ({
 	};
 
 	useEffect(() => {
-		if (!showModal) return;
+		if (!isOpen) return;
 
 		const handleKeyDownWrapper = (e: KeyboardEvent) => {
 			const focusableElements = modalRef.current?.querySelectorAll(
@@ -82,13 +90,13 @@ const Index: FC<ModalProps> = ({
 		return () => {
 			window.removeEventListener("keydown", handleKeyDownWrapper);
 		};
-	}, [showModal]);
+	}, [isOpen]);
 
 	return (
 		<div className={classNames(modalStyles)} ref={modalRef}>
 			<div className={classNames(contentStyles)}>
 				{exitButton && (
-					<button className={styles.close} onClick={handleClose}>
+					<button className={styles.close} onClick={handleCloseModal}>
 						<CloseIcon />
 					</button>
 				)}

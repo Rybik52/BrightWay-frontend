@@ -10,14 +10,19 @@ import styles from "./ProfilePage.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Modal from "components/common/Modal";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "store/userSlice";
+import { openModal } from "store/modalSlice";
 
 const Index = () => {
-	const user = useSelector(selectUser);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const user = useSelector(selectUser);
 	const [isVisible, setIsVisible] = useState(false);
-	const [showModal, setShowModal] = useState(false);
+
+	const handleForgotPasswordModal = () => {
+		dispatch(openModal({ modalId: "ChangeDataModal" }));
+	};
 
 	type Inputs = {
 		fullName: string;
@@ -32,7 +37,7 @@ const Index = () => {
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		console.log(data);
-		setShowModal(!showModal);
+		handleForgotPasswordModal();
 	};
 
 	const handleCloseModal = () => {
@@ -45,12 +50,7 @@ const Index = () => {
 
 	return (
 		<>
-			<Modal
-				goBack
-				exitButton
-				showModal={showModal}
-				setShowModal={setShowModal}
-			>
+			<Modal modalTitle="ChangeDataModal" goBack exitButton>
 				<div className={styles.modal_wrapper}>
 					<h3>Ваши данные изменены</h3>
 					<Button
