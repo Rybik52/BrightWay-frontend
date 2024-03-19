@@ -15,7 +15,7 @@ const Index = () => {
 				<h1>Список пользователей</h1>
 				<Button
 					onClick={() => setShowModal(!showModal)}
-					disabled={isLoading || isError}
+					// disabled={isLoading || isError}
 					variant="light"
 				>
 					Добавить пользователя +

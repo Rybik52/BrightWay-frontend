@@ -21,7 +21,7 @@ const Index = () => {
 		<tr key={item.id}>
 			<td>{item.fullName}</td>
 			<td>{item.username}</td>
-			<td>ООО «Название компании»</td>
+			<td>{item.organizations[0]?.title}</td>
 			<td>-</td>
 			<td>
 				<Button variant="contained" style={{ fontWeight: "normal" }}>
