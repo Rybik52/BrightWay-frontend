@@ -39,7 +39,7 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 		);
 	};
 
-	if (state.status === "deleted") {
+	if (state.isDeleted) {
 		return (
 			<ul className={listClass}>
 				<li>
@@ -67,9 +67,7 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 		<ul className={listClass}>
 			<li>
 				<button onClick={() => handleOpenModalWithData("BlockModal")}>
-					{state.status === "blocked"
-						? "Разблокировать"
-						: "Заблокировать"}
+					{state.isBlocked ? "Разблокировать" : "Заблокировать"}
 				</button>
 			</li>
 			<li>

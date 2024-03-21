@@ -12,7 +12,7 @@ const UserStatus: FC<IUserStatusStateProps> = ({ state }) => {
 		return format(new Date(data), "dd.MM.yyyy HH:mm");
 	};
 
-	if (state.isActive) {
+	if (state.isDeleted) {
 		return (
 			<Helper
 				variant="deleted"

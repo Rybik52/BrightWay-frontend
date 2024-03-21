@@ -28,7 +28,7 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 		formState: { errors },
 	} = useForm<IFormInput>();
 
-	const onSubmit: SubmitHandler<IFormInput> = (data) => {
+	const onSubmit: SubmitHandler<IFormInput> = () => {
 		// TODO: Добавить логику для обработки входа пользователя
 		// login(data);
 		navigate("/");

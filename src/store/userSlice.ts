@@ -17,7 +17,7 @@ interface IUserOrganizations {
 export interface IUserStatusState {
 	lastActivity: string;
 	isActiveNow: boolean;
-	isActive: boolean;
+	isDeleted: boolean;
 	isBlocked: boolean;
 	statusTime?: string;
 }
