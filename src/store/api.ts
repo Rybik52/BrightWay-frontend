@@ -58,17 +58,16 @@ export const queueApi = createApi({
 				},
 			}),
 		}),
-		deleteUser: builder.query({
-			query: (id: string) => ({
-				url: `api/users/delete/${id}`,
-				method: "GET",
-			}),
-		}),
+		// deleteUser: builder.query({
+		// 	query: (id: number) => ({
+		// 		url: `api/users/delete/${id}`,
+		// 		method: "GET",
+		// 	}),
+		// }),
 	}),
 });
 
 export const {
-	useDeleteUserQuery,
 	useGetQueueDataQuery,
 	useLoginMutation,
 	useGetUserByUsernameQuery,

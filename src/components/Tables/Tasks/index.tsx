@@ -68,7 +68,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 			<td>{item.gtin === "" ? "-" : item.gtin}</td>
 			<td>{item.batch === "" ? "-" : item.batch}</td>
 			<td>{item.type}</td>
-			<td>2w</td>
+			<td></td>
 			<td className={styles.table__progress}>
 				<ProcessBar percent={item.progress} />
 				<span>

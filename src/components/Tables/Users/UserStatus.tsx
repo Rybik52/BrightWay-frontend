@@ -12,25 +12,25 @@ const UserStatus: FC<IUserStatusStateProps> = ({ state }) => {
 		return format(new Date(data), "dd.MM.yyyy HH:mm");
 	};
 
-	if (state.status === "deleted") {
+	if (state.isActive) {
 		return (
 			<Helper
 				variant="deleted"
 				title="Удален"
 				description={`Пользователь был удалён администратором ${formatDate(
-					state.status_time ?? ""
+					state.statusTime ?? ""
 				)}`}
 			/>
 		);
 	}
 
-	if (state.status === "blocked") {
+	if (state.isBlocked) {
 		return (
 			<Helper
 				variant="blocked"
 				title="Заблокирован"
 				description={`Пользователь заблокирован администратором ${formatDate(
-					state.status_time ?? ""
+					state.statusTime ?? ""
 				)}`}
 			/>
 		);
@@ -38,11 +38,8 @@ const UserStatus: FC<IUserStatusStateProps> = ({ state }) => {
 
 	return (
 		<>
-			{state.lastActivity && (
-				<span>
-					Был на сайте
-					<br /> {formatDate(state.lastActivity)}
-				</span>
+			{state.lastActivity === "now" && (
+				<span style={{ color: "#a6d96a" }}>В сети</span>
 			)}
 		</>
 	);

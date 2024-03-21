@@ -6,14 +6,20 @@ export interface IUser {
 	username: string;
 	role: "ROLE_ADMIN" | "ROLE_USER";
 	state: IUserStatusState;
+	organizations: IUserOrganizations[];
+}
+
+interface IUserOrganizations {
+	id: number;
+	title: string;
 }
 
 export interface IUserStatusState {
 	lastActivity: string;
 	isActiveNow: boolean;
-	
-	status?: "deleted" | "blocked";
-	status_time?: string;
+	isActive: boolean;
+	isBlocked: boolean;
+	statusTime?: string;
 }
 
 interface UserState {

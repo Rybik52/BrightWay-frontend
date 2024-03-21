@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "store/modalSlice";
 import { RootState } from "store/rootState";
 import styles from "./Modals.module.scss";
-import { useDeleteUserQuery } from "store/api";
 
 const DeleteModal = () => {
 	const dispatch = useDispatch();
@@ -12,11 +11,11 @@ const DeleteModal = () => {
 		(state: RootState) => state.modal["DeleteModal"]?.data
 	);
 
-	const id = data?.UserId;
-	const { data: deleteUserData } = useDeleteUserQuery(id);
+	// const id = data?.UserId;
+	// const { data: deleteUserData } = useDeleteUserQuery(id);
 
 	const handleDelete = () => {
-		console.log(deleteUserData);
+		// console.log(deleteUserData);
 
 		dispatch(closeModal({ modalId: "DeleteModal" }));
 	};

@@ -38,7 +38,9 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 						{item.fullName}
 					</td>
 					<td>{item.username}</td>
-					<td className={styles.grey}>ООО «Название компании»</td>
+					<td className={styles.grey}>
+						{item.organizations[0]?.title}
+					</td>
 					<td
 						style={{ position: "relative" }}
 						className={styles.grey}
