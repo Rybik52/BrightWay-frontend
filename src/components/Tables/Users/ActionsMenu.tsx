@@ -53,10 +53,12 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 					<button>Сменить пароль</button>
 				</li>
 				<li>
-					<button>
+					<button
+						onClick={() => handleOpenModalWithData("AdminModal")}
+					>
 						{role === "ROLE_USER"
-							? "Назначить админом"
-							: "Убрать админа"}
+							? "Убрать админа"
+							: "Назначить админом"}
 					</button>
 				</li>
 			</ul>

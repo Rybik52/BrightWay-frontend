@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseUrl = "http://v-mdlp1:89/";
 
 export const queueApi = createApi({
-	reducerPath: "queueApi",
+	reducerPath: "mdlpAPI",
+	tagTypes: ["Users"],
 	baseQuery: fetchBaseQuery({ baseUrl }),
 	endpoints: (builder) => ({
 		getQueueData: builder.query({
@@ -25,12 +26,23 @@ export const queueApi = createApi({
 			}),
 		}),
 		getUsersAll: builder.query({
+			providesTags: (result) =>
+				result
+					? [
+							...result.map((id: number) => ({
+								type: "Users",
+								id,
+							})),
+							{ type: "Users", id: "List" },
+					]
+					: [{ type: "Users", id: "List" }],
 			query: () => ({
 				url: "api/users/all",
 				method: "GET",
 			}),
 		}),
 		addUser: builder.mutation({
+			invalidatesTags: [{ type: "Users", id: "List" }],
 			query: ({ username, fullName, password }) => ({
 				url: "api/users/add",
 				method: "POST",
@@ -38,40 +50,57 @@ export const queueApi = createApi({
 					username,
 					fullName,
 					password,
-					active: true,
 					role: "ROLE_USER",
-				},
-			}),
-		}),
-		changeUserRoleAndState: builder.mutation({
-			query: ({ id, role, state }) => ({
-				url: `api/users/edit`,
-				method: "POST",
-				body: {
-					id,
-					role,
 					state: {
-						lastActivity: state.lastActivity,
-						status: state.status,
-						status_time: state.status_time,
+						lastActivity: new Date(),
+						isActiveNow: false,
+						isDeleted: false,
+						isBlocked: false,
+						statusTime: null,
 					},
 				},
 			}),
 		}),
-		// deleteUser: builder.query({
-		// 	query: (id: number) => ({
-		// 		url: `api/users/delete/${id}`,
-		// 		method: "GET",
-		// 	}),
-		// }),
+		editUser: builder.mutation({
+			invalidatesTags: [{ type: "Users", id: "List" }],
+			query: (body) => ({
+				url: `api/users/edit`,
+				method: "POST",
+				body,
+			}),
+		}),
+		deleteUser: builder.mutation({
+			invalidatesTags: [{ type: "Users", id: "List" }],
+			query: (id: number) => ({
+				url: `api/users/delete/${id}`,
+				method: "GET",
+			}),
+		}),
+		toggleBlockUser: builder.mutation({
+			invalidatesTags: [{ type: "Users", id: "List" }],
+			query: (id: number) => ({
+				url: `api/users/block/${id}`,
+				method: "GET",
+			}),
+		}),
+		recoveryUser: builder.mutation({
+			invalidatesTags: [{ type: "Users", id: "List" }],
+			query: (id: number) => ({
+				url: `api/users/recovery/${id}`,
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
 export const {
+	useRecoveryUserMutation,
+	useToggleBlockUserMutation,
+	useDeleteUserMutation,
 	useGetQueueDataQuery,
 	useLoginMutation,
 	useGetUserByUsernameQuery,
 	useGetUsersAllQuery,
 	useAddUserMutation,
-	useChangeUserRoleAndStateMutation,
+	useEditUserMutation,
 } = queueApi;
