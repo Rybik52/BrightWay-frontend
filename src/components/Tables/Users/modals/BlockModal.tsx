@@ -4,28 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "store/modalSlice";
 import { RootState } from "store/rootState";
 import styles from "./Modals.module.scss";
-import { useChangeUserRoleAndStateMutation } from "store/api";
+import { useToggleBlockUserMutation } from "store/api";
 
 const BlockModal = () => {
 	const dispatch = useDispatch();
-	const [block] = useChangeUserRoleAndStateMutation();
 	const data = useSelector(
 		(state: RootState) => state.modal["BlockModal"]?.data
 	);
 
-	const handleToggleBlock = async (status: string) => {
-		try {
-			await block({
-				id: data.UserId,
-				state: {
-					status,
-					status_time: new Date(),
-				},
-			});
-			dispatch(closeModal({ modalId: "BlockModal" }));
-		} catch (error) {
-			console.error("Ошибка при отправке запроса на блокировку:", error);
-		}
+	const [ToggleBlock] = useToggleBlockUserMutation();
+	const handleToggleBlock = () => {
+		ToggleBlock(data.UserId);
+		handleClose();
 	};
 
 	const handleClose = () => {
@@ -34,22 +24,19 @@ const BlockModal = () => {
 
 	if (!data) return null;
 
-	const stateText =
-		data.state.status === "blocked"
-			? "Разблокировать аккаунт пользователя"
-			: "Заблокировать пользователя";
+	const stateText = data.state.isBlocked
+		? "Разблокировать аккаунт пользователя"
+		: "Заблокировать пользователя";
 
-	const renderedButtons =
-		data.state.status === "blocked" ? (
-			<Button variant="contained">Разблокировать</Button>
-		) : (
-			<Button
-				onClick={() => handleToggleBlock("blocked")}
-				variant="contained"
-			>
-				Заблокировать
-			</Button>
-		);
+	const renderedButtons = data.state.isBlocked ? (
+		<Button onClick={handleToggleBlock} variant="contained">
+			Разблокировать
+		</Button>
+	) : (
+		<Button onClick={handleToggleBlock} variant="contained">
+			Заблокировать
+		</Button>
+	);
 
 	return (
 		<Modal modalTitle="BlockModal" exitButton>

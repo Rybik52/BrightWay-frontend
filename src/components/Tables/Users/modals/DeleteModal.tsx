@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "store/modalSlice";
 import { RootState } from "store/rootState";
 import styles from "./Modals.module.scss";
+import { useDeleteUserMutation, useRecoveryUserMutation } from "store/api";
 
 const DeleteModal = () => {
 	const dispatch = useDispatch();
@@ -11,12 +12,20 @@ const DeleteModal = () => {
 		(state: RootState) => state.modal["DeleteModal"]?.data
 	);
 
-	// const id = data?.UserId;
-	// const { data: deleteUserData } = useDeleteUserQuery(id);
+	const [Delete] = useDeleteUserMutation();
+	const [Recovery] = useRecoveryUserMutation();
 
 	const handleDelete = () => {
-		// console.log(deleteUserData);
+		console.log("Удалён пользователь " + data.UserId);
+		Delete(data.UserId);
+		dispatch(closeModal({ modalId: "DeleteModal" }));
+	};
 
+	const handleRecovery = () => {
+		console.log(
+			"Восстановлен пользователь " + data.UserId + " - " + data.name
+		);
+		Recovery(data.UserId);
 		dispatch(closeModal({ modalId: "DeleteModal" }));
 	};
 
@@ -26,19 +35,19 @@ const DeleteModal = () => {
 
 	if (!data) return null;
 
-	const stateText =
-		data.state.status === "deleted"
-			? "Восстановить аккаунт пользователя"
-			: "Удалить пользователя";
+	const stateText = data.state.isDeleted
+		? "Восстановить аккаунт пользователя"
+		: "Удалить пользователя";
 
-	const renderedButtons =
-		data.state.status === "deleted" ? (
-			<Button variant="contained">Восстановить</Button>
-		) : (
-			<Button onClick={handleDelete} variant="contained">
-				Удалить
-			</Button>
-		);
+	const renderedButtons = data.state.isDeleted ? (
+		<Button onClick={handleRecovery} variant="contained">
+			Восстановить
+		</Button>
+	) : (
+		<Button onClick={handleDelete} variant="contained">
+			Удалить
+		</Button>
+	);
 
 	return (
 		<Modal modalTitle="DeleteModal" exitButton>
