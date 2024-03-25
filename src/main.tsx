@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import LoginPage from "pages/LoginPage";
+// import LoginPage from "pages/LoginPage";
 import { store } from "store/store";
 
 import ProtectedRoute from "components/Auth/ProtectedRoute";
@@ -23,16 +23,17 @@ import {
 	TasksPage,
 	UsersPage,
 } from "./pages";
+import Loader from "components/common/Loader";
 
 const router = createBrowserRouter([
-	{
-		path: "/login",
-		element: (
-			<PlainLayout>
-				<LoginPage />
-			</PlainLayout>
-		),
-	},
+	// {
+	// 	path: "/login",
+	// 	element: (
+	// 		<PlainLayout>
+	// 			<LoginPage />
+	// 		</PlainLayout>
+	// 	),
+	// },
 	{
 		path: "*",
 		element: (
@@ -41,16 +42,16 @@ const router = createBrowserRouter([
 			</PlainLayout>
 		),
 	},
+	// {
+	// 	path: "/",
+	// 	element: (
+	// 		<PlainLayout>
+	// 			<LoginPage />
+	// 		</PlainLayout>
+	// 	),
+	// },
 	{
 		path: "/",
-		element: (
-			<PlainLayout>
-				<LoginPage />
-			</PlainLayout>
-		),
-	},
-	{
-		path: "",
 		element: (
 			<ProtectedRoute>
 				<MainLayout />
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")!).render(
-	<Suspense fallback={<div>Loading page...</div>}>
+	<Suspense fallback={<Loader />}>
 		<Provider store={store}>
 			<RouterProvider router={router} />
 		</Provider>

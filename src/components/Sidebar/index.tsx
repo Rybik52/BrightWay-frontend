@@ -5,7 +5,6 @@ import {
 	AvatarIcon,
 	ExitIcon,
 	HeadPhonesIcon,
-	HomeIcon,
 	NoticeIcon,
 	ReportIcon,
 	SettingsIcon,
@@ -30,20 +29,20 @@ interface INavItem {
 }
 
 const UserNavItems: INavItem[] = [
+	// {
+	// 	title: "Личный кабинет",
+	// 	icon: <HomeIcon />,
+	// 	href: "/home",
+	// },
 	{
-		title: "Личный кабинет",
-		icon: <HomeIcon />,
-		href: "/home",
+		title: "Задания",
+		icon: <TasksIcon />,
+		href: "/tasks",
 	},
 	{
 		title: "Уведомления",
 		icon: <NoticeIcon />,
 		href: "/notices",
-	},
-	{
-		title: "Задания",
-		icon: <TasksIcon />,
-		href: "/tasks",
 	},
 	{
 		title: "Отчеты",
@@ -64,14 +63,14 @@ const UserNavItems: INavItem[] = [
 
 const AdminNavItems: INavItem[] = [
 	{
-		title: "Пользователи",
-		icon: <AvatarIcon />,
-		href: "/users",
-	},
-	{
 		title: "Задания",
 		icon: <TasksIcon />,
 		href: "/tasks",
+	},
+	{
+		title: "Пользователи",
+		icon: <AvatarIcon />,
+		href: "/users",
 	},
 	{
 		title: "Уведомления",
