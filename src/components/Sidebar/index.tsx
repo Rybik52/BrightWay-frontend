@@ -15,7 +15,7 @@ import logo from "assets/brightTech.svg";
 import UserInfo from "components/UserInfo";
 
 import SpinLoader from "components/common/SpinLoader";
-import { useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetUserByUsernameQuery } from "store/api";
 import { selectUser, setUser } from "store/userSlice";
@@ -67,6 +67,11 @@ const AdminNavItems: INavItem[] = [
 		title: "Пользователи",
 		icon: <AvatarIcon />,
 		href: "/users",
+	},
+	{
+		title: "Задания",
+		icon: <TasksIcon />,
+		href: "/tasks",
 	},
 	{
 		title: "Уведомления",
@@ -165,3 +170,4 @@ const Index = () => {
 };
 
 export default Index;
+export const Sidebar = lazy(() => import("components/Sidebar"));

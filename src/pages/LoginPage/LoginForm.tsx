@@ -31,13 +31,12 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 	const onSubmit: SubmitHandler<IFormInput> = () => {
 		// TODO: Добавить логику для обработки входа пользователя
 		// login(data);
-		navigate("/");
+		navigate("/home");
 	};
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<h1>Вход в личный кабинет</h1>
-			{/* {isError && <p className={styles.error}>Ошибка авторизации</p>} */}
 			<div className={styles.form__inputs_container}>
 				<Input
 					{...register("username", {
