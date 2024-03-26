@@ -1,10 +1,13 @@
 stages:
-  - print
+  - prod
 
 print_message:
-  stage: print
-  script:
-    - npm install
-    - npm run build
-    - robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
-    - echo "Deploying the project..."
+  stage: prod
+  job:
+    script:
+      - if [[ $CI_COMMIT_REF_NAME == "master" ]]; then
+        echo "Deploying project to PROD server"
+        npm install
+        npm run build
+        robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
+        echo "Deploying the project..."
