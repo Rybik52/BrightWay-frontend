@@ -2,7 +2,7 @@ stages:
   - print
   - build_prod
 
-build_job:
+build_prod:
   stage: build_prod
   script:
     - if [[ $CI_COMMIT_REF_NAME == "master" ]]; then
