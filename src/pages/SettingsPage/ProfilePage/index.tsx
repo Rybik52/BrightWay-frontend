@@ -12,7 +12,7 @@ import Modal from "components/common/Modal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "store/userSlice";
-import { openModal } from "store/modalSlice";
+import { closeModal, openModal } from "store/modalSlice";
 
 const Index = () => {
 	const navigate = useNavigate();
@@ -41,6 +41,7 @@ const Index = () => {
 	};
 
 	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: "ChangeDataModal" }));
 		navigate(-1);
 	};
 

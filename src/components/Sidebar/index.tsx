@@ -5,7 +5,6 @@ import {
 	AvatarIcon,
 	ExitIcon,
 	HeadPhonesIcon,
-	HomeIcon,
 	NoticeIcon,
 	ReportIcon,
 	SettingsIcon,
@@ -15,7 +14,7 @@ import logo from "assets/brightTech.svg";
 import UserInfo from "components/UserInfo";
 
 import SpinLoader from "components/common/SpinLoader";
-import { useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetUserByUsernameQuery } from "store/api";
 import { selectUser, setUser } from "store/userSlice";
@@ -30,20 +29,20 @@ interface INavItem {
 }
 
 const UserNavItems: INavItem[] = [
+	// {
+	// 	title: "Личный кабинет",
+	// 	icon: <HomeIcon />,
+	// 	href: "/home",
+	// },
 	{
-		title: "Личный кабинет",
-		icon: <HomeIcon />,
-		href: "/home",
+		title: "Задания",
+		icon: <TasksIcon />,
+		href: "/tasks",
 	},
 	{
 		title: "Уведомления",
 		icon: <NoticeIcon />,
 		href: "/notices",
-	},
-	{
-		title: "Задания",
-		icon: <TasksIcon />,
-		href: "/tasks",
 	},
 	{
 		title: "Отчеты",
@@ -63,6 +62,11 @@ const UserNavItems: INavItem[] = [
 ];
 
 const AdminNavItems: INavItem[] = [
+	{
+		title: "Задания",
+		icon: <TasksIcon />,
+		href: "/tasks",
+	},
 	{
 		title: "Пользователи",
 		icon: <AvatarIcon />,
@@ -165,3 +169,4 @@ const Index = () => {
 };
 
 export default Index;
+export const Sidebar = lazy(() => import("components/Sidebar"));

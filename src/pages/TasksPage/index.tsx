@@ -16,7 +16,6 @@ const Index = () => {
 	return (
 		<>
 			<Schedule />
-
 			<EditSchedule />
 
 			<h1 className={styles.header}>

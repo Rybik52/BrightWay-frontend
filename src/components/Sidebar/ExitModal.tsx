@@ -11,6 +11,7 @@ const ExitModal = () => {
 
 	const handleClose = () => {
 		dispatch(closeModal({ modalId: "ExitModal" }));
+		navigate("/login");
 	};
 
 	return (
@@ -18,12 +19,7 @@ const ExitModal = () => {
 			<div className={styles.modal_exit}>
 				<h3>Выйти из аккаунта?</h3>
 				<div className={styles.modal_exit__buttons}>
-					<Button
-						variant="contained"
-						onClick={() => {
-							navigate("/login");
-						}}
-					>
+					<Button variant="contained" onClick={handleClose}>
 						Выйти
 					</Button>
 					<Button variant="cancel" onClick={handleClose}>
