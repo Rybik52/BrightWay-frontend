@@ -11,7 +11,7 @@ deploy_prod:
     - echo "Deploying project to PROD server"
     - npm install
     - npm run build
-    - xcopy "dist\*" "C:\nginx\html" /y
+    - xcopy "dist\*" "C:\nginx\html" /E /Y
     - echo "Finished"
 
 deploy_dev:
@@ -22,7 +22,7 @@ deploy_dev:
     - echo "Deploying project to DEV server"
     - npm install
     - npm run build
-    - xcopy "dist\*" "C:\nginx\html" /y
+    - xcopy "dist\*" "C:\nginx\html" /E /Y
     - echo "Finished"
 
 print_message:
