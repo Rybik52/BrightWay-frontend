@@ -5,4 +5,4 @@ print_message:
   stage: print
   script:
     - cd C:\Program Files\projects-to-deploy
-    - echo "Deploying the project...."
+    - echo "Deploying the project..."
