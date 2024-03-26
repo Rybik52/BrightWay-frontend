@@ -4,24 +4,24 @@ stages:
   - deploy_dev
 
 deploy_prod:
-  stage: build_prod
+  stage: deploy_prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
   script:
-         echo "Deploying project to PROD server"
-         npm install
-         npm run build
-         robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
+    - echo "Deploying project to PROD server"
+    - npm install
+    - npm run build
+    - robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
 
 deploy_dev:
-  stage: build_prod
+  stage: deploy_dev
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   script:
-    echo "Deploying project to PROD server"
-    npm install
-    npm run build
-    robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
+    - echo "Deploying project to DEV server"
+    - npm install
+    - npm run build
+    - robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
 
 print_message:
   stage: print_message
