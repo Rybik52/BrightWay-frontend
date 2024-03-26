@@ -52,7 +52,7 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 				<li>
 					<button
 						onClick={() =>
-							handleOpenModalWithData("ChangePasswordModal")
+							handleOpenModalWithData("ChangeUserPasswordModal")
 						}
 					>
 						Сменить пароль
@@ -86,7 +86,7 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 			<li>
 				<button
 					onClick={() =>
-						handleOpenModalWithData("ChangePasswordModal")
+						handleOpenModalWithData("ChangeUserPasswordModal")
 					}
 				>
 					Сменить пароль

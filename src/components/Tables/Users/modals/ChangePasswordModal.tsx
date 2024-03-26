@@ -12,11 +12,11 @@ const ChangePasswordModal = () => {
 	const [Edit] = useEditUserMutation();
 
 	const data = useSelector(
-		(state: RootState) => state.modal["ChangePasswordModal"]?.data
+		(state: RootState) => state.modal["ChangeUserPasswordModal"]?.data
 	);
 
 	const handleClose = () => {
-		dispatch(closeModal({ modalId: "ChangePasswordModal" }));
+		dispatch(closeModal({ modalId: "ChangeUserPasswordModal" }));
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,11 +30,11 @@ const ChangePasswordModal = () => {
 			password: newPassword,
 		});
 
-		dispatch(closeModal({ modalId: "ChangePasswordModal" }));
+		dispatch(closeModal({ modalId: "ChangeUserPasswordModal" }));
 	};
 
 	return (
-		<Modal modalTitle="ChangePasswordModal" exitButton>
+		<Modal modalTitle="ChangeUserPasswordModal" exitButton>
 			<h2 className={styles.header}>
 				Изменить пароль пользователю
 				<br /> {data.name}

@@ -51,13 +51,6 @@ export const queueApi = createApi({
 					fullName,
 					password,
 					role: "ROLE_USER",
-					state: {
-						lastActivity: new Date(),
-						isActiveNow: false,
-						isDeleted: false,
-						isBlocked: false,
-						statusTime: null,
-					},
 				},
 			}),
 		}),
