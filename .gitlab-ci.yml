@@ -1,5 +1,5 @@
 stages:
-  - print
+  - print_message
   - build_prod
 
 build_prod:
@@ -12,6 +12,6 @@ build_prod:
             robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
 
 print_message:
-  stage: prod
+  stage: print_message
   script:
     - echo "Deploying project..."
