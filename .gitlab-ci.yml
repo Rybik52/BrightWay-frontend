@@ -5,6 +5,6 @@ print_message:
   stage: print
   script:
     - npm install
-    - npm build
+    - npm run build
     - copy .\dist\* "C:\Program Files\nginx-1.25.4\html"
     - echo "Deploying the project..."
