@@ -18,7 +18,7 @@ deploy_dev:
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   script:
-    echo "Deploying project to PROD server"
+    echo "Deploying project to DEV server"
     npm install
     npm run build
     robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
