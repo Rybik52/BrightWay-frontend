@@ -1,13 +1,13 @@
 import UsersTable from "components/Tables/Users";
 import Button from "components/common/Button";
 import styles from "./UserPage.module.scss";
-import { useGetQueueDataQuery } from "store/api";
+import { useGetUsersAllQuery } from "store/api";
 import AddUserModal from "./AddUserModal";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modalSlice";
 
 const Index = () => {
-	const { isError, isLoading } = useGetQueueDataQuery({});
+	const { isError, isLoading } = useGetUsersAllQuery({});
 	const dispatch = useDispatch();
 
 	const handleOpenModal = () => {

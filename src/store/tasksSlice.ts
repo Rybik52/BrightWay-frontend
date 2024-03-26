@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface ITasksItem {
+export interface ITasksItem {
 	id: number;
 	year: number;
 	month: number;
