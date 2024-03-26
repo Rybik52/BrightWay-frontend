@@ -12,6 +12,7 @@ deploy_prod:
     - npm install
     - npm run build
     - robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
+    - echo "Finished"
 
 deploy_dev:
   stage: deploy_dev
@@ -22,6 +23,7 @@ deploy_dev:
     - npm install
     - npm run build
     - robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
+    - echo "Finished"
 
 print_message:
   stage: print_message
