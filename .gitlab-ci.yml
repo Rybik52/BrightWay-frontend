@@ -4,5 +4,5 @@ stages:
 print_message:
   stage: print
   script:
-    - cd C:\Program Files\projects-to-deploy
+    - npm install
     - echo "Deploying the project..."
