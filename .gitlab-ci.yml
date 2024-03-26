@@ -5,7 +5,7 @@ stages:
 build_prod:
   stage: build_prod
   rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
   script:
          echo "Deploying project to PROD server"
          npm install
