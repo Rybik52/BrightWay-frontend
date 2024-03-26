@@ -50,7 +50,13 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 					</button>
 				</li>
 				<li>
-					<button>Сменить пароль</button>
+					<button
+						onClick={() =>
+							handleOpenModalWithData("ChangeUserPasswordModal")
+						}
+					>
+						Сменить пароль
+					</button>
 				</li>
 				<li>
 					<button
@@ -78,7 +84,13 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 				</button>
 			</li>
 			<li>
-				<button>Сменить пароль</button>
+				<button
+					onClick={() =>
+						handleOpenModalWithData("ChangeUserPasswordModal")
+					}
+				>
+					Сменить пароль
+				</button>
 			</li>
 			<li>
 				<button onClick={() => handleOpenModalWithData("AdminModal")}>

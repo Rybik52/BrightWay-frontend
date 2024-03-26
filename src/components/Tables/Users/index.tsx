@@ -7,6 +7,7 @@ import DeleteModal from "./modals/DeleteModal";
 import AdminModal from "./modals/AdminModal";
 import FetchError from "../FetchError";
 import SpinLoader from "components/common/SpinLoader";
+// import ChangePasswordModal from "./modals/ChangePasswordModal";
 
 const Index = () => {
 	const { data, isError, isLoading, refetch } = useGetUsersAllQuery({});
@@ -119,6 +120,7 @@ const Index = () => {
 			<BlockModal />
 			<DeleteModal />
 			<AdminModal />
+			{/* <ChangePasswordModal /> */}
 		</>
 	);
 };
