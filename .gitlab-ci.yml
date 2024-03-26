@@ -4,7 +4,7 @@ stages:
   - deploy_dev
 
 deploy_prod:
-  stage: build_prod
+  stage: deploy_prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
   script:
@@ -14,7 +14,7 @@ deploy_prod:
          robocopy dist "C:\Program Files\nginx-1.25.4\html" /e
 
 deploy_dev:
-  stage: build_prod
+  stage: deploy_dev
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   script:
