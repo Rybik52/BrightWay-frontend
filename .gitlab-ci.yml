@@ -1,5 +1,5 @@
 stages:
-  -print
+  - print
 
 print_message:
   stage: print
