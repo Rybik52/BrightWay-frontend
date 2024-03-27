@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import styles from "./Layout.module.scss";
-import Sidebar from "components/Sidebar";
+import { Sidebar } from "components/Sidebar";
 import { Outlet } from "react-router-dom";
 
 export const MainLayout = () => {

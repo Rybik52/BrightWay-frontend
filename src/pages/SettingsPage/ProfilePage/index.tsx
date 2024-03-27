@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Card from "components/common/Card";
 import Input from "components/common/Input";
@@ -12,19 +12,24 @@ import Modal from "components/common/Modal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "store/userSlice";
-import { openModal } from "store/modalSlice";
+import { closeModal, openModal } from "store/modalSlice";
+import { useEditUserMutation } from "store/api";
 
 const Index = () => {
+	const [isVisible, setIsVisible] = useState(false);
+	const [userId, setUserId] = useState<number | null>(null);
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [Edit] = useEditUserMutation();
 	const user = useSelector(selectUser);
-	const [isVisible, setIsVisible] = useState(false);
 
-	const handleForgotPasswordModal = () => {
-		dispatch(openModal({ modalId: "ChangeDataModal" }));
-	};
+	useEffect(() => {
+		setUserId(user?.id ?? null);
+	}, [user?.id]);
 
 	type Inputs = {
+		id: number;
 		fullName: string;
 		username: string;
 	};
@@ -36,11 +41,18 @@ const Index = () => {
 	} = useForm<Inputs>();
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
-		console.log(data);
-		handleForgotPasswordModal();
+		if (data.username === "") {
+			data.username = user?.username ?? "";
+		}
+
+		const dataWithUserId = { ...data, id: userId };
+		console.log(dataWithUserId);
+		Edit(dataWithUserId);
+		dispatch(openModal({ modalId: "ChangeDataModal" }));
 	};
 
 	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: "ChangeDataModal" }));
 		navigate(-1);
 	};
 
@@ -95,7 +107,6 @@ const Index = () => {
 							</div>
 							<Input
 								{...register("username", {
-									required: "Это обязательное поле*",
 									pattern: {
 										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
 										message: "Неверный email*",

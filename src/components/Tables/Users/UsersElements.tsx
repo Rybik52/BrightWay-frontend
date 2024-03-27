@@ -1,6 +1,6 @@
 import { ArrowPrevIcon } from "assets/IconsComponent";
 import Button from "components/common/Button";
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { IUser } from "store/userSlice";
 import ActionsMenu from "./ActionsMenu";
 import UserStatus from "./UserStatus";
@@ -12,6 +12,25 @@ interface UsersElementsProps {
 
 const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 	const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+
+	const menuRef = useRef<HTMLUListElement>(null);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (
+				menuRef.current &&
+				!menuRef.current.contains(event.target as Node)
+			) {
+				setOpenMenuId(null);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
+
 	const toggleMenu = (id: number): void => {
 		setOpenMenuId(openMenuId === id ? null : id);
 	};
@@ -65,7 +84,9 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 								}}
 							/>
 						</Button>
+
 						<ActionsMenu
+							// ref={menuRef}
 							UserId={item.id}
 							role={item.role}
 							name={item.fullName}

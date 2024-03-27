@@ -4,11 +4,28 @@ const baseUrl = "http://v-mdlp1:89/";
 
 export const queueApi = createApi({
 	reducerPath: "mdlpAPI",
-	tagTypes: ["Users"],
+	tagTypes: ["Users", "Queue"],
 	baseQuery: fetchBaseQuery({ baseUrl }),
 	endpoints: (builder) => ({
-		getQueueData: builder.query({
+		getQueueAll: builder.query({
+			providesTags: (result) =>
+				result
+					? [
+							...result.map((id: number) => ({
+								type: "Queue",
+								id,
+							})),
+							{ type: "Queue", id: "List" },
+					]
+					: [{ type: "Queue", id: "List" }],
 			query: () => "api/queue/all",
+		}),
+		deleteTaskFromQueue: builder.mutation({
+			query: (id: number) => ({
+				invalidatesTags: [{ type: "Queue", id: "List" }],
+				url: `/api/queue/delete?id=${id}`,
+				method: "GET",
+			}),
 		}),
 		login: builder.mutation({
 			query: ({ username, password }) => ({
@@ -20,6 +37,7 @@ export const queueApi = createApi({
 			}),
 		}),
 		getUserByUsername: builder.query({
+			providesTags: ["Users"],
 			query: (username: string) => ({
 				url: `api/users/username?username=${username}`,
 				method: "GET",
@@ -51,13 +69,6 @@ export const queueApi = createApi({
 					fullName,
 					password,
 					role: "ROLE_USER",
-					state: {
-						lastActivity: new Date(),
-						isActiveNow: false,
-						isDeleted: false,
-						isBlocked: false,
-						statusTime: null,
-					},
 				},
 			}),
 		}),
@@ -94,10 +105,11 @@ export const queueApi = createApi({
 });
 
 export const {
+	useDeleteTaskFromQueueMutation,
 	useRecoveryUserMutation,
 	useToggleBlockUserMutation,
 	useDeleteUserMutation,
-	useGetQueueDataQuery,
+	useGetQueueAllQuery,
 	useLoginMutation,
 	useGetUserByUsernameQuery,
 	useGetUsersAllQuery,

@@ -1,16 +1,15 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { ArrowRightIcon, PencilIcon, TrashIcon } from "assets/IconsComponent";
 import Button from "components/common/Button";
 import Pagination from "components/common/Pagination";
 import ProcessBar from "components/common/ProcessBar";
-import { RootState } from "store/rootState";
-import { deleteTask, setData } from "store/tasksSlice";
+import { ITasksItem } from "store/tasksSlice";
 
 import SpinLoader from "components/common/SpinLoader";
-import { useGetQueueDataQuery } from "store/api";
+import { useDeleteTaskFromQueueMutation, useGetQueueAllQuery } from "store/api";
 import styles from "../Table.module.scss";
 import DeleteTaskModal from "./DeleteTaskModal";
 import EditTask from "./EditTask";
@@ -24,29 +23,22 @@ interface TableProps {
 
 const Index: FC<TableProps> = ({ isPagination }) => {
 	const dispatch = useDispatch();
-	const [deletedRows, setDeletedRows] = useState<number[]>([]);
-	const tasks = useSelector((state: RootState) => state.tasks.data);
+	const [Delete] = useDeleteTaskFromQueueMutation();
+	// const [deletedRows, setDeletedRows] = useState<number[]>([]);
 
-	const handleOpenEditModal = () => {
-		dispatch(openModal({ modalId: "DeleteTaskModal" }));
+	const handleEdit = () => {
+		dispatch(openModal({ modalId: "EditTaskModal" }));
 	};
 
 	const handleDelete = (id: number) => {
-		handleOpenEditModal();
-		setDeletedRows([...deletedRows, id]);
+		dispatch(openModal({ modalId: "DeleteTaskModal" }));
+		Delete(id);
+		// setDeletedRows([...deletedRows, id]);
 
-		setInterval(() => {
-			dispatch(deleteTask(id));
-		}, 200);
+		// setInterval(() => {}, 200);
 	};
 
-	const { data, isError, isLoading, refetch } = useGetQueueDataQuery({});
-
-	useEffect(() => {
-		if (data) {
-			dispatch(setData(data));
-		}
-	}, [data, dispatch]);
+	const { data, isError, isLoading, refetch } = useGetQueueAllQuery({});
 
 	if (isLoading) {
 		return <SpinLoader />;
@@ -56,9 +48,9 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 		return <FetchError fetchName="задания" onClick={refetch} />;
 	}
 
-	const tasksElements = tasks.map((item) => (
+	const tasksElements = data.map((item: ITasksItem) => (
 		<tr
-			className={deletedRows.includes(item.id) ? styles.deleting : ""}
+			// className={deletedRows.includes(item.id) ? styles.deleting : ""}
 			key={item.id}
 		>
 			<td>
@@ -74,7 +66,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 				<span>
 					<Button
 						title="Редактировать задание"
-						onClick={handleOpenEditModal}
+						onClick={handleEdit}
 						variant="text"
 					>
 						<PencilIcon />
@@ -94,7 +86,6 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 	return (
 		<>
 			<DeleteTaskModal />
-
 			<EditTask />
 
 			<div className={styles.table_wrapper}>
