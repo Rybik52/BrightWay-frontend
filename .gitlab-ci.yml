@@ -5,11 +5,10 @@ stages:
 deploy_front:
   stage: deploy_front
   script:
-    - echo "Deploying project from %{$CI_COMMIT_BRANCH} server"
+    - echo "Deploying project from $CI_COMMIT_BRANCH server"
     - npm install
     - npm run build
-    - rm -Force c:\nginx\html
-    - Y
+    - Remove-Item -Path "c:\nginx\html\*" -Recurse -Force
     - xcopy /s /e /i "dist" "C:\nginx\html"
     - echo "Finished"
 
