@@ -35,6 +35,11 @@ const UserNavItems: INavItem[] = [
 	// 	href: "/home",
 	// },
 	{
+		title: "Отчеты",
+		icon: <ReportIcon />,
+		href: "/reports",
+	},
+	{
 		title: "Задания",
 		icon: <TasksIcon />,
 		href: "/tasks",
@@ -43,11 +48,6 @@ const UserNavItems: INavItem[] = [
 		title: "Уведомления",
 		icon: <NoticeIcon />,
 		href: "/notices",
-	},
-	{
-		title: "Отчеты",
-		icon: <ReportIcon />,
-		href: "/reports",
 	},
 	{
 		title: "Настройки",
@@ -62,6 +62,11 @@ const UserNavItems: INavItem[] = [
 ];
 
 const AdminNavItems: INavItem[] = [
+	{
+		title: "Отчеты",
+		icon: <ReportIcon />,
+		href: "/reports",
+	},
 	{
 		title: "Задания",
 		icon: <TasksIcon />,
