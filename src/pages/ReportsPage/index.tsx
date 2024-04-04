@@ -1,25 +1,17 @@
-import { SettingsIcon } from "assets/IconsComponent";
+import styles from "./ReportsPage.module.scss";
 
-const index = () => {
+const Index = () => {
 	return (
 		<div>
 			<h1>Отчеты</h1>
-			<div
-				style={{
-					width: "100%",
-					height: "80vh",
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-					gap: "20px",
-					fontSize: "3rem",
-				}}
-			>
-				Страница в разработке
-				<SettingsIcon />
+			<div className={styles.container}>
+				<iframe
+					title="sales"
+					src="https://analytics.velpharm.group/superset/dashboard/Sales?standalone=1&show_filters=1&expand_filters=0"
+				/>
 			</div>
 		</div>
 	);
 };
 
-export default index;
+export default Index;
