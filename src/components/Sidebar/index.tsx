@@ -37,7 +37,7 @@ const UserNavItems: INavItem[] = [
 	{
 		title: "Отчеты",
 		icon: <ReportIcon />,
-		href: "/reports",
+		href: "/",
 	},
 	{
 		title: "Задания",
@@ -65,7 +65,7 @@ const AdminNavItems: INavItem[] = [
 	{
 		title: "Отчеты",
 		icon: <ReportIcon />,
-		href: "/reports",
+		href: "/",
 	},
 	{
 		title: "Задания",
