@@ -23,7 +23,7 @@ deploy_dev:
     - npm install
     - npm run build
     # - xcopy "dist\*" "C:\nginx\html" /y
-    - xcopy /s /e /i "dist\*" "C:\nginx\html"
+    - xcopy /s /e /i /y "dist\*" "C:\nginx\html"
     - echo "Finished"
 
 print_message:
