@@ -22,7 +22,8 @@ deploy_dev:
     - echo "Deploying project to DEV server"
     - npm install
     - npm run build
-    - xcopy "dist\*" "C:\nginx\html" /y
+    # - xcopy "dist\*" "C:\nginx\html" /y
+    - xcopy /s /e /i /y "dist\*" "C:\nginx\html"
     - echo "Finished"
 
 print_message:
