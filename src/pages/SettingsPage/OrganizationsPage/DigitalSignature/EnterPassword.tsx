@@ -1,31 +1,24 @@
 import Button from "components/common/Button";
 import Card from "components/common/Card";
 import Input from "components/common/Input";
-import Modal from "components/common/Modal";
 import styles from "components/DigitalSignature/DigitalSignature.module.scss";
 import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { IDigitalSignature } from "store/digitalSignaturesSlice";
-import { closeModal, openModal } from "store/modalSlice";
+import { openModal } from "store/modalSlice";
+import SuccessAddOrganization from "./SuccessAddOrganization";
 
 interface EnterPasswordProps {
 	data?: IDigitalSignature;
 }
 
 const EnterPassword: FC<EnterPasswordProps> = ({ data }) => {
-	const navigator = useNavigate();
 	const dispatch = useDispatch();
 	const { id, ownerName, orgTitle } = data!;
 
 	type Inputs = {
 		password: string;
-	};
-
-	const handleCloseModal = () => {
-		dispatch(closeModal({ modalId: "EnterPasswordModalConfirm" }));
-		navigator(0);
 	};
 
 	const {
@@ -36,22 +29,12 @@ const EnterPassword: FC<EnterPasswordProps> = ({ data }) => {
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		console.log(data);
-		dispatch(openModal({ modalId: "EnterPasswordModalConfirm" }));
+		dispatch(openModal({ modalId: "SuccessAddOrganizationModal" }));
 	};
 
 	return (
 		<>
-			<Modal modalTitle="EnterPasswordModalConfirm" exitButton>
-				<div className={styles.modal}>
-					<div>
-						<h3>Организация успешна добавлена</h3>
-						<p>Она будет отражена в вашем кабинете</p>
-					</div>
-					<Button onClick={handleCloseModal} variant="contained">
-						Закрыть
-					</Button>
-				</div>
-			</Modal>
+			<SuccessAddOrganization />
 			<Card>
 				<div className={styles.wrapper}>
 					<h3 className={styles.header}>{`Сертификат ${id}`}</h3>
