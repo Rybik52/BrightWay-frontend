@@ -9,6 +9,7 @@ export interface ITasksItem {
 	batch: string;
 	type: string;
 	progress: number;
+	isDeletable: boolean;
 }
 
 interface TasksState {
@@ -26,6 +27,7 @@ const initialState: TasksState = {
 			batch: "",
 			type: "",
 			progress: 0,
+			isDeletable: true,
 		},
 	],
 };

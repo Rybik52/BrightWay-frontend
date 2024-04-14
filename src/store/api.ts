@@ -20,6 +20,14 @@ export const queueApi = createApi({
 					: [{ type: "Queue", id: "List" }],
 			query: () => "api/queue/all",
 		}),
+		addQueue: builder.mutation({
+			query: (data) => ({
+				invalidatesTags: [{ type: "Queue", id: "List" }],
+				url: "/api/queue/new",
+				method: "POST",
+				body: data,
+			}),
+		}),
 		deleteTaskFromQueue: builder.mutation({
 			query: (id: number) => ({
 				invalidatesTags: [{ type: "Queue", id: "List" }],
@@ -101,10 +109,18 @@ export const queueApi = createApi({
 				method: "GET",
 			}),
 		}),
+		getAllCompany: builder.query({
+			query: () => ({
+				url: "api/company/get",
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
 export const {
+	useAddQueueMutation,
+	useGetAllCompanyQuery,
 	useDeleteTaskFromQueueMutation,
 	useRecoveryUserMutation,
 	useToggleBlockUserMutation,

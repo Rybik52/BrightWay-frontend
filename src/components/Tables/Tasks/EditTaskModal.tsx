@@ -1,20 +1,17 @@
 import Button from "components/common/Button";
-import DropDown, { DropDownItem } from "components/common/DropDown";
+import DropDown from "components/common/DropDown";
 import Input from "components/common/Input";
 import Modal from "components/common/Modal";
 import RadioButton from "components/common/RadioButton";
 import WeekPicker from "components/common/WeekPicker";
 import { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store/rootState";
+import { useDispatch } from "react-redux";
 import styles from "../Table.module.scss";
 import { closeModal } from "store/modalSlice";
-
-const years = [
-	{ id: 1, value: "2021" },
-	{ id: 2, value: "2022" },
-	{ id: 3, value: "2023" },
-];
+import YearsDropDown from "./YearsDropDown";
+import MonthDropDown from "./MonthDropDown";
+import OrgDropDown from "./OrgDropDown";
+import { useAddQueueMutation } from "store/api";
 
 const uploadReport = [
 	{ id: 1, value: "Отчет о выбытии" },
@@ -23,36 +20,29 @@ const uploadReport = [
 	{ id: 4, value: "Отчет по остаткам" },
 ];
 
-const EditTask = () => {
+interface IFormState {
+	year: number | undefined;
+	month: number | undefined;
+	week?: number | undefined;
+	type: string;
+	gtin: string;
+	batch: string;
+	orgId: number | undefined;
+}
+
+const EditTaskModal = () => {
+	const [AddTask] = useAddQueueMutation();
 	const dispatch = useDispatch();
-	const [isOpen, setIsOpen] = useState(false);
 	const [type, setType] = useState("month");
-	const [form, setForm] = useState({
-		year: "",
-		type: "month",
+
+	const [form, setForm] = useState<IFormState>({
+		year: 0,
+		month: 0,
+		type: "traffic",
 		gtin: "",
 		batch: "",
-		organizations: "",
-		digitalSignatures: "",
+		orgId: 0,
 	});
-
-	const digitalSignatures = useSelector(
-		(state: RootState) => state.digitalSignatures.data
-	);
-
-	const organizations = useSelector(
-		(state: RootState) => state.organizations.data
-	);
-
-	const organizationsTitles: DropDownItem[] = organizations.map((item) => ({
-		id: item.id,
-		value: item.organizationTitle,
-	}));
-
-	const ownersNames: DropDownItem[] = digitalSignatures.map((item) => ({
-		id: item.id,
-		value: item.ownerName,
-	}));
 
 	const handleClose = () => {
 		dispatch(closeModal({ modalId: "EditTaskModal" }));
@@ -64,7 +54,8 @@ const EditTask = () => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		(e.target as HTMLFormElement).reset();
+		// (e.target as HTMLFormElement).reset();
+		AddTask(form);
 		console.log(form);
 	};
 
@@ -72,7 +63,13 @@ const EditTask = () => {
 		<Modal modalTitle="EditTaskModal">
 			<form onSubmit={handleSubmit} className={styles.modal}>
 				<h3>Редактировать задание на одинарный отчет</h3>
-				<DropDown title="Год*" items={years} />
+
+				<YearsDropDown
+					setSelectedItem={(yearObj) =>
+						setForm({ ...form, year: yearObj?.id })
+					}
+				/>
+
 				<div className={styles.modal__radios}>
 					<RadioButton
 						label="Месяц"
@@ -90,16 +87,13 @@ const EditTask = () => {
 
 				<div className={styles.modal__inputs}>
 					{type === "month" ? (
-						<Input
-							type="month"
-							placeholder="Месяц"
-							title="Выбор Месяца"
+						<MonthDropDown
+							setSelectedItem={(monthObj) =>
+								setForm({ ...form, month: monthObj?.id })
+							}
 						/>
 					) : (
-						<WeekPicker
-							onClick={() => setIsOpen(!isOpen)}
-							isOpen={isOpen}
-						/>
+						<WeekPicker />
 					)}
 					<Input
 						type="text"
@@ -116,11 +110,12 @@ const EditTask = () => {
 						}
 					/>
 					<DropDown title="Отчет по выгрузке" items={uploadReport} />
-					<DropDown
-						title="Организация*"
-						items={organizationsTitles}
+					<OrgDropDown
+						setSelectedItem={(orgObj) =>
+							setForm({ ...form, orgId: orgObj?.id })
+						}
 					/>
-					<DropDown title="ЭЦП*" items={ownersNames} />
+					{/* <DropDown title="ЭЦП*" items={ownersNames} /> */}
 				</div>
 				<div className={styles.modal__buttons}>
 					<Button type="submit" variant="contained">
@@ -139,4 +134,4 @@ const EditTask = () => {
 	);
 };
 
-export default EditTask;
+export default EditTaskModal;

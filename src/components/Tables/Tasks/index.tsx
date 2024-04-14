@@ -12,7 +12,7 @@ import SpinLoader from "components/common/SpinLoader";
 import { useDeleteTaskFromQueueMutation, useGetQueueAllQuery } from "store/api";
 import styles from "../Table.module.scss";
 import DeleteTaskModal from "./DeleteTaskModal";
-import EditTask from "./EditTask";
+import EditTask from "./EditTaskModal";
 import { getMonthName } from "./utils";
 import FetchError from "../FetchError";
 import { openModal } from "store/modalSlice";
@@ -34,7 +34,6 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 		dispatch(openModal({ modalId: "DeleteTaskModal" }));
 		Delete(id);
 		// setDeletedRows([...deletedRows, id]);
-
 		// setInterval(() => {}, 200);
 	};
 
@@ -72,6 +71,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 						<PencilIcon />
 					</Button>
 					<Button
+						disabled={!item.isDeletable}
 						title="Удалить задание"
 						onClick={() => handleDelete(item.id)}
 						variant="text"

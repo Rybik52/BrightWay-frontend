@@ -4,12 +4,12 @@ import styles from "./TasksPage.module.scss";
 import { useDispatch } from "react-redux";
 import { closeModal, openModal } from "store/modalSlice";
 
-const Schedule = () => {
+const ScheduleModal = () => {
 	const dispatch = useDispatch();
 
 	const handelClick = () => {
+		dispatch(openModal({ modalId: "EditScheduleModal" }));
 		dispatch(closeModal({ modalId: "ScheduleModal" }));
-		dispatch(openModal({ modalId: "ScheduleEditModal" }));
 	};
 
 	return (
@@ -35,4 +35,4 @@ const Schedule = () => {
 	);
 };
 
-export default Schedule;
+export default ScheduleModal;
