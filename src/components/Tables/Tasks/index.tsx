@@ -64,6 +64,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 				<ProcessBar percent={item.progress} />
 				<span>
 					<Button
+						disabled={!item.isDeletable}
 						title="Редактировать задание"
 						onClick={handleEdit}
 						variant="text"
