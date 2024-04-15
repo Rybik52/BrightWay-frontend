@@ -16,6 +16,7 @@ import EditTask from "./EditTaskModal";
 import { getMonthName } from "./utils";
 import FetchError from "../FetchError";
 import { openModal } from "store/modalSlice";
+import ReportType from "./ReportType";
 
 interface TableProps {
 	isPagination?: boolean;
@@ -58,7 +59,9 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 			<td>{item.week ?? "-"}</td>
 			<td>{item.gtin === "" ? "-" : item.gtin}</td>
 			<td>{item.batch === "" ? "-" : item.batch}</td>
-			<td>{item.type}</td>
+			<td>
+				<ReportType type={item.type} />
+			</td>
 			<td></td>
 			<td className={styles.table__progress}>
 				<ProcessBar percent={item.progress} />
