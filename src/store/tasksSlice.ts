@@ -10,6 +10,7 @@ export interface ITasksItem {
 	type: "balance" | "disposal" | "traffic" | "pricing";
 	progress: number;
 	isDeletable: boolean;
+	createDate: number;
 }
 
 interface TasksState {
@@ -28,6 +29,7 @@ const initialState: TasksState = {
 			type: "traffic",
 			progress: 0,
 			isDeletable: true,
+			createDate: Date.now(),
 		},
 	],
 };

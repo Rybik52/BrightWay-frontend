@@ -17,6 +17,7 @@ import { getMonthName } from "./utils";
 import FetchError from "../FetchError";
 import { openModal } from "store/modalSlice";
 import ReportType from "./ReportType";
+import { format } from "date-fns";
 
 interface TableProps {
 	isPagination?: boolean;
@@ -62,7 +63,7 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 			<td>
 				<ReportType type={item.type} />
 			</td>
-			<td></td>
+			<td>{format(item.createDate, "dd.MM.yyyy HH:mm:ss")}</td>
 			<td className={styles.table__progress}>
 				<ProcessBar percent={item.progress} />
 				<span>
