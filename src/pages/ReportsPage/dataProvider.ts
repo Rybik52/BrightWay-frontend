@@ -1,6 +1,6 @@
 import { DefaultDataProvider } from "superset-dashboard-sdk";
 
-const dp = new DefaultDataProvider("http://v-sandbox-2:8088", {
+const dp = new DefaultDataProvider("172.17.53.14:8088", {
 	username: "admin",
 	password: "admin",
 });

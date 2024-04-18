@@ -4,8 +4,8 @@ import { NavLink, useLocation } from "react-router-dom";
 import {
 	AvatarIcon,
 	ExitIcon,
-	HeadPhonesIcon,
-	NoticeIcon,
+	// HeadPhonesIcon,
+	// NoticeIcon,
 	ReportIcon,
 	SettingsIcon,
 	TasksIcon,
@@ -44,21 +44,21 @@ const UserNavItems: INavItem[] = [
 		icon: <TasksIcon />,
 		href: "/tasks",
 	},
-	{
-		title: "Уведомления",
-		icon: <NoticeIcon />,
-		href: "/notices",
-	},
+	// {
+	// 	title: "Уведомления",
+	// 	icon: <NoticeIcon />,
+	// 	href: "/notices",
+	// },
 	{
 		title: "Настройки",
 		icon: <SettingsIcon />,
 		href: "/settings",
 	},
-	{
-		title: "Тех. поддержка",
-		icon: <HeadPhonesIcon />,
-		href: "/support",
-	},
+	// {
+	// 	title: "Тех. поддержка",
+	// 	icon: <HeadPhonesIcon />,
+	// 	href: "/support",
+	// },
 ];
 
 const AdminNavItems: INavItem[] = [
@@ -77,21 +77,21 @@ const AdminNavItems: INavItem[] = [
 		icon: <AvatarIcon />,
 		href: "/users",
 	},
-	{
-		title: "Уведомления",
-		icon: <NoticeIcon />,
-		href: "/notices",
-	},
+	// {
+	// 	title: "Уведомления",
+	// 	icon: <NoticeIcon />,
+	// 	href: "/notices",
+	// },
 	{
 		title: "Настройки",
 		icon: <SettingsIcon />,
 		href: "/settings",
 	},
-	{
-		title: "Тех. поддержка",
-		icon: <HeadPhonesIcon />,
-		href: "/support",
-	},
+	// {
+	// 	title: "Тех. поддержка",
+	// 	icon: <HeadPhonesIcon />,
+	// 	href: "/support",
+	// },
 ];
 
 const Index = () => {
