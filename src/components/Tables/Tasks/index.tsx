@@ -63,7 +63,14 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 			<td>
 				<ReportType type={item.type} />
 			</td>
-			<td>{format(item.createDate, "dd.MM.yyyy HH:mm:ss")}</td>
+			<td
+				title={`Задание создано: ${format(
+					item.createDate,
+					"dd.MM.yyyy HH:mm:ss"
+				)}`}
+			>
+				{format(item.createDate, "dd.MM.yyyy")}
+			</td>
 			<td className={styles.table__progress}>
 				<ProcessBar percent={item.progress} />
 				<span>
