@@ -1,29 +1,15 @@
 stages:
   - print_message
-  - deploy_prod
-  - deploy_dev
+  - deploy_front
 
-deploy_prod:
-  stage: deploy_prod
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+deploy_front:
+  stage: deploy_front
   script:
-    - echo "Deploying project to PROD server"
+    - echo "Deploying project from $CI_COMMIT_BRANCH server"
     - npm install
     - npm run build
-    - xcopy "dist\*" "C:\nginx\html" /y
-    - echo "Finished"
-
-deploy_dev:
-  stage: deploy_dev
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "dev"'
-  script:
-    - echo "Deploying project to DEV server"
-    - npm install
-    - npm run build
-    # - xcopy "dist\*" "C:\nginx\html" /y
-    - xcopy /s /e /i /y "dist\*" "C:\nginx\html"
+    - Remove-Item -Path "c:\nginx\html\*" -Recurse -Force
+    - xcopy /s /e /i "dist" "C:\nginx\html"
     - echo "Finished"
 
 print_message:
