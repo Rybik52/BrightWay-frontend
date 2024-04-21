@@ -43,8 +43,6 @@ const EditTaskModal = () => {
 	};
 	const [form, setForm] = useState<IFormState>(initialFormState);
 
-	console.log(form);
-
 	const handleCloseModal = () => {
 		dispatch(closeModal({ modalId: "EditAndCreateTaskModal" }));
 		setForm({

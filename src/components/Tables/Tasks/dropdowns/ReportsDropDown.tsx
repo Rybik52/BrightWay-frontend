@@ -28,10 +28,6 @@ const ReportsDropDown: FC<ReportsDropDownProps> = ({
 			onChange(selectedOption.value ?? "");
 		}
 	};
-	console.log(selectedItem);
-	console.log(
-		ReportsTypes.find((reportType) => reportType.value === selectedItem)
-	);
 
 	return (
 		<Select

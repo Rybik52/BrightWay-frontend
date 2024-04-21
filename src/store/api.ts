@@ -21,18 +21,18 @@ export const queueApi = createApi({
 			query: () => "api/queue/all",
 		}),
 		addQueue: builder.mutation({
+			invalidatesTags: [{ type: "Queue", id: "List" }],
 			query: (data) => ({
-				invalidatesTags: [{ type: "Queue", id: "List" }],
 				url: "/api/queue/new",
 				method: "POST",
 				body: data,
 			}),
 		}),
 		deleteTaskFromQueue: builder.mutation({
+			invalidatesTags: [{ type: "Queue", id: "List" }],
 			query: (id: number) => ({
-				invalidatesTags: [{ type: "Queue", id: "List" }],
 				url: `/api/queue/delete?id=${id}`,
-				method: "GET",
+				method: "DELETE",
 			}),
 		}),
 		login: builder.mutation({
