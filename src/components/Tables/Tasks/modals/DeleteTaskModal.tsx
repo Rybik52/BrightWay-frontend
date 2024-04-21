@@ -1,6 +1,6 @@
 import Button from "components/common/Button";
 import Modal from "components/common/Modal";
-import styles from "../Table.module.scss";
+import styles from "components/Tables/Table.module.scss";
 import { useDispatch } from "react-redux";
 import { closeModal } from "store/modalSlice";
 

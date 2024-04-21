@@ -1,5 +1,3 @@
-import { DropDownItem } from "components/common/DropDown";
-
 export const formatDate = (dateString: number): string => {
 	const options: Intl.DateTimeFormatOptions = {
 		year: "numeric",
@@ -28,6 +26,12 @@ export const getMonthName = (monthNumber: number): string => {
 	return months[monthNumber - 1] || "Неверный номер месяца";
 };
 
-export interface SelectDropDownProps {
-	setSelectedItem: (selectedItem: DropDownItem | null) => void;
+export interface CustomOption {
+	value: number;
+	label: string;
+}
+
+export interface ISelectItemsProps {
+	selectedItem: number | null;
+	onChange: (selectedItem: number) => void;
 }
