@@ -11,8 +11,8 @@ import { ITasksItem } from "store/tasksSlice";
 import SpinLoader from "components/common/SpinLoader";
 import { useDeleteTaskFromQueueMutation, useGetQueueAllQuery } from "store/api";
 import styles from "../Table.module.scss";
-import DeleteTaskModal from "./DeleteTaskModal";
-import EditTask from "./EditTaskModal";
+import DeleteTaskModal from "./modals/DeleteTaskModal";
+import EditTask from "./modals/EditAndCreateTaskModal";
 import { getMonthName } from "./utils";
 import FetchError from "../FetchError";
 import { openModal } from "store/modalSlice";
@@ -28,8 +28,8 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 	const [Delete] = useDeleteTaskFromQueueMutation();
 	// const [deletedRows, setDeletedRows] = useState<number[]>([]);
 
-	const handleEdit = () => {
-		dispatch(openModal({ modalId: "EditTaskModal" }));
+	const handleEdit = (item: ITasksItem) => {
+		dispatch(openModal({ modalId: "EditAndCreateTaskModal", data: item }));
 	};
 
 	const handleDelete = (id: number) => {
@@ -63,14 +63,21 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 			<td>
 				<ReportType type={item.type} />
 			</td>
-			<td>{format(item.createDate, "dd.MM.yyyy HH:mm:ss")}</td>
+			<td
+				title={`Задание создано: ${format(
+					item.createDate,
+					"dd.MM.yyyy HH:mm:ss"
+				)}`}
+			>
+				{format(item.createDate, "dd.MM.yyyy")}
+			</td>
 			<td className={styles.table__progress}>
 				<ProcessBar percent={item.progress} />
 				<span>
 					<Button
 						disabled={!item.isDeletable}
 						title="Редактировать задание"
-						onClick={handleEdit}
+						onClick={() => handleEdit(item)}
 						variant="text"
 					>
 						<PencilIcon />

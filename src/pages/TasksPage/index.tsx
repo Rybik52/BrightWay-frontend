@@ -20,7 +20,7 @@ const Index = () => {
 
 	const handleOpenCreateTaskModal = () => {
 		// dispatch(openModal({ modalId: "CreateTaskModal" }));
-		dispatch(openModal({ modalId: "EditTaskModal" }));
+		dispatch(openModal({ modalId: "EditAndCreateTaskModal" }));
 	};
 
 	return (
