@@ -3,7 +3,7 @@ import { Dashboard } from "superset-dashboard-sdk";
 // import dp from "./dataProvider";
 
 const Index = () => {
-	return (
+	return 	(
 		<div>
 			<h1>Отчеты</h1>
 			<div className={styles.container}>
