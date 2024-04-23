@@ -3,6 +3,7 @@ import { FC } from "react";
 import { useGetAllCompanyQuery } from "store/api";
 import { CustomOption, ISelectItemsProps } from "../utils";
 import Select, { SingleValue } from "react-select";
+import { customStyles } from "./CustomStyles";
 
 const OrgDropDown: FC<ISelectItemsProps> = ({ selectedItem, onChange }) => {
 	const { data, isLoading, isSuccess } = useGetAllCompanyQuery({});
@@ -24,6 +25,7 @@ const OrgDropDown: FC<ISelectItemsProps> = ({ selectedItem, onChange }) => {
 	if (isLoading) return <SpinLoader />;
 	return (
 		<Select
+			styles={customStyles}
 			placeholder="Организация*"
 			options={orgsData}
 			onChange={handleYearChange}

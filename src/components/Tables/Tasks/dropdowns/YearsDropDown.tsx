@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Select, { SingleValue } from "react-select";
 import { CustomOption, ISelectItemsProps } from "../utils";
+import { customStyles } from "./CustomStyles";
 
 const currentYear = new Date().getFullYear();
 
@@ -23,6 +24,7 @@ const YearsDropDown: FC<ISelectItemsProps> = ({ selectedItem, onChange }) => {
 
 	return (
 		<Select
+			styles={customStyles}
 			options={years}
 			maxMenuHeight={150}
 			placeholder="Год*"

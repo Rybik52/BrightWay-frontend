@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Select, { SingleValue } from "react-select";
+import { customStyles } from "./CustomStyles";
 
 interface ReportsDropDownProps {
 	selectedItem: string;
@@ -31,6 +32,7 @@ const ReportsDropDown: FC<ReportsDropDownProps> = ({
 
 	return (
 		<Select
+			styles={customStyles}
 			options={ReportsTypes}
 			maxMenuHeight={150}
 			placeholder="Отчет по выгрузке"
