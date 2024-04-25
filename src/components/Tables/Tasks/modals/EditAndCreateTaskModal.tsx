@@ -30,8 +30,8 @@ const EditTaskModal = () => {
 	const data = useSelector(
 		(state: RootState) => state.modal["EditAndCreateTaskModal"]?.data
 	);
-
 	const [type, setType] = useState("month");
+	const [dropdownKey, setDropdownKey] = useState<number>(0);
 
 	const initialFormState: IFormState = {
 		year: data?.year ?? null,
@@ -42,6 +42,13 @@ const EditTaskModal = () => {
 		orgId: null,
 	};
 	const [form, setForm] = useState<IFormState>(initialFormState);
+	const isFormValid =
+		form.year &&
+		form.month &&
+		form.type &&
+		form.gtin &&
+		form.batch &&
+		form.orgId;
 
 	const handleCloseModal = () => {
 		dispatch(closeModal({ modalId: "EditAndCreateTaskModal" }));
@@ -53,7 +60,9 @@ const EditTaskModal = () => {
 			batch: "",
 			orgId: null,
 		});
+		setDropdownKey((prevKey) => prevKey + 1);
 	};
+
 
 	useEffect(() => {
 		if (data) {
@@ -74,8 +83,11 @@ const EditTaskModal = () => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		AddTask(form);
-		handleCloseModal();
+
+		if (isFormValid) {
+			AddTask(form);
+			handleCloseModal();
+		}
 	};
 
 	return (
@@ -88,6 +100,7 @@ const EditTaskModal = () => {
 				)}
 
 				<YearsDropDown
+					key={`years-${dropdownKey}`}
 					selectedItem={form.year}
 					onChange={(year: number | null) => {
 						setForm({ ...form, year });
@@ -112,6 +125,7 @@ const EditTaskModal = () => {
 				<div className={styles.modal__inputs}>
 					{type === "month" ? (
 						<MonthDropDown
+							key={`months-${dropdownKey}`}
 							selectedItem={form.month}
 							onChange={(month: number | null) => {
 								setForm({ ...form, month });
@@ -138,12 +152,14 @@ const EditTaskModal = () => {
 					/>
 
 					<ReportsDropDown
+						key={`reports-${dropdownKey}`}
 						selectedItem={form.type}
 						onChange={(type: string) => {
 							setForm({ ...form, type });
 						}}
 					/>
 					<OrgDropDown
+						key={`org-${dropdownKey}`}
 						selectedItem={form.orgId}
 						onChange={(orgId: number | null) =>
 							setForm({ ...form, orgId })
@@ -151,7 +167,11 @@ const EditTaskModal = () => {
 					/>
 				</div>
 				<div className={styles.modal__buttons}>
-					<Button type="submit" variant="contained">
+					<Button
+						disabled={!isFormValid}
+						type="submit"
+						variant="contained"
+					>
 						Сохранить
 					</Button>
 					<Button

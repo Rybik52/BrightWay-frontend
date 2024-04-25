@@ -1,4 +1,3 @@
-import SpinLoader from "components/common/SpinLoader";
 import { FC } from "react";
 import { useGetAllCompanyQuery } from "store/api";
 import { CustomOption, ISelectItemsProps } from "../utils";
@@ -22,9 +21,9 @@ const OrgDropDown: FC<ISelectItemsProps> = ({ selectedItem, onChange }) => {
 		}));
 	}
 
-	if (isLoading) return <SpinLoader />;
 	return (
 		<Select
+			isLoading={isLoading}
 			styles={customStyles}
 			placeholder="Организация*"
 			options={orgsData}

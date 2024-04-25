@@ -27,12 +27,17 @@ const DeleteTaskModal = () => {
 		<Modal modalTitle="DeleteTaskModal" exitButton>
 			<div className={styles.modal}>
 				<h3>Вы уверены что хотите удалить задание?</h3>
-				<Button onClick={() => handleDelete(data)} variant="contained">
-					Удалить
-				</Button>
-				<Button onClick={handleClose} variant="cancel">
-					Отмена
-				</Button>
+				<div className={styles.modal__buttons}>
+					<Button
+						onClick={() => handleDelete(data)}
+						variant="contained"
+					>
+						Удалить
+					</Button>
+					<Button onClick={handleClose} variant="cancel">
+						Отмена
+					</Button>
+				</div>
 			</div>
 		</Modal>
 	);
