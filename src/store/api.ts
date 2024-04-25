@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseUrl = "http://v-java-dev:89/";
+const baseUrl = "http://v-mdlp-dev:89/";
 
 export const queueApi = createApi({
 	reducerPath: "mdlpAPI",

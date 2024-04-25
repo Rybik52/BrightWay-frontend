@@ -9,7 +9,7 @@ import ProcessBar from "components/common/ProcessBar";
 import { ITasksItem } from "store/tasksSlice";
 
 import SpinLoader from "components/common/SpinLoader";
-import { useDeleteTaskFromQueueMutation, useGetQueueAllQuery } from "store/api";
+import { useGetQueueAllQuery } from "store/api";
 import styles from "../Table.module.scss";
 import DeleteTaskModal from "./modals/DeleteTaskModal";
 import EditTask from "./modals/EditAndCreateTaskModal";
@@ -25,18 +25,13 @@ interface TableProps {
 
 const Index: FC<TableProps> = ({ isPagination }) => {
 	const dispatch = useDispatch();
-	const [Delete] = useDeleteTaskFromQueueMutation();
-	// const [deletedRows, setDeletedRows] = useState<number[]>([]);
 
 	const handleEdit = (item: ITasksItem) => {
 		dispatch(openModal({ modalId: "EditAndCreateTaskModal", data: item }));
 	};
 
 	const handleDelete = (id: number) => {
-		dispatch(openModal({ modalId: "DeleteTaskModal" }));
-		Delete(id);
-		// setDeletedRows([...deletedRows, id]);
-		// setInterval(() => {}, 200);
+		dispatch(openModal({ modalId: "DeleteTaskModal", data: id }));
 	};
 
 	const { data, isError, isLoading, refetch } = useGetQueueAllQuery({});
