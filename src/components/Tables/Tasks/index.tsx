@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -25,16 +25,32 @@ interface TableProps {
 
 const Index: FC<TableProps> = ({ isPagination }) => {
 	const dispatch = useDispatch();
+	const [sortedData, setSortedData] = useState<ITasksItem[]>([]);
+	const { data, isError, isLoading, refetch } = useGetQueueAllQuery({});
 
+	useEffect(() => {
+		if (!isLoading && !isError && data) {
+			const sorted = sortObjectsByYearAndMonth(data);
+			setSortedData(sorted);
+		}
+	}, [isLoading, isError, data]);
 	const handleEdit = (item: ITasksItem) => {
 		dispatch(openModal({ modalId: "EditAndCreateTaskModal", data: item }));
+	};
+
+	const sortObjectsByYearAndMonth = (objects: ITasksItem[]) => {
+		return objects.slice().sort((a, b) => {
+			if (a.year !== b.year) {
+				return b.year - a.year;
+			} else {
+				return b.month - a.month;
+			}
+		});
 	};
 
 	const handleDelete = (id: number) => {
 		dispatch(openModal({ modalId: "DeleteTaskModal", data: id }));
 	};
-
-	const { data, isError, isLoading, refetch } = useGetQueueAllQuery({});
 
 	if (isLoading) {
 		return <SpinLoader />;
@@ -44,11 +60,8 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 		return <FetchError fetchName="задания" onClick={refetch} />;
 	}
 
-	const tasksElements = data.map((item: ITasksItem) => (
-		<tr
-			// className={deletedRows.includes(item.id) ? styles.deleting : ""}
-			key={item.id}
-		>
+	const tasksElements = sortedData.map((item: ITasksItem) => (
+		<tr key={item.id}>
 			<td>
 				{getMonthName(item.month)} {item.year}
 			</td>
