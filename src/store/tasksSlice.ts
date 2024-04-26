@@ -7,8 +7,10 @@ export interface ITasksItem {
 	week: number | null;
 	gtin: string | null;
 	batch: string;
-	type: string;
+	type: "balance" | "disposal" | "traffic" | "pricing";
 	progress: number;
+	isDeletable: boolean;
+	createDate: number;
 }
 
 interface TasksState {
@@ -24,8 +26,10 @@ const initialState: TasksState = {
 			week: 12,
 			gtin: null,
 			batch: "",
-			type: "",
+			type: "traffic",
 			progress: 0,
+			isDeletable: true,
+			createDate: Date.now(),
 		},
 	],
 };

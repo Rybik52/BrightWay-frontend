@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseUrl = "http://v-mdlp-app:89/";
+const baseUrl = "http://v-mdlp-dev:89/";
 
 export const queueApi = createApi({
 	reducerPath: "mdlpAPI",
@@ -20,11 +20,19 @@ export const queueApi = createApi({
 					: [{ type: "Queue", id: "List" }],
 			query: () => "api/queue/all",
 		}),
+		addQueue: builder.mutation({
+			invalidatesTags: [{ type: "Queue", id: "List" }],
+			query: (data) => ({
+				url: "/api/queue/new",
+				method: "POST",
+				body: data,
+			}),
+		}),
 		deleteTaskFromQueue: builder.mutation({
+			invalidatesTags: [{ type: "Queue", id: "List" }],
 			query: (id: number) => ({
-				invalidatesTags: [{ type: "Queue", id: "List" }],
 				url: `/api/queue/delete?id=${id}`,
-				method: "GET",
+				method: "DELETE",
 			}),
 		}),
 		login: builder.mutation({
@@ -101,10 +109,18 @@ export const queueApi = createApi({
 				method: "GET",
 			}),
 		}),
+		getAllCompany: builder.query({
+			query: () => ({
+				url: "api/company/get",
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
 export const {
+	useAddQueueMutation,
+	useGetAllCompanyQuery,
 	useDeleteTaskFromQueueMutation,
 	useRecoveryUserMutation,
 	useToggleBlockUserMutation,

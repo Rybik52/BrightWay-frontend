@@ -6,7 +6,7 @@ import CheckBox from "components/common/CheckBox/Index";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { DaysOfWeek } from "./DaysOfWeek";
 import { useDispatch } from "react-redux";
-import { closeModal, openModal } from "store/modalSlice";
+import { closeModal } from "store/modalSlice";
 
 interface Inputs {
 	daysOfWeek: DaysOfWeek;
@@ -14,15 +14,20 @@ interface Inputs {
 	time: string;
 }
 
-const EditSchedule = () => {
+const EditScheduleModal = () => {
 	const dispatch = useDispatch();
 
 	const { handleSubmit, control, reset } = useForm<Inputs>();
 
+	const handleCloseModal = () => {
+		dispatch(closeModal({ modalId: "EditScheduleModal" }));
+		reset();
+	};
+
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		console.log(data);
-		dispatch(openModal({ modalId: "EditScheduleModal" }));
 		reset();
+		handleCloseModal();
 	};
 
 	const reports = [
@@ -87,11 +92,7 @@ const EditSchedule = () => {
 					</Button>
 					<Button
 						type="button"
-						onClick={() =>
-							dispatch(
-								closeModal({ modalId: "EditScheduleModal" })
-							)
-						}
+						onClick={handleCloseModal}
 						variant="cancel"
 					>
 						Отменить
@@ -102,4 +103,4 @@ const EditSchedule = () => {
 	);
 };
 
-export default EditSchedule;
+export default EditScheduleModal;

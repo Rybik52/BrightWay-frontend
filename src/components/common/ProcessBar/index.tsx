@@ -6,6 +6,23 @@ interface ProcessBarProps {
 }
 
 const index: FC<ProcessBarProps> = ({ percent }) => {
+	if (percent === 0) {
+		return (
+			<div className={styles.process}>
+				<div
+					className={styles.process__bg}
+					style={{
+						width: `100%`,
+						backgroundColor: "transparent",
+						color: "#3f88e9",
+					}}
+				>
+					В очереди
+				</div>
+			</div>
+		);
+	}
+
 	if (percent < 0 || percent > 100) {
 		console.error(
 			`Значение percent должно быть в диапазоне от 0 до 100. Сейчас percent = ${percent}`

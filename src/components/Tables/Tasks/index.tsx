@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -9,13 +9,15 @@ import ProcessBar from "components/common/ProcessBar";
 import { ITasksItem } from "store/tasksSlice";
 
 import SpinLoader from "components/common/SpinLoader";
-import { useDeleteTaskFromQueueMutation, useGetQueueAllQuery } from "store/api";
+import { useGetQueueAllQuery } from "store/api";
 import styles from "../Table.module.scss";
-import DeleteTaskModal from "./DeleteTaskModal";
-import EditTask from "./EditTask";
+import DeleteTaskModal from "./modals/DeleteTaskModal";
+import EditTask from "./modals/EditAndCreateTaskModal";
 import { getMonthName } from "./utils";
 import FetchError from "../FetchError";
 import { openModal } from "store/modalSlice";
+import ReportType from "./ReportType";
+import { format } from "date-fns";
 
 interface TableProps {
 	isPagination?: boolean;
@@ -23,22 +25,32 @@ interface TableProps {
 
 const Index: FC<TableProps> = ({ isPagination }) => {
 	const dispatch = useDispatch();
-	const [Delete] = useDeleteTaskFromQueueMutation();
-	// const [deletedRows, setDeletedRows] = useState<number[]>([]);
+	const [sortedData, setSortedData] = useState<ITasksItem[]>([]);
+	const { data, isError, isLoading, refetch } = useGetQueueAllQuery({});
 
-	const handleEdit = () => {
-		dispatch(openModal({ modalId: "EditTaskModal" }));
+	useEffect(() => {
+		if (!isLoading && !isError && data) {
+			const sorted = sortObjectsByYearAndMonth(data);
+			setSortedData(sorted);
+		}
+	}, [isLoading, isError, data]);
+	const handleEdit = (item: ITasksItem) => {
+		dispatch(openModal({ modalId: "EditAndCreateTaskModal", data: item }));
+	};
+
+	const sortObjectsByYearAndMonth = (objects: ITasksItem[]) => {
+		return objects.slice().sort((a, b) => {
+			if (a.year !== b.year) {
+				return b.year - a.year;
+			} else {
+				return b.month - a.month;
+			}
+		});
 	};
 
 	const handleDelete = (id: number) => {
-		dispatch(openModal({ modalId: "DeleteTaskModal" }));
-		Delete(id);
-		// setDeletedRows([...deletedRows, id]);
-
-		// setInterval(() => {}, 200);
+		dispatch(openModal({ modalId: "DeleteTaskModal", data: id }));
 	};
-
-	const { data, isError, isLoading, refetch } = useGetQueueAllQuery({});
 
 	if (isLoading) {
 		return <SpinLoader />;
@@ -48,30 +60,38 @@ const Index: FC<TableProps> = ({ isPagination }) => {
 		return <FetchError fetchName="задания" onClick={refetch} />;
 	}
 
-	const tasksElements = data.map((item: ITasksItem) => (
-		<tr
-			// className={deletedRows.includes(item.id) ? styles.deleting : ""}
-			key={item.id}
-		>
+	const tasksElements = sortedData.map((item: ITasksItem) => (
+		<tr key={item.id}>
 			<td>
 				{getMonthName(item.month)} {item.year}
 			</td>
 			<td>{item.week ?? "-"}</td>
 			<td>{item.gtin === "" ? "-" : item.gtin}</td>
 			<td>{item.batch === "" ? "-" : item.batch}</td>
-			<td>{item.type}</td>
-			<td></td>
+			<td>
+				<ReportType type={item.type} />
+			</td>
+			<td
+				title={`Задание создано: ${format(
+					item.createDate,
+					"dd.MM.yyyy HH:mm:ss"
+				)}`}
+			>
+				{format(item.createDate, "dd.MM.yyyy")}
+			</td>
 			<td className={styles.table__progress}>
 				<ProcessBar percent={item.progress} />
 				<span>
 					<Button
+						disabled={!item.isDeletable}
 						title="Редактировать задание"
-						onClick={handleEdit}
+						onClick={() => handleEdit(item)}
 						variant="text"
 					>
 						<PencilIcon />
 					</Button>
 					<Button
+						disabled={!item.isDeletable}
 						title="Удалить задание"
 						onClick={() => handleDelete(item.id)}
 						variant="text"

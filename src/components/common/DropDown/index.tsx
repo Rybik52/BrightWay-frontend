@@ -14,6 +14,7 @@ interface DropDownProps {
 	multiple?: boolean;
 	onChange?: (selectedItems: DropDownItem[]) => void;
 	isValidated?: boolean;
+	selectedItem?: DropDownItem | null;
 }
 
 const Index: FC<DropDownProps> = ({
@@ -22,10 +23,20 @@ const Index: FC<DropDownProps> = ({
 	multiple,
 	onChange,
 	isValidated,
+	// selectedItem,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedItems, setSelectedItems] = useState<DropDownItem[]>([]);
+
 	const dropDownRef = useRef<HTMLDivElement>(null);
+
+	// useEffect(() => {
+	// 	if (selectedItem) {
+	// 		setSelectedItems([selectedItem]);
+	// 	} else {
+	// 		setSelectedItems([]);
+	// 	}
+	// }, [selectedItem]);
 
 	useEffect(() => {
 		const handler = (event: MouseEvent) => {
@@ -45,26 +56,21 @@ const Index: FC<DropDownProps> = ({
 	const handleOnClick = (item: DropDownItem) => {
 		let newSelectedItems: DropDownItem[];
 		if (multiple) {
-			// Множественный выбор
 			const isSelected = isItemInSelection(item);
 			if (isSelected) {
-				// Если элемент уже выбран, убираем его из списка выбранных
 				newSelectedItems = selectedItems.filter(
 					(current) => current.id !== item.id
 				);
 			} else {
-				// Если элемент не выбран, добавляем его в список выбранных
 				newSelectedItems = [...selectedItems, item];
 			}
 		} else {
-			// Одиночный выбор
 			newSelectedItems = [item];
 		}
 		setSelectedItems(newSelectedItems);
 		if (onChange) {
 			onChange(newSelectedItems);
 		}
-
 		if (!multiple) {
 			setIsOpen(false);
 		}

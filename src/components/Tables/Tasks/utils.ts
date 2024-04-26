@@ -25,3 +25,13 @@ export const getMonthName = (monthNumber: number): string => {
 	];
 	return months[monthNumber - 1] || "Неверный номер месяца";
 };
+
+export interface CustomOption {
+	value: number;
+	label: string;
+}
+
+export interface ISelectItemsProps {
+	selectedItem: number | null;
+	onChange: (selectedItem: number) => void;
+}
