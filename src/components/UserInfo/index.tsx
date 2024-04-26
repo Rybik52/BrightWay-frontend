@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import AdminIco from "assets/admin.svg";
-import UserIco from "assets/user.svg";
+import AdminIco from "assets/Admin.svg";
+import UserIco from "assets/User.svg";
 
 import styles from "./UserStatus.module.scss";
 
