@@ -4,7 +4,7 @@ stages:
 deploy_dev:
   stage: deploy
   only:
-    - main
+    - master
   tags:
     - shell_dev
   script:
