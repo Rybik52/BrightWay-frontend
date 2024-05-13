@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^2.1.0",
     "@superset-ui/embedded-sdk": "^0.1.0-alpha.11",
     "@svgr/plugin-svgo": "^8.1.0",
     "classnames": "^2.5.1",
     "date-fns": "^3.3.1",
+    "keycloak-js": "^24.0.4",
     "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-datepicker": "^6.1.0",

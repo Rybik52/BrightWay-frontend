@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState } from "react"
 
-import logo from "assets/brightTech.svg";
+import logo from "assets/brightTech.svg"
 
-import LoginForm from "./LoginForm";
-import styles from "./LoginPage.module.scss";
-import ForgotPassword from "./ForgotPassword";
+// import LoginForm from "./LoginForm"
+import styles from "./LoginPage.module.scss"
+import ForgotPassword from "./ForgotPassword"
+import TestLogin from "pages/LoginPage/TestLogin.tsx"
 
 const Index = () => {
-	const [showForgotPassword, setShowForgotPassword] = useState(false);
+	const [showForgotPassword, setShowForgotPassword] = useState(false)
 
 	return (
 		<div className={styles.wrapper}>
@@ -18,11 +19,12 @@ const Index = () => {
 				{showForgotPassword ? (
 					<ForgotPassword toggleForm={setShowForgotPassword} />
 				) : (
-					<LoginForm toggleForm={setShowForgotPassword} />
+					// <LoginForm toggleForm={setShowForgotPassword} />
+					<TestLogin />
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Index;
+export default Index
