@@ -22,6 +22,9 @@ const Index = () => {
 	if (urlLoading || uidLoading || tokenLoading) {
 		return <SpinLoader />;
 	}
+	console.log("uid дашборда: " + dashboardsUID[0]);
+	console.log("домен дашборда: " + dashboardURL?.host);
+	console.log("токен дашборда: " + guestToken?.token);
 
 	return (
 		<div>
