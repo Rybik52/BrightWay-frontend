@@ -13,7 +13,7 @@ deploy_dev:
       npm install
       npm run build
       Remove-Item -Path "c:\nginx\html\*" -Recurse -Force
-      xcopy /s /e /i "dist" "C:\nginx\html"
+      xcopy /s /e /i "dist" "C:\Program Files\nginx\html"
       echo "Finished"
 
 deploy_prod:
