@@ -45,13 +45,10 @@ export const queueApi = createApi({
 				method: "DELETE"
 			})
 		}),
-		login: builder.mutation({
-			query: ({ username, password }) => ({
-				url: "/login",
-				method: "POST",
-				mode: "no-cors",
-				credentials: "include",
-				body: { username, password }
+		getSelf: builder.query({
+			query: () => ({
+				url: "api/user/self",
+				method: "GET"
 			})
 		}),
 		getUserByUsername: builder.query({
@@ -129,6 +126,7 @@ export const queueApi = createApi({
 })
 
 export const {
+  useGetSelfQuery,
 	useAddQueueMutation,
 	useGetAllCompanyQuery,
 	useDeleteTaskFromQueueMutation,
@@ -136,7 +134,6 @@ export const {
 	useToggleBlockUserMutation,
 	useDeleteUserMutation,
 	useGetQueueAllQuery,
-	useLoginMutation,
 	useGetUserByUsernameQuery,
 	useGetUsersAllQuery,
 	useAddUserMutation,

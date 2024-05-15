@@ -1,30 +1,30 @@
-import { FC } from "react";
-import styles from "../Table.module.scss";
-import classNames from "classnames";
-import { useDispatch } from "react-redux";
-import { openModal } from "store/modalSlice";
-import { IUserStatusState } from "store/userSlice";
+import { FC } from "react"
+import styles from "../Table.module.scss"
+import classNames from "classnames"
+import { useDispatch } from "react-redux"
+import { openModal } from "store/modalSlice"
+import { IUserStatusState } from "store/userSlice"
 
 interface ActionsMenuProps {
-	UserId: number;
-	active: boolean;
-	role: string;
-	name: string;
-	state: IUserStatusState;
+	UserId: number
+	active: boolean
+	roles: string[]
+	name: string
+	state: IUserStatusState
 }
 
 const ActionsMenu: FC<ActionsMenuProps> = ({
 	UserId,
 	state,
-	role,
+	roles,
 	name,
-	active,
+	active
 }) => {
 	const listClass = classNames(styles.actions_list, {
-		[styles.active]: active,
-	});
+		[styles.active]: active
+	})
 
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 	const handleOpenModalWithData = (id: string) => {
 		dispatch(
 			openModal({
@@ -32,12 +32,12 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 				data: {
 					UserId,
 					state,
-					role,
-					name,
-				},
+					roles,
+					name
+				}
 			})
-		);
-	};
+		)
+	}
 
 	if (state.isDeleted) {
 		return (
@@ -62,13 +62,13 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 					<button
 						onClick={() => handleOpenModalWithData("AdminModal")}
 					>
-						{role === "ROLE_USER"
+						{roles[0] === "analytics"
 							? "Убрать админа"
 							: "Назначить админом"}
 					</button>
 				</li>
 			</ul>
-		);
+		)
 	}
 
 	return (
@@ -94,13 +94,13 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
 			</li>
 			<li>
 				<button onClick={() => handleOpenModalWithData("AdminModal")}>
-					{role === "ROLE_USER"
+					{roles[0] === "analytics"
 						? "Назначить админом"
 						: "Убрать админа"}
 				</button>
 			</li>
 		</ul>
-	);
-};
+	)
+}
 
-export default ActionsMenu;
+export default ActionsMenu

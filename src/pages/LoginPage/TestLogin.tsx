@@ -1,7 +1,7 @@
 import Button from "components/common/Button"
 import { useKeycloak } from "@react-keycloak/web"
 import styles from "pages/LoginPage/LoginPage.module.scss"
-import { FormEvent } from "react"
+import { FormEvent, useEffect } from "react"
 import SpinLoader from "components/common/SpinLoader"
 import { useNavigate } from "react-router-dom"
 
@@ -14,12 +14,14 @@ const TestLogin = () => {
 		keycloak.login()
 	}
 
+	useEffect(() => {
+		if (keycloak.authenticated || initialized) {
+			navigate("/reports")
+		}
+	}, [keycloak.authenticated, initialized, navigate])
+
 	if (!initialized) {
 		return <SpinLoader />
-	}
-
-	if (keycloak.authenticated || initialized) {
-		navigate("/home")
 	}
 
 	return (

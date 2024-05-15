@@ -1,31 +1,29 @@
-import classnames from "classnames";
-import { NavLink, useLocation } from "react-router-dom";
+import classnames from "classnames"
+import { NavLink, useLocation } from "react-router-dom"
 
 import {
 	AvatarIcon,
 	ExitIcon,
-	// HeadPhonesIcon,
-	// NoticeIcon,
 	ReportIcon,
 	SettingsIcon,
-	TasksIcon,
-} from "assets/IconsComponent";
-import logo from "assets/brightTech.svg";
-import UserInfo from "components/UserInfo";
+	TasksIcon
+} from "assets/IconsComponent"
+import logo from "assets/brightTech.svg"
+import UserInfo from "components/UserInfo"
 
-import SpinLoader from "components/common/SpinLoader";
-import { lazy, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useGetUserByUsernameQuery } from "store/api";
-import { selectUser, setUser } from "store/userSlice";
-import ExitModal from "./ExitModal";
-import NavItem from "./NavItem";
-import styles from "./Sidebar.module.scss";
-import { openModal } from "store/modalSlice";
+import SpinLoader from "components/common/SpinLoader"
+import { lazy, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useGetSelfQuery } from "store/api"
+import { selectUser, setUser } from "store/userSlice"
+import ExitModal from "./ExitModal"
+import NavItem from "./NavItem"
+import styles from "./Sidebar.module.scss"
+import { openModal } from "store/modalSlice"
 interface INavItem {
-	title: string;
-	icon: JSX.Element;
-	href: string;
+	title: string
+	icon: JSX.Element
+	href: string
 }
 
 const UserNavItems: INavItem[] = [
@@ -37,12 +35,12 @@ const UserNavItems: INavItem[] = [
 	{
 		title: "Отчеты",
 		icon: <ReportIcon />,
-		href: "/reports",
+		href: "/reports"
 	},
 	{
 		title: "Задания",
 		icon: <TasksIcon />,
-		href: "/tasks",
+		href: "/tasks"
 	},
 	// {
 	// 	title: "Уведомления",
@@ -52,30 +50,30 @@ const UserNavItems: INavItem[] = [
 	{
 		title: "Настройки",
 		icon: <SettingsIcon />,
-		href: "/settings",
-	},
+		href: "/settings"
+	}
 	// {
 	// 	title: "Тех. поддержка",
 	// 	icon: <HeadPhonesIcon />,
 	// 	href: "/support",
 	// },
-];
+]
 
 const AdminNavItems: INavItem[] = [
 	{
 		title: "Отчеты",
 		icon: <ReportIcon />,
-		href: "/reports",
+		href: "/reports"
 	},
 	{
 		title: "Задания",
 		icon: <TasksIcon />,
-		href: "/tasks",
+		href: "/tasks"
 	},
 	{
 		title: "Пользователи",
 		icon: <AvatarIcon />,
-		href: "/users",
+		href: "/users"
 	},
 	// {
 	// 	title: "Уведомления",
@@ -85,31 +83,30 @@ const AdminNavItems: INavItem[] = [
 	{
 		title: "Настройки",
 		icon: <SettingsIcon />,
-		href: "/settings",
-	},
+		href: "/settings"
+	}
 	// {
 	// 	title: "Тех. поддержка",
 	// 	icon: <HeadPhonesIcon />,
 	// 	href: "/support",
 	// },
-];
+]
 
 const Index = () => {
-	const dispatch = useDispatch();
-	const user = useSelector(selectUser);
-	const { pathname } = useLocation();
+	const dispatch = useDispatch()
+	const user = useSelector(selectUser)
+	const { pathname } = useLocation()
 
 	const handleOpenModal = () => {
-		dispatch(openModal({ modalId: "ExitModal" }));
-	};
+		dispatch(openModal({ modalId: "ExitModal" }))
+	}
 
 	// ?INFO временно получение пользователя
-	const { data, isLoading, isError } =
-		useGetUserByUsernameQuery("admin@admin.ru");
+	const { data, isLoading, isError } = useGetSelfQuery({})
 
 	useEffect(() => {
 		if (data) {
-			dispatch(setUser(data));
+			dispatch(setUser(data))
 		}
 
 		if (isError) {
@@ -119,19 +116,19 @@ const Index = () => {
 					fullName: "Тест Тестович",
 					active: true,
 					role: "ROLE_ADMIN",
-					username: "test@gmail.com",
+					username: "test@gmail.com"
 				})
-			);
+			)
 		}
-	}, [data, dispatch, isError]);
+	}, [data, dispatch, isError])
 
-	let userView;
+	let userView
 	if (isLoading) {
-		userView = <SpinLoader />;
+		userView = <SpinLoader />
 	} else if (user !== null) {
-		userView = <UserInfo role={user.role} name={user.fullName} />;
+		userView = <UserInfo roles={user.roles} name={user.fullName} />
 	} else {
-		userView = <div>Не удалось загрузить пользователя</div>;
+		userView = <div>Не удалось загрузить пользователя</div>
 	}
 
 	return (
@@ -142,7 +139,7 @@ const Index = () => {
 			</div>
 			<div className={styles.nav_container}>
 				<ul className={styles.nav_list}>
-					{(user && user.role === "ROLE_ADMIN"
+					{(user && user.roles[0] === "admins"
 						? AdminNavItems
 						: UserNavItems
 					).map((item, index) => (
@@ -151,7 +148,7 @@ const Index = () => {
 								className={classnames(styles.nav_list__item, {
 									[styles.active]: pathname.startsWith(
 										item.href
-									),
+									)
 								})}
 							>
 								<NavItem title={item.title} icon={item.icon} />
@@ -170,8 +167,8 @@ const Index = () => {
 			</div>
 			<ExitModal />
 		</aside>
-	);
-};
+	)
+}
 
-export default Index;
-export const Sidebar = lazy(() => import("components/Sidebar"));
+export default Index
+export const Sidebar = lazy(() => import("components/Sidebar"))
