@@ -7,6 +7,7 @@ const PrivateRoute: FC<PropsWithChildren> = ({ children }) => {
 	const navigate = useNavigate()
 
 	const isLoggedIn = keycloak.authenticated
+
 	useEffect(() => {
 		if (!isLoggedIn) {
 			navigate("/")

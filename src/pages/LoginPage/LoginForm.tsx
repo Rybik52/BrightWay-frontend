@@ -30,7 +30,6 @@ const LoginForm: FC<LoginFormProps> = ({ toggleForm }) => {
 
 	const onSubmit: SubmitHandler<IFormInput> = () => {
 		// TODO: Добавить логику для обработки входа пользователя
-		// login(data);
 		navigate("/tasks");
 	};
 

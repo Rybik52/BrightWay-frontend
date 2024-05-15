@@ -87,11 +87,14 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById("root")!).render(
-	<Suspense fallback={<Loader />}>
-		<ReactKeycloakProvider authClient={keycloak}>
+	<ReactKeycloakProvider
+		authClient={keycloak}
+		initOptions={{ onLoad: "login-required" }}
+	>
+		<Suspense fallback={<Loader />}>
 			<Provider store={store}>
 				<RouterProvider router={router} />
 			</Provider>
-		</ReactKeycloakProvider>
-	</Suspense>
+		</Suspense>
+	</ReactKeycloakProvider>
 )
