@@ -17,6 +17,24 @@ export const queueApi = createApi({
 		}
 	}),
 	endpoints: (builder) => ({
+		getDashboardURL: builder.query({
+			query: () => ({
+				url: "api/superset/metadata",
+				method: "GET",
+			}),
+		}),
+		getDashboardsUID: builder.query({
+			query: () => ({
+				url: "api/superset/dashboards",
+				method: "GET",
+			}),
+		}),
+		getGuestToken: builder.query({
+			query: () => ({
+				url: "api/superset/guest-token",
+				method: "GET",
+			}),
+		}),
 		getQueueAll: builder.query({
 			providesTags: (result) =>
 				result
@@ -127,6 +145,9 @@ export const queueApi = createApi({
 
 export const {
   useGetSelfQuery,
+	useGetDashboardsUIDQuery,
+	useGetGuestTokenQuery,
+	useGetDashboardURLQuery,
 	useAddQueueMutation,
 	useGetAllCompanyQuery,
 	useDeleteTaskFromQueueMutation,
