@@ -12,7 +12,7 @@ deploy_dev:
       echo "Deploying project from $CI_COMMIT_BRANCH server"
       npm install
       npm run build
-      Remove-Item -Path "c:\nginx\html\*" -Recurse -Force
+      Remove-Item -Path "c:\Program Files\nginx\html\*" -Recurse -Force
       xcopy /s /e /i "dist" "C:\Program Files\nginx\html"
       echo "Finished"
 
@@ -27,6 +27,6 @@ deploy_prod:
       echo "Deploying project from $CI_COMMIT_BRANCH server"
       npm install
       npm run build
-      Remove-Item -Path "c:\nginx\html\*" -Recurse -Force
+      Remove-Item -Path "c:\Program Files\nginx\html\*" -Recurse -Force
       xcopy /s /e /i "dist" "C:\nginx\html"
       echo "Finished"
