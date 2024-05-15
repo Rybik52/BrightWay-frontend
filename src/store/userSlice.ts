@@ -4,7 +4,7 @@ export interface IUser {
 	id: number
 	fullName: string
 	username: string
-	roles: ("admins" | "analytics")[]
+	roles: ("admin" | "analytic")[]
 	state: IUserStatusState
 	organizations: IUserOrganizations[]
 }

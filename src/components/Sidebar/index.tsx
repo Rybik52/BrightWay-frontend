@@ -139,7 +139,7 @@ const Index = () => {
 			</div>
 			<div className={styles.nav_container}>
 				<ul className={styles.nav_list}>
-					{(user && user.roles[0] === "admins"
+					{(user && user.roles[0] === "admin"
 						? AdminNavItems
 						: UserNavItems
 					).map((item, index) => (
