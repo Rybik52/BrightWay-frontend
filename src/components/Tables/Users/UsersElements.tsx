@@ -1,19 +1,19 @@
-import { ArrowPrevIcon } from "assets/IconsComponent";
-import Button from "components/common/Button";
-import { FC, useEffect, useRef, useState } from "react";
-import { IUser } from "store/userSlice";
-import ActionsMenu from "./ActionsMenu";
-import UserStatus from "./UserStatus";
-import styles from "../Table.module.scss";
+import { ArrowPrevIcon } from "assets/IconsComponent"
+import Button from "components/common/Button"
+import { FC, useEffect, useRef, useState } from "react"
+import { IUser } from "store/userSlice"
+import ActionsMenu from "./ActionsMenu"
+import UserStatus from "./UserStatus"
+import styles from "../Table.module.scss"
 
 interface UsersElementsProps {
-	data: IUser[];
+	data: IUser[]
 }
 
 const UsersElements: FC<UsersElementsProps> = ({ data }) => {
-	const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+	const [openMenuId, setOpenMenuId] = useState<number | null>(null)
 
-	const menuRef = useRef<HTMLUListElement>(null);
+	const menuRef = useRef<HTMLUListElement>(null)
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -21,19 +21,19 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 				menuRef.current &&
 				!menuRef.current.contains(event.target as Node)
 			) {
-				setOpenMenuId(null);
+				setOpenMenuId(null)
 			}
-		};
+		}
 
-		document.addEventListener("mousedown", handleClickOutside);
+		document.addEventListener("mousedown", handleClickOutside)
 		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, []);
+			document.removeEventListener("mousedown", handleClickOutside)
+		}
+	}, [])
 
 	const toggleMenu = (id: number): void => {
-		setOpenMenuId(openMenuId === id ? null : id);
-	};
+		setOpenMenuId(openMenuId === id ? null : id)
+	}
 
 	return (
 		<>
@@ -42,14 +42,14 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 					key={item.id}
 					style={{ position: "relative" }}
 					title={
-						item.role === "ROLE_ADMIN"
+						item.roles[0] === "admins"
 							? "Администратор"
 							: "Пользователь"
 					}
 				>
 					<td
 						style={
-							item.role === "ROLE_ADMIN"
+							item.roles[0] === "admins"
 								? { fontWeight: 700 }
 								: undefined
 						}
@@ -80,7 +80,7 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 									rotate:
 										openMenuId === item.id
 											? "90deg"
-											: "-90deg",
+											: "-90deg"
 								}}
 							/>
 						</Button>
@@ -88,7 +88,7 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 						<ActionsMenu
 							// ref={menuRef}
 							UserId={item.id}
-							role={item.role}
+							roles={item.roles}
 							name={item.fullName}
 							state={item.state}
 							active={openMenuId === item.id}
@@ -97,7 +97,7 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 				</tr>
 			))}
 		</>
-	);
-};
+	)
+}
 
-export default UsersElements;
+export default UsersElements
