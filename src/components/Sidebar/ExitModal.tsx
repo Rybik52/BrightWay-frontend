@@ -1,18 +1,18 @@
-import Button from "components/common/Button";
-import Modal from "components/common/Modal";
-import { useNavigate } from "react-router-dom";
-import styles from "./Sidebar.module.scss";
-import { useDispatch } from "react-redux";
-import { closeModal } from "store/modalSlice";
+import Button from "components/common/Button"
+import Modal from "components/common/Modal"
+import styles from "./Sidebar.module.scss"
+import { useDispatch } from "react-redux"
+import { closeModal } from "store/modalSlice"
+import { useKeycloak } from "@react-keycloak/web"
 
 const ExitModal = () => {
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
+	const { keycloak } = useKeycloak()
 
 	const handleClose = () => {
-		dispatch(closeModal({ modalId: "ExitModal" }));
-		navigate("/login");
-	};
+		dispatch(closeModal({ modalId: "ExitModal" }))
+		keycloak.logout().then((r) => console.log(r))
+	}
 
 	return (
 		<Modal modalTitle="ExitModal" exitButton>
@@ -28,7 +28,7 @@ const ExitModal = () => {
 				</div>
 			</div>
 		</Modal>
-	);
-};
+	)
+}
 
-export default ExitModal;
+export default ExitModal
