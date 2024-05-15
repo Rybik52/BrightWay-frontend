@@ -42,14 +42,14 @@ const UsersElements: FC<UsersElementsProps> = ({ data }) => {
 					key={item.id}
 					style={{ position: "relative" }}
 					title={
-						item.roles[0] === "admins"
+						item.roles[0] === "admin"
 							? "Администратор"
 							: "Пользователь"
 					}
 				>
 					<td
 						style={
-							item.roles[0] === "admins"
+							item.roles[0] === "admin"
 								? { fontWeight: 700 }
 								: undefined
 						}
