@@ -2,7 +2,6 @@ import { Provider } from "react-redux"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { ReactKeycloakProvider } from "@react-keycloak/web"
 
-// import LoginPage from "pages/LoginPage";
 import { store } from "store/store"
 
 import ProtectedRoute from "components/Auth/ProtectedRoute"
@@ -88,8 +87,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
 	<ReactKeycloakProvider
-		authClient={keycloak}
 		initOptions={{ onLoad: "login-required" }}
+		authClient={keycloak}
 	>
 		<Suspense fallback={<Loader />}>
 			<Provider store={store}>

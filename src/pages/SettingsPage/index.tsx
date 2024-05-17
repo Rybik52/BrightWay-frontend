@@ -1,44 +1,39 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom"
 
-import Card from "components/common/Card";
-import {
-	BankIcon,
-	FlashDriveIcon,
-	SettingsIcon,
-	UserIcon,
-} from "assets/IconsComponent";
+import Card from "components/common/Card"
+import { BankIcon, FlashDriveIcon, SettingsIcon } from "assets/IconsComponent"
 
-import styles from "./SettingsPage.module.scss";
+import styles from "./SettingsPage.module.scss"
 
 const Index = () => {
-	const location = useLocation();
+	const location = useLocation()
 
 	const data = [
-		{
-			title: "Данные аккаунта",
-			text: "ФИО, email, пароль",
-			icon: <UserIcon />,
-			link: "profile",
-		},
+		// {
+		// 	title: "Данные аккаунта",
+		// 	text: "ФИО, email, пароль",
+		// 	icon: <UserIcon />,
+		// 	link: "profile",
+		// },
 		{
 			title: "Мои организации",
 			text: "Добавить, редактировать, удалить организацию",
 			icon: <BankIcon />,
-			link: "organizations",
+			link: "organizations"
 		},
 		{
 			title: "Мои электронные подписи",
 			text: "Просмотреть, удалить",
 			icon: <FlashDriveIcon />,
-			link: "digitalSignature",
+			link: "digitalSignature"
 		},
 		{
 			title: "Обратиться в тех. поддержку",
 			text: "По вопросам можно обратиться в техническую поддержку BrightWay",
 			icon: <SettingsIcon />,
-			link: "mailto:support@brighttech.ru",
-		},
-	];
+			link: "mailto:support@brighttech.ru"
+		}
+	]
 
 	const Links = () => {
 		return (
@@ -72,10 +67,10 @@ const Index = () => {
 					))}
 				</div>
 			</>
-		);
-	};
+		)
+	}
 
-	return location.pathname === "/settings" ? <Links /> : <Outlet />;
-};
+	return location.pathname === "/settings" ? <Links /> : <Outlet />
+}
 
-export default Index;
+export default Index

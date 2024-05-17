@@ -1,20 +1,21 @@
-import { BankIcon, PencilIcon, TrashIcon } from "assets/IconsComponent";
-import Button from "components/common/Button";
-import Card from "components/common/Card";
-import styles from "./OrganizationCard.module.scss";
-import { FC } from "react";
-import Modal from "components/common/Modal";
-import { useDispatch } from "react-redux";
-import { IOrganization, deleteOrganization } from "store/organizationsSlice";
-import { closeModal, openModal } from "store/modalSlice";
+import { BankIcon, PencilIcon, TrashIcon } from "assets/IconsComponent"
+import Button from "components/common/Button"
+import Card from "components/common/Card"
+import styles from "./OrganizationCard.module.scss"
+import { FC } from "react"
+import Modal from "components/common/Modal"
+import { useDispatch } from "react-redux"
+import { IOrganization, deleteOrganization } from "store/organizationsSlice"
+import { closeModal, openModal } from "store/modalSlice"
 
 interface OrganizationCardProps {
-	data: IOrganization;
-	onClick?: () => void;
+	data: IOrganization
+	onClick?: () => void
+	controls?: boolean
 }
 
-const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
-	const dispatch = useDispatch();
+const Index: FC<OrganizationCardProps> = ({ data, onClick, controls }) => {
+	const dispatch = useDispatch()
 
 	const {
 		id,
@@ -22,20 +23,20 @@ const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 		organizationINN,
 		address,
 		ownerName,
-		ownerINN,
-	} = data;
+		ownerINN
+	} = data
 
 	const handleOpenModal = () => {
-		dispatch(openModal({ modalId: "OrganizationCardConfirm" }));
-	};
+		dispatch(openModal({ modalId: "OrganizationCardConfirm" }))
+	}
 	const handleCloseModal = () => {
-		dispatch(closeModal({ modalId: "OrganizationCardConfirm" }));
-	};
+		dispatch(closeModal({ modalId: "OrganizationCardConfirm" }))
+	}
 
 	const handleDelete = (id: number) => {
-		dispatch(deleteOrganization(id));
-		dispatch(closeModal({ modalId: "OrganizationCardConfirm" }));
-	};
+		dispatch(deleteOrganization(id))
+		dispatch(closeModal({ modalId: "OrganizationCardConfirm" }))
+	}
 
 	return (
 		<Card>
@@ -55,22 +56,24 @@ const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 			</Modal>
 			<header className={styles.card_header}>
 				<BankIcon />
-				<nav>
-					<Button
-						onClick={onClick}
-						title="Редактировать организацию"
-						variant="text"
-					>
-						<PencilIcon />
-					</Button>
-					<Button
-						title="Удалить организацию"
-						onClick={handleOpenModal}
-						variant="text"
-					>
-						<TrashIcon />
-					</Button>
-				</nav>
+				{controls && (
+					<nav>
+						<Button
+							onClick={onClick}
+							title="Редактировать организацию"
+							variant="text"
+						>
+							<PencilIcon />
+						</Button>
+						<Button
+							title="Удалить организацию"
+							onClick={handleOpenModal}
+							variant="text"
+						>
+							<TrashIcon />
+						</Button>
+					</nav>
+				)}
 			</header>
 			<div className={styles.card_info}>
 				<h2>{organizationTitle}</h2>
@@ -98,7 +101,7 @@ const Index: FC<OrganizationCardProps> = ({ data, onClick }) => {
 				</div>
 			</div>
 		</Card>
-	);
-};
+	)
+}
 
-export default Index;
+export default Index

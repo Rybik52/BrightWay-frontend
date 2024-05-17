@@ -1,35 +1,36 @@
-import { FlashDriveIcon } from "assets/IconsComponent";
-import Button from "components/common/Button";
-import Card from "components/common/Card";
-import Modal from "components/common/Modal";
-import styles from "components/OrganizationCard/OrganizationCard.module.scss";
-import { FC } from "react";
-import { useDispatch } from "react-redux";
+import { FlashDriveIcon } from "assets/IconsComponent"
+import Button from "components/common/Button"
+import Card from "components/common/Card"
+import Modal from "components/common/Modal"
+import styles from "components/OrganizationCard/OrganizationCard.module.scss"
+import { FC } from "react"
+import { useDispatch } from "react-redux"
 import {
 	deleteDigitalSignature,
-	IDigitalSignature,
-} from "store/digitalSignaturesSlice";
-import { closeModal, openModal } from "store/modalSlice";
+	IDigitalSignature
+} from "store/digitalSignaturesSlice"
+import { closeModal, openModal } from "store/modalSlice"
 
 interface DigitalSignatureCardProps {
-	data: IDigitalSignature;
+	data: IDigitalSignature
+	controls?: boolean
 }
 
-const Index: FC<DigitalSignatureCardProps> = ({ data }) => {
-	const dispatch = useDispatch();
-	const { id, ownerName, INN, type, date, auth, orgTitle } = data;
+const Index: FC<DigitalSignatureCardProps> = ({ data, controls }) => {
+	const dispatch = useDispatch()
+	const { id, ownerName, INN, type, date, auth, orgTitle } = data
 
 	const handleOpenModal = () => {
-		dispatch(openModal({ modalId: "DigitalSignatureCardConfirm" }));
-	};
+		dispatch(openModal({ modalId: "DigitalSignatureCardConfirm" }))
+	}
 	const handleCloseModal = () => {
-		dispatch(closeModal({ modalId: "DigitalSignatureCardConfirm" }));
-	};
+		dispatch(closeModal({ modalId: "DigitalSignatureCardConfirm" }))
+	}
 
 	const handleDelete = (id: number) => {
-		dispatch(deleteDigitalSignature(id));
-		handleCloseModal();
-	};
+		dispatch(deleteDigitalSignature(id))
+		handleCloseModal()
+	}
 
 	return (
 		<Card>
@@ -55,15 +56,17 @@ const Index: FC<DigitalSignatureCardProps> = ({ data }) => {
 			</Modal>
 			<header className={styles.card_header}>
 				<FlashDriveIcon />
-				<nav>
-					<Button
-						title="Удалить сертификат"
-						onClick={handleOpenModal}
-						variant="text"
-					>
-						Удалить
-					</Button>
-				</nav>
+				{controls && (
+					<nav>
+						<Button
+							title="Удалить сертификат"
+							onClick={handleOpenModal}
+							variant="text"
+						>
+							Удалить
+						</Button>
+					</nav>
+				)}
 			</header>
 			<div className={styles.card_info}>
 				<h2>{ownerName}</h2>
@@ -83,7 +86,7 @@ const Index: FC<DigitalSignatureCardProps> = ({ data }) => {
 				</div>
 			</div>
 		</Card>
-	);
-};
+	)
+}
 
-export default Index;
+export default Index
