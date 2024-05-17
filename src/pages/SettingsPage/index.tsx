@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom"
 
 import Card from "components/common/Card"
-import { BankIcon, FlashDriveIcon, SettingsIcon } from "assets/IconsComponent"
+import { BankIcon, SettingsIcon } from "assets/IconsComponent"
 
 import styles from "./SettingsPage.module.scss"
 
@@ -21,12 +21,12 @@ const Index = () => {
 			icon: <BankIcon />,
 			link: "organizations"
 		},
-		{
-			title: "Мои электронные подписи",
-			text: "Просмотреть, удалить",
-			icon: <FlashDriveIcon />,
-			link: "digitalSignature"
-		},
+		// {
+		// 	title: "Мои электронные подписи",
+		// 	text: "Просмотреть, удалить",
+		// 	icon: <FlashDriveIcon />,
+		// 	link: "digitalSignature"
+		// },
 		{
 			title: "Обратиться в тех. поддержку",
 			text: "По вопросам можно обратиться в техническую поддержку BrightWay",

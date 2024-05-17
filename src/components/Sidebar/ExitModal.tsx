@@ -11,7 +11,6 @@ const ExitModal = () => {
 
 	const handleClose = () => {
 		dispatch(closeModal({ modalId: "ExitModal" }))
-		keycloak.logout().then((r) => console.log(r))
 	}
 
 	return (
@@ -19,7 +18,10 @@ const ExitModal = () => {
 			<div className={styles.modal_exit}>
 				<h3>Выйти из аккаунта?</h3>
 				<div className={styles.modal_exit__buttons}>
-					<Button variant="contained" onClick={handleClose}>
+					<Button
+						variant="contained"
+						onClick={() => keycloak.logout()}
+					>
 						Выйти
 					</Button>
 					<Button variant="cancel" onClick={handleClose}>
